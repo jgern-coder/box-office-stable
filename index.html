@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Angel Studios — Filmmaker Revenue Tools</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #000000;
+  --white: #FFFFFF;
+  --copper: #C48669;
+  --copper-light: #d9a48a;
+  --copper-dim: #3a2010;
+  --oxide: #03A67B;
+  --oxide-bright: #21CEA0;
+  --oxide-dim: #0a2018;
+  --n100: #F5F5F4;
+  --n200: #E6E6E6;
+  --n400: #C3C1C0;
+  --n600: #7B7979;
+  --n700: #595A5B;
+  --n800: #3B3C3C;
+  --n900: #262626;
+  --n925: #1D1D1D;
+  --font: 'Assistant', sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--font);background:var(--n925);color:var(--white);min-height:100vh;font-size:14px;line-height:1.5}
+
+/* HEADER */
+.site-header{background:var(--black);border-bottom:1px solid #2a2a2a;padding:14px 48px;display:flex;align-items:center;justify-content:space-between}
+.angel-logo{height:32px;width:auto;object-fit:contain}
+.logo-fallback{display:flex;align-items:center;gap:10px}
+.logo-mark{width:32px;height:32px;border-radius:6px;background:var(--copper);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;color:var(--black);font-family:serif;flex-shrink:0}
+.logo-name{font-size:15px;font-weight:600;color:var(--white);letter-spacing:.01em}
+.header-sub{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--n700);font-weight:500}
+
+/* HERO */
+.hero{background:var(--black);padding:44px 48px 40px;border-bottom:1px solid #1a1a1a}
+.hero-eyebrow{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--copper);font-weight:600;margin-bottom:10px}
+.hero-title{font-size:28px;font-weight:700;color:var(--white);margin-bottom:8px;line-height:1.2}
+.hero-desc{font-size:13px;color:var(--n600);max-width:520px;line-height:1.7}
+
+/* MAIN */
+.main{max-width:900px;margin:0 auto;padding:36px 48px 64px}
+.section-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--n700);font-weight:600;margin-bottom:18px}
+
+/* PATH CARDS */
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:36px}
+@media(max-width:600px){.cards{grid-template-columns:1fr}.main{padding:24px 20px 48px}.site-header{padding:14px 20px}.hero{padding:32px 20px 28px}}
+
+.path-card{background:var(--n900);border:1px solid #2a2a2a;border-radius:12px;padding:26px;cursor:pointer;transition:border-color .18s,background .18s;position:relative}
+.path-card:hover{border-color:var(--copper);background:#231e1a}
+.path-card.svod-card:hover{border-color:var(--oxide);background:#1a2320}
+
+.card-tag{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:4px;display:inline-block;margin-bottom:16px}
+.tag-theatrical{background:var(--copper-dim);color:var(--copper);border:1px solid #5a3020}
+.tag-svod{background:var(--oxide-dim);color:var(--oxide);border:1px solid #0e3828}
+
+.path-card h2{font-size:17px;font-weight:700;color:var(--white);margin-bottom:7px;line-height:1.25}
+.path-card .card-desc{font-size:12px;color:var(--n600);line-height:1.65;margin-bottom:22px}
+
+.path-steps{list-style:none;margin-bottom:24px;display:flex;flex-direction:column;gap:2px}
+.path-steps li{font-size:11px;color:var(--n700);padding:5px 0;display:flex;align-items:center;gap:9px;border-bottom:1px solid #222}
+.path-steps li:last-child{border-bottom:none}
+.step-num{width:19px;height:19px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0}
+.num-theatrical{background:var(--copper-dim);color:var(--copper);border:1px solid #5a3020}
+.num-svod{background:var(--oxide-dim);color:var(--oxide);border:1px solid #0e3828}
+.step-text{flex:1}
+.step-chevron{color:var(--n800);font-size:10px}
+
+.cta-btn{width:100%;padding:10px 16px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;border:none;letter-spacing:.05em;text-transform:uppercase;transition:opacity .15s,transform .1s}
+.cta-btn:hover{opacity:.88}
+.cta-btn:active{transform:scale(.98)}
+.btn-theatrical{background:var(--copper);color:var(--black)}
+.btn-svod{background:var(--oxide);color:var(--white)}
+
+/* FOOTER NOTE */
+.footer-note{font-size:10px;color:var(--n700);line-height:1.7;text-align:center;max-width:560px;margin:0 auto;padding-top:8px;border-top:1px solid #222}
+
+/* MODAL OVERLAY */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.78);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .2s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal-box{background:var(--n925);border:1px solid #2a2a2a;border-radius:16px;padding:30px 26px;max-width:460px;width:100%;max-height:88vh;overflow-y:auto;transform:translateY(10px);transition:transform .2s}
+.modal-overlay.open .modal-box{transform:translateY(0)}
+
+.modal-icon-wrap{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:18px}
+.icon-theatrical{background:var(--copper-dim);border:1px solid #5a3020}
+.icon-svod{background:var(--oxide-dim);border:1px solid #0e3828}
+.modal-title{font-size:16px;font-weight:700;color:var(--white);text-align:center;margin-bottom:10px}
+.modal-body{font-size:12px;color:var(--n600);line-height:1.75;margin-bottom:20px}
+.modal-body strong{color:var(--n400);font-weight:600}
+
+.ack-row{background:var(--n900);border:1px solid #2a2a2a;border-radius:8px;padding:12px 14px;margin-bottom:16px;display:flex;align-items:flex-start;gap:10px}
+.ack-row input[type=checkbox]{margin-top:2px;flex-shrink:0;cursor:pointer;width:14px;height:14px;accent-color:var(--copper)}
+.ack-row.svod-ack input[type=checkbox]{accent-color:var(--oxide)}
+.ack-text{font-size:11px;color:var(--n600);line-height:1.6;cursor:pointer}
+
+.modal-proceed{width:100%;padding:11px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;border:none;letter-spacing:.04em;text-transform:uppercase;transition:opacity .15s}
+.modal-proceed:disabled{opacity:.3;cursor:not-allowed}
+.btn-proceed-theatrical{background:var(--copper);color:var(--black)}
+.btn-proceed-svod{background:var(--oxide);color:var(--white)}
+
+.modal-back{width:100%;padding:9px;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid #2a2a2a;background:transparent;color:var(--n700);margin-top:8px;transition:border-color .15s,color .15s;font-family:var(--font)}
+.modal-back:hover{border-color:#444;color:var(--n400)}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="logo-fallback">
+    <img src="./angel-logo.svg" class="angel-logo" alt="Angel Studios"
+      onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="logo-fallback" style="display:none">
+      <div class="logo-mark">A</div>
+      <span class="logo-name">Angel Studios</span>
+    </div>
+  </div>
+  <span class="header-sub">Filmmaker Tools — Internal Use Only</span>
+</header>
+
+<div class="hero">
+  <div class="hero-eyebrow">Revenue Modeling Suite</div>
+  <h1 class="hero-title">Modeled Revenue Scenarios</h1>
+  <p class="hero-desc">Choose a distribution path to model how your film could perform. All figures are illustrative estimates for internal planning purposes only and are not for external distribution.</p>
+</div>
+
+<div class="main">
+  <div class="section-label">Select a distribution path to get started</div>
+
+  <div class="cards">
+
+    <!-- THEATRICAL CARD -->
+    <div class="path-card theatrical-card" onclick="openModal('theatrical')" role="button" tabindex="0" aria-label="Begin Full Theatrical Model">
+      <div class="card-tag tag-theatrical">Full Theatrical</div>
+      <h2>All Rights Distribution</h2>
+      <p class="card-desc">Model domestic box office performance, then build a complete 10-year revenue waterfall across all distribution windows including theatrical, post-theatrical, and Angel Guild streaming.</p>
+      <ul class="path-steps">
+        <li>
+          <span class="step-num num-theatrical">1</span>
+          <span class="step-text">Estimate domestic box office</span>
+          <span class="step-chevron">›</span>
+        </li>
+        <li>
+          <span class="step-num num-theatrical">2</span>
+          <span class="step-text">Model post-theatrical windows</span>
+          <span class="step-chevron">›</span>
+        </li>
+        <li>
+          <span class="step-num num-theatrical">3</span>
+          <span class="step-text">Angel Guild SVOD projection</span>
+          <span class="step-chevron">›</span>
+        </li>
+      </ul>
+      <button class="cta-btn btn-theatrical">Begin Full Theatrical Model</button>
+    </div>
+
+    <!-- SVOD CARD -->
+    <div class="path-card svod-card" onclick="openModal('svod')" role="button" tabindex="0" aria-label="Begin Angel SVOD Model">
+      <div class="card-tag tag-svod">Angel SVOD Only</div>
+      <h2>Guild Streaming Payouts</h2>
+      <p class="card-desc">Model filmmaker earnings from Angel Guild streaming residuals over a 10-year term, based on membership growth and viewership share assumptions.</p>
+      <ul class="path-steps">
+        <li>
+          <span class="step-num num-svod">1</span>
+          <span class="step-text">Set Guild membership inputs</span>
+          <span class="step-chevron">›</span>
+        </li>
+        <li>
+          <span class="step-num num-svod">2</span>
+          <span class="step-text">Configure growth and decay</span>
+          <span class="step-chevron">›</span>
+        </li>
+        <li>
+          <span class="step-num num-svod">3</span>
+          <span class="step-text">View 10-year payout projection</span>
+          <span class="step-chevron">›</span>
+        </li>
+      </ul>
+      <button class="cta-btn btn-svod">Begin SVOD Model</button>
+    </div>
+
+  </div>
+
+  <p class="footer-note">These tools are provided for internal Angel Studios planning conversations only. All outputs are illustrative estimates and do not represent projections, guarantees, or offers of any kind. Not for external distribution.</p>
+</div>
+
+<!-- DISCLAIMER MODAL -->
+<div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-box">
+    <div class="modal-icon-wrap" id="modal-icon"></div>
+    <div class="modal-title" id="modal-title">Important Notice</div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="ack-row" id="ack-row">
+      <input type="checkbox" id="ack-cb" onchange="toggleProceed()">
+      <label class="ack-text" for="ack-cb" id="ack-label"></label>
+    </div>
+    <button class="modal-proceed" id="modal-proceed" disabled onclick="proceed()">I Understand — Continue</button>
+    <button class="modal-back" onclick="closeModal()">← Go Back</button>
+  </div>
+</div>
+
+<script>
+let pendingDest = null;
+
+const MODAL_CONTENT = {
+  theatrical: {
+    iconClass: 'icon-theatrical',
+    iconText: '⚠',
+    title: 'Before You Proceed — Full Theatrical Model',
+    body: `This tool combines a <strong>domestic box office scenario model</strong> with a <strong>10-year revenue waterfall</strong> across all distribution windows.<br><br>
+All figures generated are <strong>speculative illustrative estimates only</strong>, produced for internal Angel Studios planning conversations. They do not represent predictions, forecasts, or guarantees of any kind. Actual box office and revenue performance may differ materially from any figures shown.<br><br>
+The waterfall model includes pre-filled default values for post-theatrical windows based on illustrative mid-range industry benchmarks. These are not guarantees. You should adjust all values to reflect your own assumptions and cross-check any comparable film data against primary sources such as The Numbers or Box Office Mojo before drawing conclusions.<br><br>
+<strong>Not for external distribution or use in investment decisions.</strong> This model is the confidential property of Angel Studios.`,
+    ack: 'I understand these are illustrative estimates only — not projections, guarantees, or promises of any kind. I will apply my own judgment and will not distribute these outputs externally.',
+    proceedClass: 'btn-proceed-theatrical',
+    ackClass: 'ack-row',
+    dest: '/projector.html'
+  },
+  svod: {
+    iconClass: 'icon-svod',
+    iconText: '⚠',
+    title: 'Before You Proceed — Angel SVOD Model',
+    body: `This tool models <strong>filmmaker streaming payouts</strong> from the Angel Guild platform over a 10-year term.<br><br>
+All projections are <strong>illustrative estimates only</strong> and are provided for informational purposes. Actual Guild streaming earnings depend on platform performance, total membership, viewership share, content mix, and other variable factors. Angel Studios makes no representation or warranty regarding these projections. Actual results may differ materially.<br><br>
+This model is provided by Angel Studios for illustrative planning purposes only and may not be reproduced or distributed without permission. <strong>No proprietary or non-public financial information of Angel Studios is disclosed in this model.</strong>`,
+    ack: 'I understand these projections are illustrative estimates only and are not guarantees or representations of actual streaming earnings.',
+    proceedClass: 'btn-proceed-svod',
+    ackClass: 'ack-row svod-ack',
+    dest: '/calculator.html'
+  }
+};
+
+function openModal(path) {
+  const c = MODAL_CONTENT[path];
+  pendingDest = c.dest;
+  document.getElementById('modal-icon').className = 'modal-icon-wrap ' + c.iconClass;
+  document.getElementById('modal-icon').textContent = c.iconText;
+  document.getElementById('modal-title').textContent = c.title;
+  document.getElementById('modal-body').innerHTML = c.body;
+  document.getElementById('ack-label').textContent = c.ack;
+  document.getElementById('ack-row').className = c.ackClass;
+  const btn = document.getElementById('modal-proceed');
+  btn.className = 'modal-proceed ' + c.proceedClass;
+  btn.disabled = true;
+  document.getElementById('ack-cb').checked = false;
+  document.getElementById('modal-overlay').classList.add('open');
+  document.getElementById('ack-cb').focus();
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  pendingDest = null;
+}
+
+function toggleProceed() {
+  document.getElementById('modal-proceed').disabled = !document.getElementById('ack-cb').checked;
+}
+
+function proceed() {
+  if (pendingDest) window.location.href = pendingDest;
+}
+
+// Close on overlay click
+document.getElementById('modal-overlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// Keyboard accessibility on cards
+document.querySelectorAll('.path-card').forEach(card => {
+  card.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      card.click();
+    }
+  });
+});
+
+// Escape key closes modal
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
+</script>
+</body>
+</html>

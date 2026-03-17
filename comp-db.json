@@ -1,0 +1,2038 @@
+[
+  {
+    "title": "Sound of Freedom",
+    "year": 2023,
+    "budget": 14.5,
+    "domestic": 184.3,
+    "owkd": 14.2,
+    "genres": [
+      "Faith / Inspirational",
+      "Drama"
+    ]
+  },
+  {
+    "title": "The Passion of the Christ",
+    "year": 2004,
+    "budget": 30,
+    "domestic": 370.8,
+    "owkd": 83.9,
+    "genres": [
+      "Faith / Inspirational",
+      "Drama",
+      "War / Historical"
+    ]
+  },
+  {
+    "title": "War Room",
+    "year": 2015,
+    "budget": 3,
+    "domestic": 67.8,
+    "owkd": 11.1,
+    "genres": [
+      "Faith / Inspirational",
+      "Drama"
+    ]
+  },
+  {
+    "title": "I Can Only Imagine",
+    "year": 2018,
+    "budget": 7,
+    "domestic": 83.4,
+    "owkd": 17.1,
+    "genres": [
+      "Faith / Inspirational",
+      "Drama",
+      "Musical"
+    ]
+  },
+  {
+    "title": "Overcomer",
+    "year": 2019,
+    "budget": 5,
+    "domestic": 34.6,
+    "owkd": 8.2,
+    "genres": [
+      "Faith / Inspirational",
+      "Sports",
+      "Drama"
+    ]
+  },
+  {
+    "title": "Courageous",
+    "year": 2011,
+    "budget": 2,
+    "domestic": 34.5,
+    "owkd": 9.1,
+    "genres": [
+      "Faith / Inspirational",
+      "Drama"
+    ]
+  },
+  {
+    "title": "Fireproof",
+    "year": 2008,
+    "budget": 0.5,
+    "domestic": 33.5,
+    "owkd": 6.8,
+    "genres": [
+      "Faith / Inspirational",
+      "Drama",
+      "Romantic Comedy"
+    ]
+  },
+  {
+    "title": "Miracles from Heaven",
+    "year": 2016,
+    "budget": 13,
+    "domestic": 61.7,
+    "owkd": 14.8,
+    "genres": [
+      "Faith / Inspirational",
+      "Drama"
+    ]
+  },
+  {
+    "title": "God's Not Dead",
+    "year": 2014,
+    "budget": 2,
+    "domestic": 60.8,
+    "owkd": 9.2,
+    "genres": [
+      "Faith / Inspirational",
+      "Drama"
+    ]
+  },
+  {
+    "title": "The Shack",
+    "year": 2017,
+    "budget": 20,
+    "domestic": 57.4,
+    "owkd": 16.3,
+    "genres": [
+      "Faith / Inspirational",
+      "Drama"
+    ]
+  },
+  {
+    "title": "Heaven Is for Real",
+    "year": 2014,
+    "budget": 12,
+    "domestic": 91.4,
+    "owkd": 22.5,
+    "genres": [
+      "Faith / Inspirational",
+      "Drama"
+    ]
+  },
+  {
+    "title": "Unbroken",
+    "year": 2014,
+    "budget": 65,
+    "domestic": 115.6,
+    "owkd": 31.2,
+    "genres": [
+      "Faith / Inspirational",
+      "War / Historical",
+      "Drama"
+    ]
+  },
+  {
+    "title": "The Case for Christ",
+    "year": 2017,
+    "budget": 3,
+    "domestic": 14.5,
+    "owkd": 4.2,
+    "genres": [
+      "Faith / Inspirational",
+      "Drama"
+    ]
+  },
+  {
+    "title": "Woodlawn",
+    "year": 2015,
+    "budget": 7.5,
+    "domestic": 13.9,
+    "owkd": 3.6,
+    "genres": [
+      "Faith / Inspirational",
+      "Sports",
+      "Drama"
+    ]
+  },
+  {
+    "title": "Facing the Giants",
+    "year": 2006,
+    "budget": 0.1,
+    "domestic": 10,
+    "owkd": 1.7,
+    "genres": [
+      "Faith / Inspirational",
+      "Sports",
+      "Drama"
+    ]
+  },
+  {
+    "title": "Breakthrough",
+    "year": 2019,
+    "budget": 11,
+    "domestic": 50,
+    "owkd": 11.5,
+    "genres": [
+      "Faith / Inspirational",
+      "Drama",
+      "Live-Action Family / Kids"
+    ]
+  },
+  {
+    "title": "Unplanned",
+    "year": 2019,
+    "budget": 6,
+    "domestic": 19,
+    "owkd": 6.4,
+    "genres": [
+      "Faith / Inspirational",
+      "Drama"
+    ]
+  },
+  {
+    "title": "Jesus Revolution",
+    "year": 2023,
+    "budget": 15,
+    "domestic": 52.3,
+    "owkd": 15.6,
+    "genres": [
+      "Faith / Inspirational",
+      "Drama"
+    ]
+  },
+  {
+    "title": "Cabrini",
+    "year": 2024,
+    "budget": 35,
+    "domestic": 22,
+    "owkd": 6.2,
+    "genres": [
+      "Faith / Inspirational",
+      "Drama",
+      "War / Historical"
+    ]
+  },
+  {
+    "title": "The Chosen: Season 4",
+    "year": 2024,
+    "budget": 10,
+    "domestic": 32,
+    "owkd": 10.1,
+    "genres": [
+      "Faith / Inspirational",
+      "Drama"
+    ]
+  },
+  {
+    "title": "Get Out",
+    "year": 2017,
+    "budget": 4.5,
+    "domestic": 176,
+    "owkd": 33.4,
+    "genres": [
+      "Horror",
+      "Sci-Fi / Thriller"
+    ]
+  },
+  {
+    "title": "A Quiet Place",
+    "year": 2018,
+    "budget": 17,
+    "domestic": 188,
+    "owkd": 50.2,
+    "genres": [
+      "Horror",
+      "Sci-Fi / Thriller"
+    ]
+  },
+  {
+    "title": "A Quiet Place Part II",
+    "year": 2021,
+    "budget": 61,
+    "domestic": 160.1,
+    "owkd": 47.5,
+    "genres": [
+      "Horror",
+      "Sci-Fi / Thriller"
+    ]
+  },
+  {
+    "title": "Smile",
+    "year": 2022,
+    "budget": 17,
+    "domestic": 105.9,
+    "owkd": 22.6,
+    "genres": [
+      "Horror"
+    ]
+  },
+  {
+    "title": "Five Nights at Freddy's",
+    "year": 2023,
+    "budget": 20,
+    "domestic": 137.1,
+    "owkd": 78.6,
+    "genres": [
+      "Horror",
+      "Sci-Fi / Thriller"
+    ]
+  },
+  {
+    "title": "It",
+    "year": 2017,
+    "budget": 35,
+    "domestic": 328,
+    "owkd": 123.4,
+    "genres": [
+      "Horror"
+    ]
+  },
+  {
+    "title": "It Chapter Two",
+    "year": 2019,
+    "budget": 79,
+    "domestic": 211.6,
+    "owkd": 91.1,
+    "genres": [
+      "Horror"
+    ]
+  },
+  {
+    "title": "Halloween (2018)",
+    "year": 2018,
+    "budget": 10,
+    "domestic": 159.3,
+    "owkd": 76.2,
+    "genres": [
+      "Horror"
+    ]
+  },
+  {
+    "title": "M3GAN",
+    "year": 2023,
+    "budget": 12,
+    "domestic": 95,
+    "owkd": 30.4,
+    "genres": [
+      "Horror",
+      "Sci-Fi / Thriller"
+    ]
+  },
+  {
+    "title": "The Nun",
+    "year": 2018,
+    "budget": 22,
+    "domestic": 117.5,
+    "owkd": 53.5,
+    "genres": [
+      "Horror"
+    ]
+  },
+  {
+    "title": "Hereditary",
+    "year": 2018,
+    "budget": 10,
+    "domestic": 44.1,
+    "owkd": 13.6,
+    "genres": [
+      "Horror"
+    ]
+  },
+  {
+    "title": "Midsommar",
+    "year": 2019,
+    "budget": 9,
+    "domestic": 15.5,
+    "owkd": 6.6,
+    "genres": [
+      "Horror"
+    ]
+  },
+  {
+    "title": "Terrifier 2",
+    "year": 2022,
+    "budget": 0.25,
+    "domestic": 10.8,
+    "owkd": 1,
+    "genres": [
+      "Horror"
+    ]
+  },
+  {
+    "title": "Nope",
+    "year": 2022,
+    "budget": 68,
+    "domestic": 123.3,
+    "owkd": 44.4,
+    "genres": [
+      "Horror",
+      "Sci-Fi / Thriller"
+    ]
+  },
+  {
+    "title": "Talk to Me",
+    "year": 2023,
+    "budget": 4.5,
+    "domestic": 32.4,
+    "owkd": 10.5,
+    "genres": [
+      "Horror"
+    ]
+  },
+  {
+    "title": "Insidious",
+    "year": 2011,
+    "budget": 1.5,
+    "domestic": 54,
+    "owkd": 13.3,
+    "genres": [
+      "Horror"
+    ]
+  },
+  {
+    "title": "Act of Valor",
+    "year": 2012,
+    "budget": 12,
+    "domestic": 70,
+    "owkd": 24.5,
+    "genres": [
+      "Action / Adventure",
+      "War / Historical"
+    ]
+  },
+  {
+    "title": "No Escape",
+    "year": 2015,
+    "budget": 5,
+    "domestic": 27.3,
+    "owkd": 8.1,
+    "genres": [
+      "Action / Adventure",
+      "Sci-Fi / Thriller"
+    ]
+  },
+  {
+    "title": "The Shallows",
+    "year": 2016,
+    "budget": 17,
+    "domestic": 55.1,
+    "owkd": 16.7,
+    "genres": [
+      "Action / Adventure",
+      "Sci-Fi / Thriller"
+    ]
+  },
+  {
+    "title": "Wind River",
+    "year": 2017,
+    "budget": 11,
+    "domestic": 33.8,
+    "owkd": 4.8,
+    "genres": [
+      "Action / Adventure",
+      "Drama",
+      "Sci-Fi / Thriller"
+    ]
+  },
+  {
+    "title": "Hell or High Water",
+    "year": 2016,
+    "budget": 12,
+    "domestic": 26.9,
+    "owkd": 3.6,
+    "genres": [
+      "Action / Adventure",
+      "Drama"
+    ]
+  },
+  {
+    "title": "Eye in the Sky",
+    "year": 2015,
+    "budget": 16,
+    "domestic": 18.7,
+    "owkd": 4.4,
+    "genres": [
+      "Action / Adventure",
+      "War / Historical",
+      "Drama"
+    ]
+  },
+  {
+    "title": "Top Gun: Maverick",
+    "year": 2022,
+    "budget": 170,
+    "domestic": 718.7,
+    "owkd": 126.7,
+    "genres": [
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "Mission: Impossible – Dead Reckoning",
+    "year": 2023,
+    "budget": 291,
+    "domestic": 172.1,
+    "owkd": 56.2,
+    "genres": [
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "John Wick: Chapter 4",
+    "year": 2023,
+    "budget": 100,
+    "domestic": 187.1,
+    "owkd": 73.8,
+    "genres": [
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "Fast X",
+    "year": 2023,
+    "budget": 340,
+    "domestic": 146.1,
+    "owkd": 67.9,
+    "genres": [
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "The Batman",
+    "year": 2022,
+    "budget": 185,
+    "domestic": 369.3,
+    "owkd": 134,
+    "genres": [
+      "Action / Adventure",
+      "Sci-Fi / Thriller"
+    ]
+  },
+  {
+    "title": "Dungeons & Dragons",
+    "year": 2023,
+    "budget": 150,
+    "domestic": 93.3,
+    "owkd": 38.5,
+    "genres": [
+      "Action / Adventure",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "Jungle Cruise",
+    "year": 2021,
+    "budget": 200,
+    "domestic": 116.3,
+    "owkd": 35,
+    "genres": [
+      "Action / Adventure",
+      "Animated (Family)"
+    ]
+  },
+  {
+    "title": "The Equalizer 3",
+    "year": 2023,
+    "budget": 70,
+    "domestic": 100.7,
+    "owkd": 34.6,
+    "genres": [
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "Extraction",
+    "year": 2020,
+    "budget": 65,
+    "domestic": null,
+    "owkd": null,
+    "genres": [
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "Snake Eyes",
+    "year": 2021,
+    "budget": 88,
+    "domestic": 30,
+    "owkd": 13.3,
+    "genres": [
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "Avengers: Endgame",
+    "year": 2019,
+    "budget": 356,
+    "domestic": 858.4,
+    "owkd": 357.1,
+    "genres": [
+      "Superhero / Comic Book",
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "Spider-Man: No Way Home",
+    "year": 2021,
+    "budget": 200,
+    "domestic": 804.8,
+    "owkd": 260.1,
+    "genres": [
+      "Superhero / Comic Book",
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "Black Panther",
+    "year": 2018,
+    "budget": 200,
+    "domestic": 700.1,
+    "owkd": 202,
+    "genres": [
+      "Superhero / Comic Book",
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "Doctor Strange in the MOM",
+    "year": 2022,
+    "budget": 200,
+    "domestic": 411.3,
+    "owkd": 187.4,
+    "genres": [
+      "Superhero / Comic Book",
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "Guardians of the Galaxy Vol. 3",
+    "year": 2023,
+    "budget": 250,
+    "domestic": 359,
+    "owkd": 118.4,
+    "genres": [
+      "Superhero / Comic Book",
+      "Action / Adventure",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "The Flash",
+    "year": 2023,
+    "budget": 220,
+    "domestic": 108,
+    "owkd": 55,
+    "genres": [
+      "Superhero / Comic Book",
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "Ant-Man and the Wasp: Quantumania",
+    "year": 2023,
+    "budget": 200,
+    "domestic": 214.5,
+    "owkd": 106.1,
+    "genres": [
+      "Superhero / Comic Book",
+      "Action / Adventure",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "Shazam! Fury of the Gods",
+    "year": 2023,
+    "budget": 125,
+    "domestic": 57.7,
+    "owkd": 30.5,
+    "genres": [
+      "Superhero / Comic Book",
+      "Action / Adventure",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "Thor: Love and Thunder",
+    "year": 2022,
+    "budget": 250,
+    "domestic": 343.3,
+    "owkd": 144.2,
+    "genres": [
+      "Superhero / Comic Book",
+      "Action / Adventure",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "Aquaman",
+    "year": 2018,
+    "budget": 160,
+    "domestic": 335.1,
+    "owkd": 67.9,
+    "genres": [
+      "Superhero / Comic Book",
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "Hoodwinked!",
+    "year": 2005,
+    "budget": 8,
+    "domestic": 51.4,
+    "owkd": 11.2,
+    "genres": [
+      "Animated (Family)",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "Alpha and Omega",
+    "year": 2010,
+    "budget": 20,
+    "domestic": 25.1,
+    "owkd": 9,
+    "genres": [
+      "Animated (Family)",
+      "Live-Action Family / Kids"
+    ]
+  },
+  {
+    "title": "The Super Mario Bros. Movie",
+    "year": 2023,
+    "budget": 100,
+    "domestic": 574.9,
+    "owkd": 137.6,
+    "genres": [
+      "Animated (Family)",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "Elemental",
+    "year": 2023,
+    "budget": 200,
+    "domestic": 154.4,
+    "owkd": 29.6,
+    "genres": [
+      "Animated (Family)",
+      "Drama"
+    ]
+  },
+  {
+    "title": "Puss in Boots: The Last Wish",
+    "year": 2022,
+    "budget": 90,
+    "domestic": 184.2,
+    "owkd": 12.5,
+    "genres": [
+      "Animated (Family)",
+      "Action / Adventure",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "Sonic the Hedgehog 2",
+    "year": 2022,
+    "budget": 110,
+    "domestic": 190.9,
+    "owkd": 72.1,
+    "genres": [
+      "Animated (Family)",
+      "Action / Adventure",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "Minions: The Rise of Gru",
+    "year": 2022,
+    "budget": 80,
+    "domestic": 369.8,
+    "owkd": 107.3,
+    "genres": [
+      "Animated (Family)",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "Encanto",
+    "year": 2021,
+    "budget": 120,
+    "domestic": 96.7,
+    "owkd": 12.5,
+    "genres": [
+      "Animated (Family)",
+      "Musical"
+    ]
+  },
+  {
+    "title": "Turning Red",
+    "year": 2022,
+    "budget": 175,
+    "domestic": null,
+    "owkd": null,
+    "genres": [
+      "Animated (Family)",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "The Croods: A New Age",
+    "year": 2020,
+    "budget": 65,
+    "domestic": 58.6,
+    "owkd": 9.7,
+    "genres": [
+      "Animated (Family)",
+      "Comedy",
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "Toy Story 4",
+    "year": 2019,
+    "budget": 200,
+    "domestic": 434,
+    "owkd": 120.9,
+    "genres": [
+      "Animated (Family)",
+      "Drama",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "The Bad Guys",
+    "year": 2022,
+    "budget": 73,
+    "domestic": 97.9,
+    "owkd": 23.1,
+    "genres": [
+      "Animated (Family)",
+      "Action / Adventure",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "The Best Exotic Marigold Hotel",
+    "year": 2012,
+    "budget": 10,
+    "domestic": 46.4,
+    "owkd": 3.4,
+    "genres": [
+      "Drama",
+      "Comedy",
+      "Romantic Comedy"
+    ]
+  },
+  {
+    "title": "Gifted",
+    "year": 2017,
+    "budget": 7,
+    "domestic": 25.5,
+    "owkd": 6.6,
+    "genres": [
+      "Drama",
+      "Live-Action Family / Kids"
+    ]
+  },
+  {
+    "title": "Harriet",
+    "year": 2019,
+    "budget": 17,
+    "domestic": 44.1,
+    "owkd": 11.6,
+    "genres": [
+      "Drama",
+      "War / Historical",
+      "Faith / Inspirational"
+    ]
+  },
+  {
+    "title": "Just Mercy",
+    "year": 2019,
+    "budget": 21,
+    "domestic": 34.9,
+    "owkd": 4.1,
+    "genres": [
+      "Drama",
+      "Faith / Inspirational"
+    ]
+  },
+  {
+    "title": "The Holdovers",
+    "year": 2023,
+    "budget": 20,
+    "domestic": 36,
+    "owkd": 0.3,
+    "genres": [
+      "Drama",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "Oppenheimer",
+    "year": 2023,
+    "budget": 100,
+    "domestic": 329.9,
+    "owkd": 82.5,
+    "genres": [
+      "Drama",
+      "War / Historical",
+      "Sci-Fi / Thriller"
+    ]
+  },
+  {
+    "title": "The Blind Side",
+    "year": 2009,
+    "budget": 29,
+    "domestic": 256,
+    "owkd": 34.1,
+    "genres": [
+      "Drama",
+      "Sports",
+      "Faith / Inspirational"
+    ]
+  },
+  {
+    "title": "The Revenant",
+    "year": 2015,
+    "budget": 135,
+    "domestic": 183.6,
+    "owkd": 10.3,
+    "genres": [
+      "Drama",
+      "Action / Adventure",
+      "War / Historical"
+    ]
+  },
+  {
+    "title": "A Beautiful Day in the Neighborhood",
+    "year": 2019,
+    "budget": 25,
+    "domestic": 61.6,
+    "owkd": 13.5,
+    "genres": [
+      "Drama"
+    ]
+  },
+  {
+    "title": "Belfast",
+    "year": 2021,
+    "budget": 15,
+    "domestic": 18.5,
+    "owkd": 0.4,
+    "genres": [
+      "Drama",
+      "War / Historical"
+    ]
+  },
+  {
+    "title": "The Whale",
+    "year": 2022,
+    "budget": 3,
+    "domestic": 6.3,
+    "owkd": 0.4,
+    "genres": [
+      "Drama"
+    ]
+  },
+  {
+    "title": "Tár",
+    "year": 2022,
+    "budget": 35,
+    "domestic": 16.4,
+    "owkd": 0.5,
+    "genres": [
+      "Drama",
+      "Musical"
+    ]
+  },
+  {
+    "title": "Elvis",
+    "year": 2022,
+    "budget": 85,
+    "domestic": 151.2,
+    "owkd": 31.1,
+    "genres": [
+      "Drama",
+      "Musical"
+    ]
+  },
+  {
+    "title": "Maestro",
+    "year": 2023,
+    "budget": 80,
+    "domestic": 16.2,
+    "owkd": 2.1,
+    "genres": [
+      "Drama",
+      "Musical"
+    ]
+  },
+  {
+    "title": "Barbie",
+    "year": 2023,
+    "budget": 145,
+    "domestic": 636.2,
+    "owkd": 162,
+    "genres": [
+      "Comedy",
+      "Romantic Comedy"
+    ]
+  },
+  {
+    "title": "Bridesmaids",
+    "year": 2011,
+    "budget": 32.5,
+    "domestic": 169.1,
+    "owkd": 26.2,
+    "genres": [
+      "Comedy",
+      "Romantic Comedy"
+    ]
+  },
+  {
+    "title": "The Hangover",
+    "year": 2009,
+    "budget": 35,
+    "domestic": 277.3,
+    "owkd": 44.9,
+    "genres": [
+      "Comedy"
+    ]
+  },
+  {
+    "title": "Game Night",
+    "year": 2018,
+    "budget": 37,
+    "domestic": 69.5,
+    "owkd": 17,
+    "genres": [
+      "Comedy",
+      "Sci-Fi / Thriller"
+    ]
+  },
+  {
+    "title": "Knives Out",
+    "year": 2019,
+    "budget": 40,
+    "domestic": 165.4,
+    "owkd": 41.4,
+    "genres": [
+      "Comedy",
+      "Sci-Fi / Thriller",
+      "Drama"
+    ]
+  },
+  {
+    "title": "Glass Onion: A Knives Out Mystery",
+    "year": 2022,
+    "budget": 40,
+    "domestic": 13.3,
+    "owkd": 9.2,
+    "genres": [
+      "Comedy",
+      "Sci-Fi / Thriller",
+      "Drama"
+    ]
+  },
+  {
+    "title": "Free Guy",
+    "year": 2021,
+    "budget": 100,
+    "domestic": 121.6,
+    "owkd": 28.4,
+    "genres": [
+      "Comedy",
+      "Action / Adventure",
+      "Sci-Fi / Thriller"
+    ]
+  },
+  {
+    "title": "Ticket to Paradise",
+    "year": 2022,
+    "budget": 60,
+    "domestic": 66.6,
+    "owkd": 16.3,
+    "genres": [
+      "Comedy",
+      "Romantic Comedy"
+    ]
+  },
+  {
+    "title": "The Lost City",
+    "year": 2022,
+    "budget": 68,
+    "domestic": 105.8,
+    "owkd": 30.5,
+    "genres": [
+      "Comedy",
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "No Hard Feelings",
+    "year": 2023,
+    "budget": 45,
+    "domestic": 66.5,
+    "owkd": 15.2,
+    "genres": [
+      "Comedy",
+      "Romantic Comedy"
+    ]
+  },
+  {
+    "title": "Interstellar",
+    "year": 2014,
+    "budget": 165,
+    "domestic": 188,
+    "owkd": 47.5,
+    "genres": [
+      "Sci-Fi / Thriller",
+      "Drama"
+    ]
+  },
+  {
+    "title": "Dune",
+    "year": 2021,
+    "budget": 165,
+    "domestic": 108.3,
+    "owkd": 40.1,
+    "genres": [
+      "Sci-Fi / Thriller",
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "Dune: Part Two",
+    "year": 2024,
+    "budget": 190,
+    "domestic": 282.1,
+    "owkd": 82.5,
+    "genres": [
+      "Sci-Fi / Thriller",
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "Everything Everywhere All At Once",
+    "year": 2022,
+    "budget": 14.3,
+    "domestic": 69.9,
+    "owkd": 6.2,
+    "genres": [
+      "Sci-Fi / Thriller",
+      "Comedy",
+      "Drama",
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "Tenet",
+    "year": 2020,
+    "budget": 200,
+    "domestic": 58.5,
+    "owkd": 20.2,
+    "genres": [
+      "Sci-Fi / Thriller",
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "The Menu",
+    "year": 2022,
+    "budget": 30,
+    "domestic": 38.5,
+    "owkd": 9.1,
+    "genres": [
+      "Sci-Fi / Thriller",
+      "Horror",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "Glass",
+    "year": 2019,
+    "budget": 20,
+    "domestic": 70.5,
+    "owkd": 40.6,
+    "genres": [
+      "Sci-Fi / Thriller",
+      "Horror"
+    ]
+  },
+  {
+    "title": "Saltburn",
+    "year": 2023,
+    "budget": 6,
+    "domestic": 20,
+    "owkd": 0.1,
+    "genres": [
+      "Sci-Fi / Thriller",
+      "Drama"
+    ]
+  },
+  {
+    "title": "Cocaine Bear",
+    "year": 2023,
+    "budget": 35,
+    "domestic": 64.4,
+    "owkd": 23.1,
+    "genres": [
+      "Sci-Fi / Thriller",
+      "Comedy",
+      "Horror"
+    ]
+  },
+  {
+    "title": "Jordan Peele's Us",
+    "year": 2019,
+    "budget": 20,
+    "domestic": 175.1,
+    "owkd": 71.1,
+    "genres": [
+      "Horror",
+      "Sci-Fi / Thriller"
+    ]
+  },
+  {
+    "title": "The Greatest Showman",
+    "year": 2017,
+    "budget": 84,
+    "domestic": 174.3,
+    "owkd": 8.8,
+    "genres": [
+      "Musical",
+      "Drama"
+    ]
+  },
+  {
+    "title": "Wicked",
+    "year": 2024,
+    "budget": 145,
+    "domestic": 270,
+    "owkd": 114,
+    "genres": [
+      "Musical",
+      "Drama",
+      "Animated (Family)"
+    ]
+  },
+  {
+    "title": "Bohemian Rhapsody",
+    "year": 2018,
+    "budget": 52,
+    "domestic": 216.4,
+    "owkd": 21.4,
+    "genres": [
+      "Musical",
+      "Drama"
+    ]
+  },
+  {
+    "title": "La La Land",
+    "year": 2016,
+    "budget": 30,
+    "domestic": 151.1,
+    "owkd": 0.7,
+    "genres": [
+      "Musical",
+      "Drama",
+      "Romantic Comedy"
+    ]
+  },
+  {
+    "title": "Mamma Mia! Here We Go Again",
+    "year": 2018,
+    "budget": 75,
+    "domestic": 120.6,
+    "owkd": 35,
+    "genres": [
+      "Musical",
+      "Comedy",
+      "Romantic Comedy"
+    ]
+  },
+  {
+    "title": "Tick, Tick... BOOM!",
+    "year": 2021,
+    "budget": 15,
+    "domestic": null,
+    "owkd": null,
+    "genres": [
+      "Musical",
+      "Drama"
+    ]
+  },
+  {
+    "title": "In the Heights",
+    "year": 2021,
+    "budget": 55,
+    "domestic": 11.4,
+    "owkd": 11.4,
+    "genres": [
+      "Musical",
+      "Drama"
+    ]
+  },
+  {
+    "title": "West Side Story",
+    "year": 2021,
+    "budget": 100,
+    "domestic": 37.8,
+    "owkd": 10.3,
+    "genres": [
+      "Musical",
+      "Drama",
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "Rocketman",
+    "year": 2019,
+    "budget": 40,
+    "domestic": 96.3,
+    "owkd": 20.4,
+    "genres": [
+      "Musical",
+      "Drama"
+    ]
+  },
+  {
+    "title": "Crazy Rich Asians",
+    "year": 2018,
+    "budget": 30,
+    "domestic": 174.5,
+    "owkd": 35,
+    "genres": [
+      "Romantic Comedy",
+      "Drama",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "To All the Boys I've Loved Before",
+    "year": 2018,
+    "budget": 10,
+    "domestic": null,
+    "owkd": null,
+    "genres": [
+      "Romantic Comedy",
+      "Drama"
+    ]
+  },
+  {
+    "title": "About Time",
+    "year": 2013,
+    "budget": 12,
+    "domestic": 15.3,
+    "owkd": 3,
+    "genres": [
+      "Romantic Comedy",
+      "Drama",
+      "Sci-Fi / Thriller"
+    ]
+  },
+  {
+    "title": "Set It Up",
+    "year": 2018,
+    "budget": 4.5,
+    "domestic": null,
+    "owkd": null,
+    "genres": [
+      "Romantic Comedy",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "Something Borrowed",
+    "year": 2011,
+    "budget": 35,
+    "domestic": 38.9,
+    "owkd": 13.9,
+    "genres": [
+      "Romantic Comedy",
+      "Drama"
+    ]
+  },
+  {
+    "title": "The Proposal",
+    "year": 2009,
+    "budget": 40,
+    "domestic": 163.9,
+    "owkd": 33.6,
+    "genres": [
+      "Romantic Comedy",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "Book Club: The Next Chapter",
+    "year": 2023,
+    "budget": 25,
+    "domestic": 34.6,
+    "owkd": 6.5,
+    "genres": [
+      "Romantic Comedy",
+      "Comedy",
+      "Drama"
+    ]
+  },
+  {
+    "title": "American Sniper",
+    "year": 2014,
+    "budget": 58.8,
+    "domestic": 350.1,
+    "owkd": 89.3,
+    "genres": [
+      "War / Historical",
+      "Drama",
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "Dunkirk",
+    "year": 2017,
+    "budget": 150,
+    "domestic": 188.4,
+    "owkd": 50.5,
+    "genres": [
+      "War / Historical",
+      "Drama",
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "1917",
+    "year": 2019,
+    "budget": 95,
+    "domestic": 159.2,
+    "owkd": 6,
+    "genres": [
+      "War / Historical",
+      "Drama",
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "Hacksaw Ridge",
+    "year": 2016,
+    "budget": 40,
+    "domestic": 67.2,
+    "owkd": 14.9,
+    "genres": [
+      "War / Historical",
+      "Drama",
+      "Action / Adventure",
+      "Faith / Inspirational"
+    ]
+  },
+  {
+    "title": "Midway",
+    "year": 2019,
+    "budget": 100,
+    "domestic": 56.6,
+    "owkd": 17.4,
+    "genres": [
+      "War / Historical",
+      "Drama",
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "Greyhound",
+    "year": 2020,
+    "budget": 50,
+    "domestic": null,
+    "owkd": null,
+    "genres": [
+      "War / Historical",
+      "Drama",
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "The Imitation Game",
+    "year": 2014,
+    "budget": 14,
+    "domestic": 91.1,
+    "owkd": 1.1,
+    "genres": [
+      "War / Historical",
+      "Drama",
+      "Sci-Fi / Thriller"
+    ]
+  },
+  {
+    "title": "Fury",
+    "year": 2014,
+    "budget": 68,
+    "domestic": 85.8,
+    "owkd": 23.5,
+    "genres": [
+      "War / Historical",
+      "Drama",
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "Creed III",
+    "year": 2023,
+    "budget": 75,
+    "domestic": 156.5,
+    "owkd": 58.1,
+    "genres": [
+      "Sports",
+      "Drama",
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "Air",
+    "year": 2023,
+    "budget": 90,
+    "domestic": 90.1,
+    "owkd": 14.1,
+    "genres": [
+      "Sports",
+      "Drama",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "Ford v Ferrari",
+    "year": 2019,
+    "budget": 98,
+    "domestic": 117.6,
+    "owkd": 31.5,
+    "genres": [
+      "Sports",
+      "Drama",
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "Eddie the Eagle",
+    "year": 2016,
+    "budget": 23,
+    "domestic": 12,
+    "owkd": 3.5,
+    "genres": [
+      "Sports",
+      "Drama",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "McFarland, USA",
+    "year": 2015,
+    "budget": 25,
+    "domestic": 44.3,
+    "owkd": 11.5,
+    "genres": [
+      "Sports",
+      "Drama",
+      "Faith / Inspirational"
+    ]
+  },
+  {
+    "title": "42 (Jackie Robinson Story)",
+    "year": 2013,
+    "budget": 40,
+    "domestic": 95,
+    "owkd": 27.5,
+    "genres": [
+      "Sports",
+      "Drama",
+      "War / Historical"
+    ]
+  },
+  {
+    "title": "Hustle",
+    "year": 2022,
+    "budget": 38,
+    "domestic": null,
+    "owkd": null,
+    "genres": [
+      "Sports",
+      "Drama",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "Queen of Katwe",
+    "year": 2016,
+    "budget": 15,
+    "domestic": 8.8,
+    "owkd": 3.5,
+    "genres": [
+      "Sports",
+      "Drama",
+      "Faith / Inspirational"
+    ]
+  },
+  {
+    "title": "Miracle",
+    "year": 2004,
+    "budget": 28,
+    "domestic": 64.4,
+    "owkd": 15.1,
+    "genres": [
+      "Sports",
+      "Drama",
+      "War / Historical"
+    ]
+  },
+  {
+    "title": "Jumanji: Welcome to the Jungle",
+    "year": 2017,
+    "budget": 90,
+    "domestic": 404.5,
+    "owkd": 70,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Action / Adventure",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "Jumanji: The Next Level",
+    "year": 2019,
+    "budget": 132,
+    "domestic": 320.3,
+    "owkd": 60.1,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Action / Adventure",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "Night at the Museum",
+    "year": 2006,
+    "budget": 110,
+    "domestic": 250.9,
+    "owkd": 30.4,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Comedy",
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "Night at the Museum: Battle of the Smithsonian",
+    "year": 2009,
+    "budget": 150,
+    "domestic": 177.2,
+    "owkd": 54.2,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Comedy",
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "Alvin and the Chipmunks",
+    "year": 2007,
+    "budget": 60,
+    "domestic": 217.3,
+    "owkd": 14.2,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Comedy",
+      "Musical"
+    ]
+  },
+  {
+    "title": "Alvin and the Chipmunks: The Squeakquel",
+    "year": 2009,
+    "budget": 75,
+    "domestic": 219.6,
+    "owkd": 48.9,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Comedy",
+      "Musical"
+    ]
+  },
+  {
+    "title": "Cheaper by the Dozen",
+    "year": 2003,
+    "budget": 40,
+    "domestic": 138.6,
+    "owkd": 27.2,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "Cheaper by the Dozen 2",
+    "year": 2005,
+    "budget": 50,
+    "domestic": 82.3,
+    "owkd": 24.5,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "Paddington",
+    "year": 2014,
+    "budget": 55,
+    "domestic": 76.3,
+    "owkd": 19.3,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "Paddington 2",
+    "year": 2018,
+    "budget": 40,
+    "domestic": 40.9,
+    "owkd": 9.2,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "Stuart Little",
+    "year": 1999,
+    "budget": 103,
+    "domestic": 140,
+    "owkd": 16.6,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "Dr. Dolittle",
+    "year": 1998,
+    "budget": 72,
+    "domestic": 144.2,
+    "owkd": 29.1,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "Dr. Dolittle 2",
+    "year": 2001,
+    "budget": 70,
+    "domestic": 112.6,
+    "owkd": 30.1,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "Dolittle",
+    "year": 2020,
+    "budget": 175,
+    "domestic": 29.1,
+    "owkd": 10.1,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Comedy",
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "The Princess Diaries",
+    "year": 2001,
+    "budget": 26,
+    "domestic": 108.2,
+    "owkd": 22.5,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Comedy",
+      "Romantic Comedy"
+    ]
+  },
+  {
+    "title": "Spy Kids",
+    "year": 2001,
+    "budget": 35,
+    "domestic": 112.7,
+    "owkd": 27.6,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Action / Adventure",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "Bedtime Stories",
+    "year": 2008,
+    "budget": 80,
+    "domestic": 110.1,
+    "owkd": 27.5,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "The Chronicles of Narnia: The Lion, the Witch and the Wardrobe",
+    "year": 2005,
+    "budget": 180,
+    "domestic": 291.7,
+    "owkd": 65.6,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Action / Adventure",
+      "Drama",
+      "Faith / Inspirational"
+    ]
+  },
+  {
+    "title": "Narnia: Prince Caspian",
+    "year": 2008,
+    "budget": 225,
+    "domestic": 141.6,
+    "owkd": 55,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Action / Adventure"
+    ]
+  },
+  {
+    "title": "The Smurfs",
+    "year": 2011,
+    "budget": 110,
+    "domestic": 142.6,
+    "owkd": 35.6,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Comedy",
+      "Animated (Family)"
+    ]
+  },
+  {
+    "title": "Hop",
+    "year": 2011,
+    "budget": 63,
+    "domestic": 108.1,
+    "owkd": 37.5,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Comedy",
+      "Animated (Family)"
+    ]
+  },
+  {
+    "title": "Home Alone",
+    "year": 1990,
+    "budget": 18,
+    "domestic": 285.8,
+    "owkd": 5.3,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "Honey, I Shrunk the Kids",
+    "year": 1989,
+    "budget": 18,
+    "domestic": 130.7,
+    "owkd": 9.6,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Comedy",
+      "Sci-Fi / Thriller"
+    ]
+  },
+  {
+    "title": "Lyle, Lyle, Crocodile",
+    "year": 2022,
+    "budget": 50,
+    "domestic": 43.3,
+    "owkd": 11.6,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Comedy",
+      "Musical"
+    ]
+  },
+  {
+    "title": "Clifford the Big Red Dog",
+    "year": 2021,
+    "budget": 64,
+    "domestic": 45.8,
+    "owkd": 15,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "PAW Patrol: The Movie",
+    "year": 2021,
+    "budget": 27,
+    "domestic": 48,
+    "owkd": 13.1,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Animated (Family)"
+    ]
+  },
+  {
+    "title": "Free Willy",
+    "year": 1993,
+    "budget": 20,
+    "domestic": 77.7,
+    "owkd": 9,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Drama"
+    ]
+  },
+  {
+    "title": "Beethoven",
+    "year": 1992,
+    "budget": 18,
+    "domestic": 57.1,
+    "owkd": 7.5,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Comedy"
+    ]
+  },
+  {
+    "title": "Flubber",
+    "year": 1997,
+    "budget": 80,
+    "domestic": 92.9,
+    "owkd": 19,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Comedy",
+      "Sci-Fi / Thriller"
+    ]
+  },
+  {
+    "title": "Soul Surfer",
+    "year": 2011,
+    "budget": 18,
+    "domestic": 43.8,
+    "owkd": 10.1,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Drama",
+      "Faith / Inspirational",
+      "Sports"
+    ]
+  },
+  {
+    "title": "October Baby",
+    "year": 2011,
+    "budget": 1,
+    "domestic": 5.3,
+    "owkd": 1.7,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Drama",
+      "Faith / Inspirational"
+    ]
+  },
+  {
+    "title": "Moms' Night Out",
+    "year": 2014,
+    "budget": 5,
+    "domestic": 10.4,
+    "owkd": 4.2,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Comedy",
+      "Faith / Inspirational"
+    ]
+  },
+  {
+    "title": "When the Game Stands Tall",
+    "year": 2014,
+    "budget": 25,
+    "domestic": 25.5,
+    "owkd": 9.2,
+    "genres": [
+      "Live-Action Family / Kids",
+      "Sports",
+      "Drama",
+      "Faith / Inspirational"
+    ]
+  },
+  {
+    "title": "March of the Penguins",
+    "year": 2005,
+    "budget": 8,
+    "domestic": 77.4,
+    "owkd": 0.7,
+    "genres": [
+      "Documentary"
+    ]
+  },
+  {
+    "title": "Fahrenheit 9/11",
+    "year": 2004,
+    "budget": 6,
+    "domestic": 119.2,
+    "owkd": 8,
+    "genres": [
+      "Documentary",
+      "War / Historical"
+    ]
+  },
+  {
+    "title": "Super Size Me",
+    "year": 2004,
+    "budget": 0.065,
+    "domestic": 11.5,
+    "owkd": 0.8,
+    "genres": [
+      "Documentary"
+    ]
+  },
+  {
+    "title": "Won't You Be My Neighbor?",
+    "year": 2018,
+    "budget": 1,
+    "domestic": 22.7,
+    "owkd": 0.1,
+    "genres": [
+      "Documentary",
+      "Drama"
+    ]
+  },
+  {
+    "title": "Free Solo",
+    "year": 2018,
+    "budget": 3.8,
+    "domestic": 17.8,
+    "owkd": 0.3,
+    "genres": [
+      "Documentary",
+      "Sports"
+    ]
+  },
+  {
+    "title": "The Biggest Little Farm",
+    "year": 2019,
+    "budget": 1,
+    "domestic": 1.7,
+    "owkd": 0.2,
+    "genres": [
+      "Documentary"
+    ]
+  }
+]

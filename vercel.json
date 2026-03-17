@@ -1,0 +1,14 @@
+{
+  "name": "angel-filmmaker-tools",
+  "version": 2,
+  "builds": [
+    { "src": "*.html", "use": "@vercel/static" },
+    { "src": "*.json", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/projector", "dest": "/projector.html" },
+    { "src": "/waterfall", "dest": "/waterfall.html" },
+    { "src": "/calculator", "dest": "/calculator.html" },
+    { "src": "/(.*)", "dest": "/$1" }
+  ]
+}

@@ -1,0 +1,1984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Angel Studios — Box Office Projector</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root {
+  --copper: #C48669;
+  --oxide: #03A67B;
+  --n925: #1D1D1D;
+  --font: 'Assistant', sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: auto; overflow-y: auto; }
+body { font-family: var(--font); background: #030712; color: #fff; }
+/* Site header */
+.site-header {
+  background: #000;
+  border-bottom: 1px solid #2a2a2a;
+  padding: 12px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.angel-logo { height: 28px; width: auto; object-fit: contain; }
+.logo-fallback { display: flex; align-items: center; gap: 8px; }
+.logo-mark { width: 28px; height: 28px; border-radius: 5px; background: #C48669; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; color: #000; font-family: serif; flex-shrink: 0; }
+.logo-name { font-size: 13px; font-weight: 600; color: #fff; letter-spacing: .01em; }
+.header-sub { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: #595A5B; font-weight: 500; }
+select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px !important; }
+</style>
+</head>
+<body>
+
+<!-- Angel-branded site header -->
+<header class="site-header">
+  <div class="logo-fallback">
+    <img src="./angel-logo.svg" class="angel-logo" alt="Angel Studios"
+      onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="logo-fallback" style="display:none">
+      <div class="logo-mark">A</div>
+      <span class="logo-name">Angel Studios</span>
+    </div>
+  </div>
+  <span class="header-sub">Box Office Projector — Internal Use Only</span>
+</header>
+
+<div id="root"></div>
+
+<script>
+// ── Inline comp database (no fetch required) ──
+const COMP_DB_INLINE = [{"title":"Sound of Freedom","year":2023,"budget":14.5,"domestic":184.3,"owkd":14.2,"genres":["Faith / Inspirational","Drama"]},{"title":"The Passion of the Christ","year":2004,"budget":30,"domestic":370.8,"owkd":83.9,"genres":["Faith / Inspirational","Drama","War / Historical"]},{"title":"War Room","year":2015,"budget":3,"domestic":67.8,"owkd":11.1,"genres":["Faith / Inspirational","Drama"]},{"title":"I Can Only Imagine","year":2018,"budget":7,"domestic":83.4,"owkd":17.1,"genres":["Faith / Inspirational","Drama","Musical"]},{"title":"Overcomer","year":2019,"budget":5,"domestic":34.6,"owkd":8.2,"genres":["Faith / Inspirational","Sports","Drama"]},{"title":"Courageous","year":2011,"budget":2,"domestic":34.5,"owkd":9.1,"genres":["Faith / Inspirational","Drama"]},{"title":"Fireproof","year":2008,"budget":0.5,"domestic":33.5,"owkd":6.8,"genres":["Faith / Inspirational","Drama","Romantic Comedy"]},{"title":"Miracles from Heaven","year":2016,"budget":13,"domestic":61.7,"owkd":14.8,"genres":["Faith / Inspirational","Drama"]},{"title":"God's Not Dead","year":2014,"budget":2,"domestic":60.8,"owkd":9.2,"genres":["Faith / Inspirational","Drama"]},{"title":"The Shack","year":2017,"budget":20,"domestic":57.4,"owkd":16.3,"genres":["Faith / Inspirational","Drama"]},{"title":"Heaven Is for Real","year":2014,"budget":12,"domestic":91.4,"owkd":22.5,"genres":["Faith / Inspirational","Drama"]},{"title":"Unbroken","year":2014,"budget":65,"domestic":115.6,"owkd":31.2,"genres":["Faith / Inspirational","War / Historical","Drama"]},{"title":"The Case for Christ","year":2017,"budget":3,"domestic":14.5,"owkd":4.2,"genres":["Faith / Inspirational","Drama"]},{"title":"Woodlawn","year":2015,"budget":7.5,"domestic":13.9,"owkd":3.6,"genres":["Faith / Inspirational","Sports","Drama"]},{"title":"Facing the Giants","year":2006,"budget":0.1,"domestic":10,"owkd":1.7,"genres":["Faith / Inspirational","Sports","Drama"]},{"title":"Breakthrough","year":2019,"budget":11,"domestic":50,"owkd":11.5,"genres":["Faith / Inspirational","Drama","Live-Action Family / Kids"]},{"title":"Unplanned","year":2019,"budget":6,"domestic":19,"owkd":6.4,"genres":["Faith / Inspirational","Drama"]},{"title":"Jesus Revolution","year":2023,"budget":15,"domestic":52.3,"owkd":15.6,"genres":["Faith / Inspirational","Drama"]},{"title":"Cabrini","year":2024,"budget":35,"domestic":22,"owkd":6.2,"genres":["Faith / Inspirational","Drama","War / Historical"]},{"title":"The Chosen: Season 4","year":2024,"budget":10,"domestic":32,"owkd":10.1,"genres":["Faith / Inspirational","Drama"]},{"title":"Get Out","year":2017,"budget":4.5,"domestic":176,"owkd":33.4,"genres":["Horror","Sci-Fi / Thriller"]},{"title":"A Quiet Place","year":2018,"budget":17,"domestic":188,"owkd":50.2,"genres":["Horror","Sci-Fi / Thriller"]},{"title":"A Quiet Place Part II","year":2021,"budget":61,"domestic":160.1,"owkd":47.5,"genres":["Horror","Sci-Fi / Thriller"]},{"title":"Smile","year":2022,"budget":17,"domestic":105.9,"owkd":22.6,"genres":["Horror"]},{"title":"Five Nights at Freddy's","year":2023,"budget":20,"domestic":137.1,"owkd":78.6,"genres":["Horror","Sci-Fi / Thriller"]},{"title":"It","year":2017,"budget":35,"domestic":328,"owkd":123.4,"genres":["Horror"]},{"title":"It Chapter Two","year":2019,"budget":79,"domestic":211.6,"owkd":91.1,"genres":["Horror"]},{"title":"Halloween (2018)","year":2018,"budget":10,"domestic":159.3,"owkd":76.2,"genres":["Horror"]},{"title":"M3GAN","year":2023,"budget":12,"domestic":95,"owkd":30.4,"genres":["Horror","Sci-Fi / Thriller"]},{"title":"The Nun","year":2018,"budget":22,"domestic":117.5,"owkd":53.5,"genres":["Horror"]},{"title":"Hereditary","year":2018,"budget":10,"domestic":44.1,"owkd":13.6,"genres":["Horror"]},{"title":"Midsommar","year":2019,"budget":9,"domestic":15.5,"owkd":6.6,"genres":["Horror"]},{"title":"Terrifier 2","year":2022,"budget":0.25,"domestic":10.8,"owkd":1,"genres":["Horror"]},{"title":"Nope","year":2022,"budget":68,"domestic":123.3,"owkd":44.4,"genres":["Horror","Sci-Fi / Thriller"]},{"title":"Talk to Me","year":2023,"budget":4.5,"domestic":32.4,"owkd":10.5,"genres":["Horror"]},{"title":"Insidious","year":2011,"budget":1.5,"domestic":54,"owkd":13.3,"genres":["Horror"]},{"title":"Act of Valor","year":2012,"budget":12,"domestic":70,"owkd":24.5,"genres":["Action / Adventure","War / Historical"]},{"title":"No Escape","year":2015,"budget":5,"domestic":27.3,"owkd":8.1,"genres":["Action / Adventure","Sci-Fi / Thriller"]},{"title":"The Shallows","year":2016,"budget":17,"domestic":55.1,"owkd":16.7,"genres":["Action / Adventure","Sci-Fi / Thriller"]},{"title":"Wind River","year":2017,"budget":11,"domestic":33.8,"owkd":4.8,"genres":["Action / Adventure","Drama","Sci-Fi / Thriller"]},{"title":"Hell or High Water","year":2016,"budget":12,"domestic":26.9,"owkd":3.6,"genres":["Action / Adventure","Drama"]},{"title":"Eye in the Sky","year":2015,"budget":16,"domestic":18.7,"owkd":4.4,"genres":["Action / Adventure","War / Historical","Drama"]},{"title":"Top Gun: Maverick","year":2022,"budget":170,"domestic":718.7,"owkd":126.7,"genres":["Action / Adventure"]},{"title":"Mission: Impossible \u2013 Dead Reckoning","year":2023,"budget":291,"domestic":172.1,"owkd":56.2,"genres":["Action / Adventure"]},{"title":"John Wick: Chapter 4","year":2023,"budget":100,"domestic":187.1,"owkd":73.8,"genres":["Action / Adventure"]},{"title":"Fast X","year":2023,"budget":340,"domestic":146.1,"owkd":67.9,"genres":["Action / Adventure"]},{"title":"The Batman","year":2022,"budget":185,"domestic":369.3,"owkd":134,"genres":["Action / Adventure","Sci-Fi / Thriller"]},{"title":"Dungeons & Dragons","year":2023,"budget":150,"domestic":93.3,"owkd":38.5,"genres":["Action / Adventure","Comedy"]},{"title":"Jungle Cruise","year":2021,"budget":200,"domestic":116.3,"owkd":35,"genres":["Action / Adventure","Animated (Family)"]},{"title":"The Equalizer 3","year":2023,"budget":70,"domestic":100.7,"owkd":34.6,"genres":["Action / Adventure"]},{"title":"Extraction","year":2020,"budget":65,"domestic":null,"owkd":null,"genres":["Action / Adventure"]},{"title":"Snake Eyes","year":2021,"budget":88,"domestic":30,"owkd":13.3,"genres":["Action / Adventure"]},{"title":"Avengers: Endgame","year":2019,"budget":356,"domestic":858.4,"owkd":357.1,"genres":["Superhero / Comic Book","Action / Adventure"]},{"title":"Spider-Man: No Way Home","year":2021,"budget":200,"domestic":804.8,"owkd":260.1,"genres":["Superhero / Comic Book","Action / Adventure"]},{"title":"Black Panther","year":2018,"budget":200,"domestic":700.1,"owkd":202,"genres":["Superhero / Comic Book","Action / Adventure"]},{"title":"Doctor Strange in the MOM","year":2022,"budget":200,"domestic":411.3,"owkd":187.4,"genres":["Superhero / Comic Book","Action / Adventure"]},{"title":"Guardians of the Galaxy Vol. 3","year":2023,"budget":250,"domestic":359,"owkd":118.4,"genres":["Superhero / Comic Book","Action / Adventure","Comedy"]},{"title":"The Flash","year":2023,"budget":220,"domestic":108,"owkd":55,"genres":["Superhero / Comic Book","Action / Adventure"]},{"title":"Ant-Man and the Wasp: Quantumania","year":2023,"budget":200,"domestic":214.5,"owkd":106.1,"genres":["Superhero / Comic Book","Action / Adventure","Comedy"]},{"title":"Shazam! Fury of the Gods","year":2023,"budget":125,"domestic":57.7,"owkd":30.5,"genres":["Superhero / Comic Book","Action / Adventure","Comedy"]},{"title":"Thor: Love and Thunder","year":2022,"budget":250,"domestic":343.3,"owkd":144.2,"genres":["Superhero / Comic Book","Action / Adventure","Comedy"]},{"title":"Aquaman","year":2018,"budget":160,"domestic":335.1,"owkd":67.9,"genres":["Superhero / Comic Book","Action / Adventure"]},{"title":"Hoodwinked!","year":2005,"budget":8,"domestic":51.4,"owkd":11.2,"genres":["Animated (Family)","Comedy"]},{"title":"Alpha and Omega","year":2010,"budget":20,"domestic":25.1,"owkd":9,"genres":["Animated (Family)","Live-Action Family / Kids"]},{"title":"The Super Mario Bros. Movie","year":2023,"budget":100,"domestic":574.9,"owkd":137.6,"genres":["Animated (Family)","Comedy"]},{"title":"Elemental","year":2023,"budget":200,"domestic":154.4,"owkd":29.6,"genres":["Animated (Family)","Drama"]},{"title":"Puss in Boots: The Last Wish","year":2022,"budget":90,"domestic":184.2,"owkd":12.5,"genres":["Animated (Family)","Action / Adventure","Comedy"]},{"title":"Sonic the Hedgehog 2","year":2022,"budget":110,"domestic":190.9,"owkd":72.1,"genres":["Animated (Family)","Action / Adventure","Comedy"]},{"title":"Minions: The Rise of Gru","year":2022,"budget":80,"domestic":369.8,"owkd":107.3,"genres":["Animated (Family)","Comedy"]},{"title":"Encanto","year":2021,"budget":120,"domestic":96.7,"owkd":12.5,"genres":["Animated (Family)","Musical"]},{"title":"Turning Red","year":2022,"budget":175,"domestic":null,"owkd":null,"genres":["Animated (Family)","Comedy"]},{"title":"The Croods: A New Age","year":2020,"budget":65,"domestic":58.6,"owkd":9.7,"genres":["Animated (Family)","Comedy","Action / Adventure"]},{"title":"Toy Story 4","year":2019,"budget":200,"domestic":434,"owkd":120.9,"genres":["Animated (Family)","Drama","Comedy"]},{"title":"The Bad Guys","year":2022,"budget":73,"domestic":97.9,"owkd":23.1,"genres":["Animated (Family)","Action / Adventure","Comedy"]},{"title":"The Best Exotic Marigold Hotel","year":2012,"budget":10,"domestic":46.4,"owkd":3.4,"genres":["Drama","Comedy","Romantic Comedy"]},{"title":"Gifted","year":2017,"budget":7,"domestic":25.5,"owkd":6.6,"genres":["Drama","Live-Action Family / Kids"]},{"title":"Harriet","year":2019,"budget":17,"domestic":44.1,"owkd":11.6,"genres":["Drama","War / Historical","Faith / Inspirational"]},{"title":"Just Mercy","year":2019,"budget":21,"domestic":34.9,"owkd":4.1,"genres":["Drama","Faith / Inspirational"]},{"title":"The Holdovers","year":2023,"budget":20,"domestic":36,"owkd":0.3,"genres":["Drama","Comedy"]},{"title":"Oppenheimer","year":2023,"budget":100,"domestic":329.9,"owkd":82.5,"genres":["Drama","War / Historical","Sci-Fi / Thriller"]},{"title":"The Blind Side","year":2009,"budget":29,"domestic":256,"owkd":34.1,"genres":["Drama","Sports","Faith / Inspirational"]},{"title":"The Revenant","year":2015,"budget":135,"domestic":183.6,"owkd":10.3,"genres":["Drama","Action / Adventure","War / Historical"]},{"title":"A Beautiful Day in the Neighborhood","year":2019,"budget":25,"domestic":61.6,"owkd":13.5,"genres":["Drama"]},{"title":"Belfast","year":2021,"budget":15,"domestic":18.5,"owkd":0.4,"genres":["Drama","War / Historical"]},{"title":"The Whale","year":2022,"budget":3,"domestic":6.3,"owkd":0.4,"genres":["Drama"]},{"title":"T\u00e1r","year":2022,"budget":35,"domestic":16.4,"owkd":0.5,"genres":["Drama","Musical"]},{"title":"Elvis","year":2022,"budget":85,"domestic":151.2,"owkd":31.1,"genres":["Drama","Musical"]},{"title":"Maestro","year":2023,"budget":80,"domestic":16.2,"owkd":2.1,"genres":["Drama","Musical"]},{"title":"Barbie","year":2023,"budget":145,"domestic":636.2,"owkd":162,"genres":["Comedy","Romantic Comedy"]},{"title":"Bridesmaids","year":2011,"budget":32.5,"domestic":169.1,"owkd":26.2,"genres":["Comedy","Romantic Comedy"]},{"title":"The Hangover","year":2009,"budget":35,"domestic":277.3,"owkd":44.9,"genres":["Comedy"]},{"title":"Game Night","year":2018,"budget":37,"domestic":69.5,"owkd":17,"genres":["Comedy","Sci-Fi / Thriller"]},{"title":"Knives Out","year":2019,"budget":40,"domestic":165.4,"owkd":41.4,"genres":["Comedy","Sci-Fi / Thriller","Drama"]},{"title":"Glass Onion: A Knives Out Mystery","year":2022,"budget":40,"domestic":13.3,"owkd":9.2,"genres":["Comedy","Sci-Fi / Thriller","Drama"]},{"title":"Free Guy","year":2021,"budget":100,"domestic":121.6,"owkd":28.4,"genres":["Comedy","Action / Adventure","Sci-Fi / Thriller"]},{"title":"Ticket to Paradise","year":2022,"budget":60,"domestic":66.6,"owkd":16.3,"genres":["Comedy","Romantic Comedy"]},{"title":"The Lost City","year":2022,"budget":68,"domestic":105.8,"owkd":30.5,"genres":["Comedy","Action / Adventure"]},{"title":"No Hard Feelings","year":2023,"budget":45,"domestic":66.5,"owkd":15.2,"genres":["Comedy","Romantic Comedy"]},{"title":"Interstellar","year":2014,"budget":165,"domestic":188,"owkd":47.5,"genres":["Sci-Fi / Thriller","Drama"]},{"title":"Dune","year":2021,"budget":165,"domestic":108.3,"owkd":40.1,"genres":["Sci-Fi / Thriller","Action / Adventure"]},{"title":"Dune: Part Two","year":2024,"budget":190,"domestic":282.1,"owkd":82.5,"genres":["Sci-Fi / Thriller","Action / Adventure"]},{"title":"Everything Everywhere All At Once","year":2022,"budget":14.3,"domestic":69.9,"owkd":6.2,"genres":["Sci-Fi / Thriller","Comedy","Drama","Action / Adventure"]},{"title":"Tenet","year":2020,"budget":200,"domestic":58.5,"owkd":20.2,"genres":["Sci-Fi / Thriller","Action / Adventure"]},{"title":"The Menu","year":2022,"budget":30,"domestic":38.5,"owkd":9.1,"genres":["Sci-Fi / Thriller","Horror","Comedy"]},{"title":"Glass","year":2019,"budget":20,"domestic":70.5,"owkd":40.6,"genres":["Sci-Fi / Thriller","Horror"]},{"title":"Saltburn","year":2023,"budget":6,"domestic":20,"owkd":0.1,"genres":["Sci-Fi / Thriller","Drama"]},{"title":"Cocaine Bear","year":2023,"budget":35,"domestic":64.4,"owkd":23.1,"genres":["Sci-Fi / Thriller","Comedy","Horror"]},{"title":"Jordan Peele's Us","year":2019,"budget":20,"domestic":175.1,"owkd":71.1,"genres":["Horror","Sci-Fi / Thriller"]},{"title":"The Greatest Showman","year":2017,"budget":84,"domestic":174.3,"owkd":8.8,"genres":["Musical","Drama"]},{"title":"Wicked","year":2024,"budget":145,"domestic":270,"owkd":114,"genres":["Musical","Drama","Animated (Family)"]},{"title":"Bohemian Rhapsody","year":2018,"budget":52,"domestic":216.4,"owkd":21.4,"genres":["Musical","Drama"]},{"title":"La La Land","year":2016,"budget":30,"domestic":151.1,"owkd":0.7,"genres":["Musical","Drama","Romantic Comedy"]},{"title":"Mamma Mia! Here We Go Again","year":2018,"budget":75,"domestic":120.6,"owkd":35,"genres":["Musical","Comedy","Romantic Comedy"]},{"title":"Tick, Tick... BOOM!","year":2021,"budget":15,"domestic":null,"owkd":null,"genres":["Musical","Drama"]},{"title":"In the Heights","year":2021,"budget":55,"domestic":11.4,"owkd":11.4,"genres":["Musical","Drama"]},{"title":"West Side Story","year":2021,"budget":100,"domestic":37.8,"owkd":10.3,"genres":["Musical","Drama","Action / Adventure"]},{"title":"Rocketman","year":2019,"budget":40,"domestic":96.3,"owkd":20.4,"genres":["Musical","Drama"]},{"title":"Crazy Rich Asians","year":2018,"budget":30,"domestic":174.5,"owkd":35,"genres":["Romantic Comedy","Drama","Comedy"]},{"title":"To All the Boys I've Loved Before","year":2018,"budget":10,"domestic":null,"owkd":null,"genres":["Romantic Comedy","Drama"]},{"title":"About Time","year":2013,"budget":12,"domestic":15.3,"owkd":3,"genres":["Romantic Comedy","Drama","Sci-Fi / Thriller"]},{"title":"Set It Up","year":2018,"budget":4.5,"domestic":null,"owkd":null,"genres":["Romantic Comedy","Comedy"]},{"title":"Something Borrowed","year":2011,"budget":35,"domestic":38.9,"owkd":13.9,"genres":["Romantic Comedy","Drama"]},{"title":"The Proposal","year":2009,"budget":40,"domestic":163.9,"owkd":33.6,"genres":["Romantic Comedy","Comedy"]},{"title":"Book Club: The Next Chapter","year":2023,"budget":25,"domestic":34.6,"owkd":6.5,"genres":["Romantic Comedy","Comedy","Drama"]},{"title":"American Sniper","year":2014,"budget":58.8,"domestic":350.1,"owkd":89.3,"genres":["War / Historical","Drama","Action / Adventure"]},{"title":"Dunkirk","year":2017,"budget":150,"domestic":188.4,"owkd":50.5,"genres":["War / Historical","Drama","Action / Adventure"]},{"title":"1917","year":2019,"budget":95,"domestic":159.2,"owkd":6,"genres":["War / Historical","Drama","Action / Adventure"]},{"title":"Hacksaw Ridge","year":2016,"budget":40,"domestic":67.2,"owkd":14.9,"genres":["War / Historical","Drama","Action / Adventure","Faith / Inspirational"]},{"title":"Midway","year":2019,"budget":100,"domestic":56.6,"owkd":17.4,"genres":["War / Historical","Drama","Action / Adventure"]},{"title":"Greyhound","year":2020,"budget":50,"domestic":null,"owkd":null,"genres":["War / Historical","Drama","Action / Adventure"]},{"title":"The Imitation Game","year":2014,"budget":14,"domestic":91.1,"owkd":1.1,"genres":["War / Historical","Drama","Sci-Fi / Thriller"]},{"title":"Fury","year":2014,"budget":68,"domestic":85.8,"owkd":23.5,"genres":["War / Historical","Drama","Action / Adventure"]},{"title":"Creed III","year":2023,"budget":75,"domestic":156.5,"owkd":58.1,"genres":["Sports","Drama","Action / Adventure"]},{"title":"Air","year":2023,"budget":90,"domestic":90.1,"owkd":14.1,"genres":["Sports","Drama","Comedy"]},{"title":"Ford v Ferrari","year":2019,"budget":98,"domestic":117.6,"owkd":31.5,"genres":["Sports","Drama","Action / Adventure"]},{"title":"Eddie the Eagle","year":2016,"budget":23,"domestic":12,"owkd":3.5,"genres":["Sports","Drama","Comedy"]},{"title":"McFarland, USA","year":2015,"budget":25,"domestic":44.3,"owkd":11.5,"genres":["Sports","Drama","Faith / Inspirational"]},{"title":"42 (Jackie Robinson Story)","year":2013,"budget":40,"domestic":95,"owkd":27.5,"genres":["Sports","Drama","War / Historical"]},{"title":"Hustle","year":2022,"budget":38,"domestic":null,"owkd":null,"genres":["Sports","Drama","Comedy"]},{"title":"Queen of Katwe","year":2016,"budget":15,"domestic":8.8,"owkd":3.5,"genres":["Sports","Drama","Faith / Inspirational"]},{"title":"Miracle","year":2004,"budget":28,"domestic":64.4,"owkd":15.1,"genres":["Sports","Drama","War / Historical"]},{"title":"Jumanji: Welcome to the Jungle","year":2017,"budget":90,"domestic":404.5,"owkd":70,"genres":["Live-Action Family / Kids","Action / Adventure","Comedy"]},{"title":"Jumanji: The Next Level","year":2019,"budget":132,"domestic":320.3,"owkd":60.1,"genres":["Live-Action Family / Kids","Action / Adventure","Comedy"]},{"title":"Night at the Museum","year":2006,"budget":110,"domestic":250.9,"owkd":30.4,"genres":["Live-Action Family / Kids","Comedy","Action / Adventure"]},{"title":"Night at the Museum: Battle of the Smithsonian","year":2009,"budget":150,"domestic":177.2,"owkd":54.2,"genres":["Live-Action Family / Kids","Comedy","Action / Adventure"]},{"title":"Alvin and the Chipmunks","year":2007,"budget":60,"domestic":217.3,"owkd":14.2,"genres":["Live-Action Family / Kids","Comedy","Musical"]},{"title":"Alvin and the Chipmunks: The Squeakquel","year":2009,"budget":75,"domestic":219.6,"owkd":48.9,"genres":["Live-Action Family / Kids","Comedy","Musical"]},{"title":"Cheaper by the Dozen","year":2003,"budget":40,"domestic":138.6,"owkd":27.2,"genres":["Live-Action Family / Kids","Comedy"]},{"title":"Cheaper by the Dozen 2","year":2005,"budget":50,"domestic":82.3,"owkd":24.5,"genres":["Live-Action Family / Kids","Comedy"]},{"title":"Paddington","year":2014,"budget":55,"domestic":76.3,"owkd":19.3,"genres":["Live-Action Family / Kids","Comedy"]},{"title":"Paddington 2","year":2018,"budget":40,"domestic":40.9,"owkd":9.2,"genres":["Live-Action Family / Kids","Comedy"]},{"title":"Stuart Little","year":1999,"budget":103,"domestic":140,"owkd":16.6,"genres":["Live-Action Family / Kids","Comedy"]},{"title":"Dr. Dolittle","year":1998,"budget":72,"domestic":144.2,"owkd":29.1,"genres":["Live-Action Family / Kids","Comedy"]},{"title":"Dr. Dolittle 2","year":2001,"budget":70,"domestic":112.6,"owkd":30.1,"genres":["Live-Action Family / Kids","Comedy"]},{"title":"Dolittle","year":2020,"budget":175,"domestic":29.1,"owkd":10.1,"genres":["Live-Action Family / Kids","Comedy","Action / Adventure"]},{"title":"The Princess Diaries","year":2001,"budget":26,"domestic":108.2,"owkd":22.5,"genres":["Live-Action Family / Kids","Comedy","Romantic Comedy"]},{"title":"Spy Kids","year":2001,"budget":35,"domestic":112.7,"owkd":27.6,"genres":["Live-Action Family / Kids","Action / Adventure","Comedy"]},{"title":"Bedtime Stories","year":2008,"budget":80,"domestic":110.1,"owkd":27.5,"genres":["Live-Action Family / Kids","Comedy"]},{"title":"The Chronicles of Narnia: The Lion, the Witch and the Wardrobe","year":2005,"budget":180,"domestic":291.7,"owkd":65.6,"genres":["Live-Action Family / Kids","Action / Adventure","Drama","Faith / Inspirational"]},{"title":"Narnia: Prince Caspian","year":2008,"budget":225,"domestic":141.6,"owkd":55,"genres":["Live-Action Family / Kids","Action / Adventure"]},{"title":"The Smurfs","year":2011,"budget":110,"domestic":142.6,"owkd":35.6,"genres":["Live-Action Family / Kids","Comedy","Animated (Family)"]},{"title":"Hop","year":2011,"budget":63,"domestic":108.1,"owkd":37.5,"genres":["Live-Action Family / Kids","Comedy","Animated (Family)"]},{"title":"Home Alone","year":1990,"budget":18,"domestic":285.8,"owkd":5.3,"genres":["Live-Action Family / Kids","Comedy"]},{"title":"Honey, I Shrunk the Kids","year":1989,"budget":18,"domestic":130.7,"owkd":9.6,"genres":["Live-Action Family / Kids","Comedy","Sci-Fi / Thriller"]},{"title":"Lyle, Lyle, Crocodile","year":2022,"budget":50,"domestic":43.3,"owkd":11.6,"genres":["Live-Action Family / Kids","Comedy","Musical"]},{"title":"Clifford the Big Red Dog","year":2021,"budget":64,"domestic":45.8,"owkd":15,"genres":["Live-Action Family / Kids","Comedy"]},{"title":"PAW Patrol: The Movie","year":2021,"budget":27,"domestic":48,"owkd":13.1,"genres":["Live-Action Family / Kids","Animated (Family)"]},{"title":"Free Willy","year":1993,"budget":20,"domestic":77.7,"owkd":9,"genres":["Live-Action Family / Kids","Drama"]},{"title":"Beethoven","year":1992,"budget":18,"domestic":57.1,"owkd":7.5,"genres":["Live-Action Family / Kids","Comedy"]},{"title":"Flubber","year":1997,"budget":80,"domestic":92.9,"owkd":19,"genres":["Live-Action Family / Kids","Comedy","Sci-Fi / Thriller"]},{"title":"Soul Surfer","year":2011,"budget":18,"domestic":43.8,"owkd":10.1,"genres":["Live-Action Family / Kids","Drama","Faith / Inspirational","Sports"]},{"title":"October Baby","year":2011,"budget":1,"domestic":5.3,"owkd":1.7,"genres":["Live-Action Family / Kids","Drama","Faith / Inspirational"]},{"title":"Moms' Night Out","year":2014,"budget":5,"domestic":10.4,"owkd":4.2,"genres":["Live-Action Family / Kids","Comedy","Faith / Inspirational"]},{"title":"When the Game Stands Tall","year":2014,"budget":25,"domestic":25.5,"owkd":9.2,"genres":["Live-Action Family / Kids","Sports","Drama","Faith / Inspirational"]},{"title":"March of the Penguins","year":2005,"budget":8,"domestic":77.4,"owkd":0.7,"genres":["Documentary"]},{"title":"Fahrenheit 9/11","year":2004,"budget":6,"domestic":119.2,"owkd":8,"genres":["Documentary","War / Historical"]},{"title":"Super Size Me","year":2004,"budget":0.065,"domestic":11.5,"owkd":0.8,"genres":["Documentary"]},{"title":"Won't You Be My Neighbor?","year":2018,"budget":1,"domestic":22.7,"owkd":0.1,"genres":["Documentary","Drama"]},{"title":"Free Solo","year":2018,"budget":3.8,"domestic":17.8,"owkd":0.3,"genres":["Documentary","Sports"]},{"title":"The Biggest Little Farm","year":2019,"budget":1,"domestic":1.7,"owkd":0.2,"genres":["Documentary"]}];
+</script>
+
+<script type="text/babel">
+const { useState, useCallback, useEffect } = React;
+
+
+// ─────────────────────────────────────────────
+// DATA TABLES — sourced from The Numbers, Box Office Mojo,
+// academic research (2015-2025 domestic performance patterns)
+// ─────────────────────────────────────────────
+
+const GENRE_DATA = {
+  "Live-Action Family / Kids": {
+    baseMult: 2.0, range: [0.8, 3.8],
+    note: "Strong holiday and school-break legs; talking animals / fantasy elements drive repeat viewings. Franchise sequels significantly outperform originals.", color: "#34d399",
+  },
+  "Faith / Inspirational": {
+    baseMult: 3.2, range: [1.5, 10.0],
+    note: "Passionate community-driven audience; exceptional grassroots overperformance potential", color: "#f59e0b",
+  },
+  "Action / Adventure": {
+    baseMult: 2.2, range: [1.2, 3.5],
+    note: "Strong international multiplier; domestic ~40% of WW", color: "#f59e0b",
+  },
+  "Animated (Family)": {
+    baseMult: 2.4, range: [1.5, 3.8],
+    note: "High repeat viewership; strong holiday/summer legs", color: "#10b981",
+  },
+  Comedy: {
+    baseMult: 1.8, range: [0.8, 3.0],
+    note: "Declining theatrical performance post-streaming", color: "#f97316",
+  },
+  Drama: {
+    baseMult: 1.4, range: [0.6, 2.5],
+    note: "Prestige dramas benefit from awards amplification", color: "#8b5cf6",
+  },
+  Documentary: {
+    baseMult: 3.0, range: [1.5, 8.0],
+    note: "Very low budgets; niche but loyal audience", color: "#84cc16",
+  },
+  Horror: {
+    baseMult: 4.5, range: [2.0, 12.0],
+    note: "Highest ROI potential; low-budget films dominate", color: "#ef4444",
+  },
+  Musical: {
+    baseMult: 2.0, range: [0.8, 4.0],
+    note: "High variance; IP-driven musicals outperform originals", color: "#ec4899",
+  },
+  "Romantic Comedy": {
+    baseMult: 1.5, range: [0.7, 2.5],
+    note: "Female-skewing; VOD window compresses theatrical", color: "#d946ef",
+  },
+  "Sci-Fi / Thriller": {
+    baseMult: 2.1, range: [1.0, 3.5],
+    note: "Concept-driven; marketing spend critical", color: "#06b6d4",
+  },
+  Sports: {
+    baseMult: 1.7, range: [0.9, 3.0],
+    note: "Underdog narrative drives performance; true story premium", color: "#22c55e",
+  },
+  "Superhero / Comic Book": {
+    baseMult: 2.8, range: [1.8, 4.5],
+    note: "Franchise-dependent; highest upside with IP", color: "#6366f1",
+  },
+  "War / Historical": {
+    baseMult: 1.6, range: [0.8, 2.8],
+    note: "Older audience skew; awards alignment helps", color: "#78716c",
+  },
+};
+
+const RATING_DATA = {
+  G:     { mult: 0.88, note: "Very broad but adults resist 'kids only'" },
+  PG:    { mult: 1.1,  note: "Strong family play; all ages accessible" },
+  "PG-13": { mult: 1.25, note: "Industry sweet spot; maximum addressable audience" },
+  R:     { mult: 0.82, note: "Cuts 17-and-under; requires marketing finesse" },
+};
+
+// ─────────────────────────────────────────────
+// AUDIENCE QUADRANT SYSTEM
+// The four industry quadrants + community modifiers
+// ─────────────────────────────────────────────
+
+const QUADRANTS = [
+  { id: "MU25", label: "Males",   sub: "Under 25", owkdBoost: true,  note: "Strong opening-weekend driver; action and event films" },
+  { id: "MO25", label: "Males",   sub: "25+",      owkdBoost: false, note: "Needs critical credibility or strong concept; slower build" },
+  { id: "FU25", label: "Females", sub: "Under 25", owkdBoost: false, note: "Social word-of-mouth engine; can extend legs significantly" },
+  { id: "FO25", label: "Females", sub: "25+",      owkdBoost: false, note: "Prestige drama, book adaptations; deliberate choosers" },
+];
+
+const AUDIENCE_MODIFIERS = [
+  { id: "faith",  label: "Faith / Values Community", mult: 1.20, note: "Community screenings, Pay It Forward, group sales amplify opening weekend" },
+  { id: "kids",   label: "Kids / Family (Under 12)", mult: 1.12, note: "Repeat viewings; parent co-attendance multiplies household tickets" },
+  { id: "teens",  label: "Teens (13–17)",             mult: 1.05, note: "High social-media amplification; TikTok-driven can break out" },
+];
+
+// Breadth multiplier by number of quadrants selected
+const QUADRANT_BREADTH = { 0: 0.70, 1: 0.82, 2: 0.95, 3: 1.12, 4: 1.35 };
+
+function calcAudienceMult(quads, mods) {
+  const breadth = QUADRANT_BREADTH[quads.length] ?? 0.70;
+  const modMult = AUDIENCE_MODIFIERS
+    .filter((m) => mods.includes(m.id))
+    .reduce((acc, m) => acc * m.mult, 1.0);
+  return breadth * modMult;
+}
+
+function audienceLabel(quads, mods) {
+  if (quads.length === 0) return "No audience selected";
+  const qLabels = QUADRANTS.filter((q) => quads.includes(q.id)).map((q) => `${q.label} ${q.sub}`);
+  const mLabels = AUDIENCE_MODIFIERS.filter((m) => mods.includes(m.id)).map((m) => m.label);
+  const all = [...qLabels, ...mLabels];
+  if (quads.length === 4 && mods.length === 0) return "4-Quadrant";
+  if (quads.length === 4) return `4-Quadrant + ${mLabels.join(", ")}`;
+  return all.join(", ");
+}
+
+const STAR_POWER_DATA = {
+  "A++ (Franchise-Carrying — e.g., Tom Cruise, Dwayne Johnson)": {
+    mult: 1.45, note: "Can open a film solo; global recognition",
+  },
+  "A-List (Award-winning household names)": {
+    mult: 1.22, note: "Significant draw; elevates prestige",
+  },
+  "B+ (Recognizable, rising stars / cult following)": {
+    mult: 1.07, note: "Helps with critics and targeted audiences",
+  },
+  "B (Known but not marquee)": {
+    mult: 0.95, note: "Execution must carry; no star premium",
+  },
+  "Unknown / No Named Stars": {
+    mult: 0.82, note: "Requires exceptional concept or marketing",
+  },
+};
+
+const SEASON_DATA = {
+  "Summer Tentpole (May–August)": {
+    mult: 1.3, note: "Peak competition; massive upside for event films",
+  },
+  "Holiday (Nov 22 – Jan 5)": {
+    mult: 1.22, note: "Strong family films; long legs into new year",
+  },
+  "Spring (March–April)": {
+    mult: 1.0, note: "Moderate competition; good counter-programming window",
+  },
+  "Fall (September–October)": {
+    mult: 0.88, note: "Horror dominates; adult dramas build awards buzz",
+  },
+  "Winter Release (January–February)": {
+    mult: 0.72, note: "Lower competition; counter-programming and faith-based films can overperform",
+  },
+};
+
+const IP_DATA = {
+  "Original Screenplay": {
+    mult: 1.0, note: "Baseline; requires exceptional marketing to educate audience",
+  },
+  "True Story / Based on Events": {
+    mult: 1.08, note: "Credibility hook; awards alignment",
+  },
+  "Reboot / Known IP (book, game, toy)": {
+    mult: 1.18, note: "Nostalgia play; execution determines ceiling",
+  },
+  "Sequel / Second Film": {
+    mult: 1.3, note: "~1.1–1.5x first film if it performed well",
+  },
+  "Established Franchise (3+ films, proven audience)": {
+    mult: 1.55, note: "Built-in demand; predictable baseline",
+  },
+};
+
+// ─────────────────────────────────────────────
+// ANGEL STUDIOS DISTRIBUTION CONSTANTS
+// Hard-coded — this tool is built for Angel Studios slate evaluation.
+// Multiplier is intentionally neutral (1.0): Angel's distribution model
+// amplifies films that already align with their audience (captured via
+// genre + quadrant selection above). It does not uniformly boost all titles.
+// P&A ratio of 0.50 reflects Angel's typical marketing investment per production dollar.
+// ─────────────────────────────────────────────
+const ANGEL_DISTRIBUTION = {
+  mult: 1.0,
+  pAndARatio: 0.35,
+  label: "Angel Studios",
+  note: "Community-activation model. Performance is highly content-dependent — Faith/Inspirational and Family titles with a motivated core audience have the highest upside.",
+};
+
+// ─────────────────────────────────────────────
+// ANGEL HISTORICAL RELEASES
+// Source: Box Office Mojo / The Numbers / Angel press releases
+// Used for comparable benchmarking in results panel
+// ─────────────────────────────────────────────
+const ANGEL_HISTORICAL = [
+  { title: "His Only Son",           year: 2023, budget: 0.25, domestic: 12.3,  owkd: 5.2,  genre: "Faith / Inspirational" },
+  { title: "Sound of Freedom",       year: 2023, budget: 14.5, domestic: 184.2, owkd: 14.2, genre: "Action / Adventure"     },
+  { title: "After Death",            year: 2023, budget: 1.0,  domestic: 12.0,  owkd: 5.6,  genre: "Documentary"           },
+  { title: "The Shift",              year: 2023, budget: 6.4,  domestic: 7.7,   owkd: 2.5,  genre: "Sci-Fi / Thriller"     },
+  { title: "Cabrini",                year: 2024, budget: 25.0, domestic: 28.0,  owkd: 7.5,  genre: "Drama"                 },
+  { title: "Sight",                  year: 2024, budget: 10.0, domestic: 7.1,   owkd: 3.3,  genre: "Drama"                 },
+  { title: "Sound of Hope",          year: 2024, budget: 6.0,  domestic: 19.0,  owkd: 5.5,  genre: "Faith / Inspirational" },
+  { title: "Bonhoeffer",             year: 2024, budget: 20.0, domestic: 12.2,  owkd: 5.1,  genre: "Drama"                 },
+  { title: "Homestead",              year: 2024, budget: 8.0,  domestic: 20.0,  owkd: 6.0,  genre: "Action / Adventure"   },
+  { title: "The King of Kings",      year: 2025, budget: 25.0, domestic: 61.0,  owkd: 19.4, genre: "Faith / Inspirational" },
+  { title: "David",                  year: 2025, budget: 60.0, domestic: 80.0,  owkd: 22.0, genre: "Animated (Family)"    },
+];
+
+// ─────────────────────────────────────────────
+// QUADRANT SELECTOR COMPONENT
+// ─────────────────────────────────────────────
+
+function QuadrantSelector({ selectedQuads, onToggleQuad, selectedMods, onToggleMod }) {
+  const isFourQuadrant = selectedQuads.length === 4;
+  const audienceMult = calcAudienceMult(selectedQuads, selectedMods);
+
+  return (
+    <div className="mb-5">
+      <div className="flex items-center justify-between mb-1.5">
+        <label className="text-xs font-semibold uppercase tracking-widest text-gray-400">
+          Target Audience
+        </label>
+        {isFourQuadrant && (
+          <span className="text-xs font-black uppercase tracking-wider bg-indigo-900 text-indigo-300 border border-indigo-700 px-2 py-0.5 rounded-full">
+            ✦ 4-Quadrant
+          </span>
+        )}
+      </div>
+
+      {/* 2×2 quadrant grid */}
+      <div className="grid grid-cols-2 gap-2 mb-3">
+        {QUADRANTS.map((q) => {
+          const active = selectedQuads.includes(q.id);
+          return (
+            <button
+              key={q.id}
+              onClick={() => onToggleQuad(q.id)}
+              title={q.note}
+              className={`relative text-left px-3 py-2.5 rounded-xl border transition-all ${
+                active
+                  ? "bg-indigo-700 border-indigo-500 text-white"
+                  : "bg-gray-800 border-gray-700 text-gray-400 hover:border-indigo-600 hover:text-gray-200"
+              }`}
+            >
+              <p className={`text-xs font-black uppercase tracking-wider ${active ? "text-indigo-200" : "text-gray-500"}`}>
+                {q.label}
+              </p>
+              <p className={`text-sm font-bold mt-0.5 ${active ? "text-white" : "text-gray-300"}`}>
+                {q.sub}
+              </p>
+              {active && (
+                <span className="absolute top-2 right-2 text-indigo-400 text-xs">✓</span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Quick-select helpers */}
+      <div className="flex flex-wrap gap-1.5 mb-3">
+        {[
+          { label: "All 4", quads: ["MU25","MO25","FU25","FO25"] },
+          { label: "Male-Skewing", quads: ["MU25","MO25"] },
+          { label: "Female-Skewing", quads: ["FU25","FO25"] },
+          { label: "Young Audiences", quads: ["MU25","FU25"] },
+          { label: "Adults 25+", quads: ["MO25","FO25"] },
+        ].map((preset) => {
+          const isActive = preset.quads.length === selectedQuads.length &&
+            preset.quads.every((q) => selectedQuads.includes(q));
+          return (
+            <button
+              key={preset.label}
+              onClick={() => {
+                // if already matches preset, deselect all; otherwise apply
+                if (isActive) {
+                  preset.quads.forEach((q) => {
+                    if (selectedQuads.includes(q)) onToggleQuad(q);
+                  });
+                } else {
+                  // set exactly these quads
+                  const toAdd = preset.quads.filter((q) => !selectedQuads.includes(q));
+                  const toRemove = selectedQuads.filter((q) => !preset.quads.includes(q));
+                  toRemove.forEach((q) => onToggleQuad(q));
+                  toAdd.forEach((q) => onToggleQuad(q));
+                }
+              }}
+              className={`text-xs px-2.5 py-1 rounded-full border font-semibold transition-all ${
+                isActive
+                  ? "bg-indigo-800 border-indigo-600 text-indigo-200"
+                  : "bg-gray-800 border-gray-700 text-gray-500 hover:border-gray-500 hover:text-gray-300"
+              }`}
+            >
+              {preset.label}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Community modifiers */}
+      <div className="bg-gray-800 border border-gray-700 rounded-xl p-3">
+        <p className="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-2">
+          Additional Communities
+          <span className="normal-case font-normal text-gray-600 ml-1">(optional — stacks on top)</span>
+        </p>
+        <div className="space-y-1.5">
+          {AUDIENCE_MODIFIERS.map((mod) => {
+            const active = selectedMods.includes(mod.id);
+            return (
+              <button
+                key={mod.id}
+                onClick={() => onToggleMod(mod.id)}
+                className={`w-full text-left flex items-start gap-3 px-3 py-2 rounded-lg border transition-all ${
+                  active
+                    ? "bg-amber-900 border-amber-700 text-white"
+                    : "bg-gray-900 border-gray-700 text-gray-400 hover:border-gray-600 hover:text-gray-300"
+                }`}
+              >
+                <span className={`mt-0.5 text-xs font-black shrink-0 ${active ? "text-amber-400" : "text-gray-600"}`}>
+                  {active ? "✓" : "○"}
+                </span>
+                <div className="flex-1 min-w-0">
+                  <p className={`text-sm font-semibold ${active ? "text-amber-200" : "text-gray-300"}`}>
+                    {mod.label}
+                  </p>
+                  <p className="text-xs text-gray-500 mt-0.5">{mod.note}</p>
+                </div>
+                <span className={`text-xs font-black shrink-0 mt-0.5 ${active ? "text-amber-400" : "text-gray-600"}`}>
+                  +{((mod.mult - 1) * 100).toFixed(0)}%
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Live multiplier readout */}
+      {selectedQuads.length > 0 && (
+        <div className="mt-2 flex items-center justify-between px-1">
+          <p className="text-xs text-gray-500">
+            {selectedQuads.length === 4 ? "4-Quadrant" : `${selectedQuads.length} quadrant${selectedQuads.length > 1 ? "s" : ""}`}
+            {selectedMods.length > 0 ? ` + ${selectedMods.length} modifier${selectedMods.length > 1 ? "s" : ""}` : ""}
+          </p>
+          <p className={`text-xs font-bold ${audienceMult >= 1.2 ? "text-emerald-400" : audienceMult >= 1.0 ? "text-indigo-400" : "text-gray-400"}`}>
+            Audience multiplier: {audienceMult.toFixed(2)}×
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
+// COMPARABLE FILM DATABASE
+// Source: The Numbers / Box Office Mojo / industry reports
+// COMP_DB is loaded at runtime from the external JSON file
+// genres match GENRE_DATA keys; a film may appear in multiple genres
+
+let _compDB = [];
+const getCompDB = () => _compDB;
+
+
+// ─────────────────────────────────────────────
+// HELPERS
+// ─────────────────────────────────────────────
+
+function fmt(n) {
+  if (!n || isNaN(n)) return "—";
+  if (n >= 1_000_000_000) return `$${(n / 1_000_000_000).toFixed(2)}B`;
+  if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(1)}M`;
+  return `$${n.toLocaleString()}`;
+}
+
+function fmtM(n) {
+  if (!n || isNaN(n)) return "—";
+  return `$${Number(n).toFixed(1)}M`;
+}
+
+function parseMillion(v) {
+  const n = parseFloat(v);
+  return isNaN(n) ? 0 : n * 1_000_000;
+}
+
+function pct(n) {
+  return `${n >= 0 ? "+" : ""}${n.toFixed(0)}%`;
+}
+
+function multX(dom, bud) {
+  if (!dom || !bud || bud === 0) return null;
+  return dom / bud;
+}
+
+// ─────────────────────────────────────────────
+// UI PRIMITIVES
+// ─────────────────────────────────────────────
+
+function SelectField({ label, value, onChange, options, hint }) {
+  return (
+    <div className="mb-5">
+      <label className="block text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1.5">
+        {label}
+      </label>
+      <select
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 transition-colors appearance-none cursor-pointer"
+      >
+        <option value="">— Select —</option>
+        {options.map((o) => (
+          <option key={o} value={o}>{o}</option>
+        ))}
+      </select>
+      {value && hint && (
+        <p className="text-xs text-gray-500 mt-1.5 italic">{hint(value)}</p>
+      )}
+    </div>
+  );
+}
+
+function BudgetSlider({ value, onChange }) {
+  const [exactInput, setExactInput] = useState("");
+
+  const tiers = [
+    { label: "Micro (<$5M)", val: 3_000_000 },
+    { label: "Low ($5–20M)", val: 12_000_000 },
+    { label: "Mid ($20–60M)", val: 40_000_000 },
+    { label: "Upper-Mid ($60–100M)", val: 80_000_000 },
+    { label: "High ($100–175M)", val: 140_000_000 },
+    { label: "Tentpole ($175–250M)", val: 210_000_000 },
+  ];
+
+  const handleExactChange = (e) => {
+    const raw = e.target.value;
+    setExactInput(raw);
+    const parsed = parseInt(raw.replace(/[^0-9]/g, ""), 10);
+    if (!isNaN(parsed) && parsed > 0) {
+      onChange(parsed);
+    }
+  };
+
+  const handleTierClick = (val) => {
+    setExactInput("");
+    onChange(val);
+  };
+
+  const isTierSelected = (val) => value === val && exactInput === "";
+
+  return (
+    <div className="mb-5">
+      <label className="block text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1.5">
+        Production Budget
+      </label>
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+        {tiers.map((t) => (
+          <button
+            key={t.label}
+            onClick={() => handleTierClick(t.val)}
+            className={`text-xs px-2 py-2 rounded-lg border transition-all font-medium ${
+              isTierSelected(t.val)
+                ? "bg-indigo-600 border-indigo-500 text-white"
+                : "bg-gray-800 border-gray-700 text-gray-400 hover:border-indigo-500 hover:text-white"
+            }`}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+      <div className="mt-3 flex items-center gap-3">
+        <div className="flex-1 relative">
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm font-semibold">$</span>
+          <input
+            type="text"
+            inputMode="numeric"
+            value={exactInput}
+            onChange={handleExactChange}
+            placeholder="e.g. 4500000"
+            className="w-full bg-gray-800 border border-gray-700 text-white rounded-lg pl-6 pr-3 py-2 text-sm focus:outline-none focus:border-indigo-500 placeholder-gray-600"
+          />
+        </div>
+      </div>
+      {value > 0 && (
+        <p className="text-xs text-indigo-400 mt-2 font-semibold">
+          {exactInput ? `Exact budget: ${fmt(parseInt(exactInput.replace(/[^0-9]/g, ""), 10))}` : `Selected: ${fmt(value)} production budget`}
+        </p>
+      )}
+    </div>
+  );
+}
+
+function ResultMeter({ label, value, color, maxVal }) {
+  const pctWidth = Math.min((value / maxVal) * 100, 100);
+  return (
+    <div className="mb-3">
+      <div className="flex justify-between items-center mb-1">
+        <span className="text-xs text-gray-400 uppercase tracking-wider">{label}</span>
+        <span className="text-sm font-bold" style={{ color }}>{fmt(value)}</span>
+      </div>
+      <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
+        <div
+          className="h-full rounded-full transition-all duration-700"
+          style={{ width: `${pctWidth}%`, backgroundColor: color }}
+        />
+      </div>
+    </div>
+  );
+}
+
+function FactorRow({ label, mult, note }) {
+  const isPositive = mult >= 1.0;
+  const delta = ((mult - 1) * 100).toFixed(0);
+  return (
+    <div className="flex items-start justify-between py-2 border-b border-gray-800">
+      <div className="flex-1 pr-4">
+        <p className="text-sm text-white font-medium">{label}</p>
+        <p className="text-xs text-gray-500 mt-0.5">{note}</p>
+      </div>
+      <span className={`text-sm font-bold shrink-0 ${isPositive ? "text-emerald-400" : "text-red-400"}`}>
+        {isPositive ? "+" : ""}{delta}%
+      </span>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
+// COMP BROWSER MODAL (genre-aware, searchable, sortable)
+// ─────────────────────────────────────────────
+
+function CompBrowser({ selectedGenre, projectBudget, onPick, onClose, mode = "multi", alreadyCount = 0 }) {
+  const [search, setSearch] = useState("");
+  const [sortBy, setSortBy] = useState("alpha");
+  const [showAll, setShowAll] = useState(false);
+  const [budgetFilter, setBudgetFilter] = useState("all");
+  const [pending, setPending] = useState(new Set()); // set of "title+year" keys (multi mode)
+
+  const maxNew = 6 - alreadyCount;
+
+  const genreMatches = (film) =>
+    !selectedGenre || film.genres.includes(selectedGenre);
+
+  const searchMatches = (film) =>
+    !search || film.title.toLowerCase().includes(search.toLowerCase());
+
+  const budgetMatches = (film) => {
+    if (budgetFilter === "angel") return film.budget <= 15;
+    if (budgetFilter === "mid") return film.budget <= 40;
+    return true;
+  };
+
+  const filtered = getCompDB()
+    .filter((f) => f.domestic !== null)
+    .filter((f) => (showAll ? true : genreMatches(f)))
+    .filter(searchMatches)
+    .filter(budgetMatches)
+    .sort((a, b) => {
+      if (sortBy === "alpha") return a.title.localeCompare(b.title);
+      if (sortBy === "legs") {
+        const legsA = a.owkd ? a.domestic / a.owkd : 0;
+        const legsB = b.owkd ? b.domestic / b.owkd : 0;
+        return legsB - legsA;
+      }
+      if (sortBy === "domestic") return (b.domestic || 0) - (a.domestic || 0);
+      if (sortBy === "mult") return (b.domestic / b.budget) - (a.domestic / a.budget);
+      if (sortBy === "budget") return a.budget - b.budget;
+      if (sortBy === "year") return b.year - a.year;
+      return 0;
+    });
+
+  const genreCount = getCompDB().filter((f) => f.domestic && genreMatches(f)).length;
+  const totalCount = getCompDB().filter((f) => f.domestic).length;
+
+  const togglePending = (f) => {
+    const key = f.title + f.year;
+    setPending((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) {
+        next.delete(key);
+      } else if (next.size < maxNew) {
+        next.add(key);
+      }
+      return next;
+    });
+  };
+
+  const handleConfirm = () => {
+    const selected = getCompDB().filter((f) => pending.has(f.title + f.year));
+    onPick(selected);
+    onClose();
+  };
+
+  const subtitleText = mode === "multi"
+    ? pending.size > 0
+      ? `${pending.size} selected · click to toggle`
+      : (selectedGenre && !showAll ? `${genreCount} films matching "${selectedGenre}"` : `${totalCount} films`)
+    : (selectedGenre && !showAll ? `${genreCount} films matching "${selectedGenre}"` : `All ${totalCount} films`);
+
+  return (
+    <div className="bg-gray-900 border border-gray-700 rounded-2xl w-full shadow-2xl mb-4">
+      {/* Header */}
+      <div className="flex items-center justify-between p-4 border-b border-gray-800">
+        <div>
+          <h3 className="font-black text-white text-base">
+            {mode === "multi" ? "Select Comp Films" : "Replace Comp Film"}
+          </h3>
+          <p className="text-xs text-indigo-400 mt-0.5">{subtitleText}</p>
+        </div>
+        <button onClick={onClose} className="text-gray-500 hover:text-white text-lg font-bold px-2">✕</button>
+      </div>
+
+      {/* Selection tip — multi mode only */}
+      {mode === "multi" && (
+        <div className="px-4 py-2.5 bg-indigo-950 border-b border-indigo-900 flex items-start gap-2">
+          <span className="text-indigo-400 shrink-0 mt-0.5">💡</span>
+          <p className="text-xs text-indigo-300 leading-relaxed">
+            <span className="font-bold text-indigo-200">Pick comps that match your audience and tone first</span> — then add 1–2 films with a similar budget to anchor the financial estimate. A mix of both gives the strongest projection.
+          </p>
+        </div>
+      )}
+
+      {/* Controls */}
+      <div className="p-3 border-b border-gray-800 flex flex-col gap-2">
+        <div className="flex gap-2">
+          <input
+            autoFocus
+            type="text"
+            placeholder="Search by title…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="flex-1 bg-gray-800 border border-gray-700 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-indigo-500 placeholder-gray-600"
+          />
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className="bg-gray-800 border border-gray-700 text-white rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-indigo-500 appearance-none cursor-pointer"
+          >
+            <option value="alpha">Sort: A → Z</option>
+            <option value="legs">Sort: Audience Legs</option>
+            <option value="domestic">Sort: Domestic Gross</option>
+            <option value="mult">Sort: Budget Multiplier</option>
+            <option value="budget">Sort: Budget (low→high)</option>
+            <option value="year">Sort: Year</option>
+          </select>
+        </div>
+        <div className="flex gap-2 flex-wrap items-center">
+          <span className="text-xs text-gray-500 font-semibold">Budget scale:</span>
+          {[
+            { id: "angel", label: "Angel-scale (≤$15M)" },
+            { id: "mid",   label: "Under $40M" },
+            { id: "all",   label: "All budgets" },
+          ].map((f) => (
+            <button
+              key={f.id}
+              onClick={() => setBudgetFilter(f.id)}
+              className={`text-xs px-2.5 py-1 rounded-lg border transition-colors font-semibold ${
+                budgetFilter === f.id
+                  ? "bg-indigo-700 border-indigo-600 text-white"
+                  : "bg-gray-800 border-gray-700 text-gray-400 hover:border-indigo-500"
+              }`}
+            >
+              {f.label}
+            </button>
+          ))}
+          {selectedGenre && (
+            <button
+              onClick={() => setShowAll((v) => !v)}
+              className={`text-xs px-2.5 py-1 rounded-lg border transition-colors font-semibold ml-auto ${
+                showAll
+                  ? "bg-gray-700 border-gray-600 text-white"
+                  : "bg-gray-800 border-gray-700 text-gray-400 hover:border-gray-500"
+              }`}
+            >
+              {showAll ? "Genre Only" : "All Genres"}
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Film list */}
+      <div className="p-2">
+        {filtered.length === 0 && (
+          <div className="py-8 px-4">
+            <div className="text-center mb-4 text-gray-600">
+              <p className="text-3xl mb-2">🎞️</p>
+              <p className="font-semibold">"{search}" isn't in our database</p>
+              {selectedGenre && !showAll && (
+                <button onClick={() => setShowAll(true)} className="mt-1 text-indigo-400 text-sm hover:underline">
+                  Try searching all genres
+                </button>
+              )}
+            </div>
+            {search.length >= 2 && (
+              <div className="bg-amber-950 border border-amber-900 rounded-xl p-4">
+                <p className="text-sm font-semibold text-amber-200 mb-1">
+                  Look up "{search}" on these sources:
+                </p>
+                <p className="text-xs text-amber-600 mb-3">
+                  Find its domestic gross and production budget, then close this panel and enter the numbers manually.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    { label: "The Numbers", url: `https://www.the-numbers.com/search?searchterm=${encodeURIComponent(search)}` },
+                    { label: "Box Office Mojo", url: `https://www.boxofficemojo.com/search/?q=${encodeURIComponent(search)}` },
+                    { label: "IMDb", url: `https://www.imdb.com/find/?q=${encodeURIComponent(search)}&s=tt&ttype=ft` },
+                  ].map((link) => (
+                    <a
+                      key={link.label}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-sm bg-amber-900 hover:bg-amber-800 text-amber-100 px-3 py-1.5 rounded-lg font-semibold transition-colors"
+                    >
+                      {link.label} ↗
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+        {filtered.map((f) => {
+          const m = f.domestic / f.budget;
+          const legs = f.owkd ? f.domestic / f.owkd : null;
+          const isGenreMatch = genreMatches(f);
+          const isLargeBudget = f.budget > 40;
+          const key = f.title + f.year;
+          const isSelected = pending.has(key);
+          const isDisabled = mode === "multi" && !isSelected && pending.size >= maxNew;
+
+          const filmInfo = (
+            <>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className={`text-sm font-semibold transition-colors truncate ${isSelected ? "text-indigo-200" : "text-white"}`}>
+                    {f.title}
+                  </span>
+                  <span className="text-xs text-gray-600">{f.year}</span>
+                  {isLargeBudget && (
+                    <span className="text-xs text-orange-600 bg-orange-950 border border-orange-900 px-1.5 py-0.5 rounded font-semibold">
+                      large budget
+                    </span>
+                  )}
+                  {!isGenreMatch && showAll && (
+                    <span className="text-xs text-gray-600 bg-gray-800 px-1.5 py-0.5 rounded">
+                      {f.genres[0]}
+                    </span>
+                  )}
+                </div>
+                <div className="flex gap-3 mt-0.5 text-xs text-gray-500 flex-wrap">
+                  <span>Budget: <span className={isLargeBudget ? "text-orange-500" : "text-gray-400"}>${f.budget}M</span></span>
+                  <span>Domestic: <span className="text-gray-400">${f.domestic}M</span></span>
+                  {legs !== null && (
+                    <span>Legs: <span className={`font-semibold ${legs >= 6 ? "text-emerald-400" : legs >= 4 ? "text-yellow-400" : legs >= 2.8 ? "text-blue-400" : "text-gray-400"}`}>{legs.toFixed(1)}×</span></span>
+                  )}
+                </div>
+              </div>
+              <div className={`text-sm font-black shrink-0 ${
+                m >= 4 ? "text-emerald-400" : m >= 2 ? "text-yellow-400" : m >= 1 ? "text-orange-400" : "text-red-400"
+              }`}>
+                {m.toFixed(1)}×
+              </div>
+            </>
+          );
+
+          if (mode === "multi") {
+            return (
+              <button
+                key={key}
+                onClick={() => !isDisabled && togglePending(f)}
+                className={`w-full text-left px-3 py-2.5 rounded-lg transition-colors flex items-center gap-3 ${
+                  isSelected
+                    ? "bg-indigo-950 border border-indigo-700"
+                    : isDisabled
+                    ? "opacity-30 cursor-not-allowed"
+                    : `hover:bg-gray-800 ${isLargeBudget ? "opacity-60" : ""}`
+                }`}
+              >
+                <div className={`w-4 h-4 rounded border-2 flex-shrink-0 flex items-center justify-center transition-colors ${
+                  isSelected ? "bg-indigo-500 border-indigo-400" : "border-gray-600"
+                }`}>
+                  {isSelected && <span className="text-white text-xs leading-none">✓</span>}
+                </div>
+                {filmInfo}
+              </button>
+            );
+          }
+
+          // Single mode — immediate pick (for replacing a specific comp row)
+          return (
+            <button
+              key={key}
+              onClick={() => { onPick([f]); onClose(); }}
+              className={`w-full text-left px-3 py-2.5 rounded-lg hover:bg-gray-800 transition-colors group flex items-center justify-between gap-3 ${isLargeBudget ? "opacity-60" : ""}`}
+            >
+              {filmInfo}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Footer */}
+      {mode === "multi" ? (
+        <div className="p-3 border-t border-gray-800 flex items-center justify-between gap-3">
+          <p className="text-xs text-gray-600">
+            {filtered.length} shown · {pending.size}/{maxNew} selected
+          </p>
+          <button
+            onClick={handleConfirm}
+            disabled={pending.size === 0}
+            className={`px-4 py-2 rounded-lg text-sm font-bold transition-colors ${
+              pending.size > 0
+                ? "bg-indigo-600 hover:bg-indigo-500 text-white"
+                : "bg-gray-800 text-gray-600 cursor-not-allowed"
+            }`}
+          >
+            {pending.size > 0 ? `Add ${pending.size} Comp${pending.size > 1 ? "s" : ""}` : "Select films above"}
+          </button>
+        </div>
+      ) : (
+        <div className="p-3 border-t border-gray-800 text-center">
+          <p className="text-xs text-gray-600">
+            {filtered.length} film{filtered.length !== 1 ? "s" : ""} shown · Multiplier = Domestic ÷ Budget
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
+// LOOKUP HELPER — shown when a custom title is typed
+// ─────────────────────────────────────────────
+
+function LookupHelper({ title }) {
+  if (!title || title.trim().length < 3) return null;
+  const q = encodeURIComponent(title.trim());
+  const inDB = getCompDB().some(
+    (f) => f.title.toLowerCase() === title.trim().toLowerCase()
+  );
+  if (inDB) return null; // already in our database, no need to prompt
+
+  return (
+    <div className="mt-2 flex items-start gap-2 bg-amber-950 border border-amber-900 rounded-lg px-3 py-2">
+      <span className="text-amber-400 text-sm shrink-0 mt-0.5">🔎</span>
+      <div className="flex-1 min-w-0">
+        <p className="text-xs text-amber-200 font-semibold leading-snug">
+          "{title}" isn't in our database — look up its box office numbers:
+        </p>
+        <div className="flex flex-wrap gap-2 mt-1.5">
+          <a
+            href={`https://www.the-numbers.com/search?searchterm=${q}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-xs bg-amber-900 hover:bg-amber-800 text-amber-200 px-2.5 py-1 rounded-md font-semibold transition-colors"
+          >
+            The Numbers ↗
+          </a>
+          <a
+            href={`https://www.boxofficemojo.com/search/?q=${q}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-xs bg-amber-900 hover:bg-amber-800 text-amber-200 px-2.5 py-1 rounded-md font-semibold transition-colors"
+          >
+            Box Office Mojo ↗
+          </a>
+          <a
+            href={`https://www.imdb.com/find/?q=${q}&s=tt&ttype=ft`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-xs bg-amber-900 hover:bg-amber-800 text-amber-200 px-2.5 py-1 rounded-md font-semibold transition-colors"
+          >
+            IMDb ↗
+          </a>
+        </div>
+        <p className="text-xs text-amber-600 mt-1.5">
+          Find the domestic gross &amp; budget, then enter them in the fields below.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
+// COMP FILM ENTRY ROW
+// ─────────────────────────────────────────────
+
+function CompFilmRow({ comp, index, onChange, onRemove, onOpenBrowser }) {
+  const m = multX(parseMillion(comp.domestic), parseMillion(comp.budget));
+
+  return (
+    <div className="bg-gray-800 border border-gray-700 rounded-xl p-4 mb-3 relative">
+      <div className="flex items-center justify-between mb-3">
+        <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">
+          Comp {index + 1}
+        </span>
+        <div className="flex gap-2">
+          <button
+            onClick={onOpenBrowser}
+            className="text-xs text-indigo-400 hover:text-indigo-300 border border-indigo-800 rounded px-2 py-1 transition-colors font-semibold"
+          >
+            🔍 Browse Films
+          </button>
+          <button
+            onClick={onRemove}
+            className="text-xs text-red-500 hover:text-red-400 border border-red-900 rounded px-2 py-1 transition-colors"
+          >
+            Remove
+          </button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
+        <div className="col-span-2 sm:col-span-2">
+          <label className="block text-xs text-gray-500 mb-1">Film Title</label>
+          <input
+            value={comp.title}
+            onChange={(e) => onChange(index, "title", e.target.value)}
+            placeholder="e.g. Sound of Freedom"
+            className="w-full bg-gray-900 border border-gray-700 text-white rounded px-3 py-1.5 text-sm focus:outline-none focus:border-indigo-500"
+          />
+          <LookupHelper title={comp.title} />
+        </div>
+        <div>
+          <label className="block text-xs text-gray-500 mb-1">Year</label>
+          <input
+            value={comp.year}
+            onChange={(e) => onChange(index, "year", e.target.value)}
+            placeholder="2023"
+            className="w-full bg-gray-900 border border-gray-700 text-white rounded px-3 py-1.5 text-sm focus:outline-none focus:border-indigo-500"
+          />
+        </div>
+        <div>
+          <label className="block text-xs text-gray-500 mb-1">Budget ($M)</label>
+          <input
+            value={comp.budget}
+            onChange={(e) => onChange(index, "budget", e.target.value)}
+            placeholder="14.5"
+            className="w-full bg-gray-900 border border-gray-700 text-white rounded px-3 py-1.5 text-sm focus:outline-none focus:border-indigo-500"
+          />
+        </div>
+        <div>
+          <label className="block text-xs text-gray-500 mb-1">Domestic ($M)</label>
+          <input
+            value={comp.domestic}
+            onChange={(e) => onChange(index, "domestic", e.target.value)}
+            placeholder="184.3"
+            className="w-full bg-gray-900 border border-gray-700 text-white rounded px-3 py-1.5 text-sm focus:outline-none focus:border-indigo-500"
+          />
+        </div>
+        <div>
+          <label className="block text-xs text-gray-500 mb-1">OW ($M) <span className="text-gray-600">opt</span></label>
+          <input
+            value={comp.owkd}
+            onChange={(e) => onChange(index, "owkd", e.target.value)}
+            placeholder="14.2"
+            className="w-full bg-gray-900 border border-gray-700 text-white rounded px-3 py-1.5 text-sm focus:outline-none focus:border-indigo-500"
+          />
+        </div>
+      </div>
+
+      {m !== null && (
+        <div className="mt-3 pt-2 border-t border-gray-700 flex flex-wrap gap-x-5 gap-y-1.5 text-xs">
+          <span className="text-gray-500">
+            Budget Multiplier:{" "}
+            <span className={`font-bold ${m >= 4 ? "text-emerald-400" : m >= 2 ? "text-yellow-400" : m >= 1 ? "text-orange-400" : "text-red-400"}`}>
+              {m.toFixed(2)}×
+            </span>
+            <span className="text-gray-600 ml-1">
+              ({m >= 5 ? "exceptional ROI" : m >= 3 ? "strong ROI" : m >= 1.5 ? "solid ROI" : "modest ROI"})
+            </span>
+          </span>
+          {comp.owkd && comp.domestic && parseFloat(comp.domestic) > 0 && parseFloat(comp.owkd) > 0 && (() => {
+            const legs = parseFloat(comp.domestic) / parseFloat(comp.owkd);
+            const legsLabel = legs >= 6 ? "exceptional legs" : legs >= 4 ? "strong legs" : legs >= 2.8 ? "good legs" : "typical/front-loaded";
+            const legsColor = legs >= 6 ? "text-emerald-400" : legs >= 4 ? "text-yellow-400" : legs >= 2.8 ? "text-blue-400" : "text-gray-400";
+            return (
+              <span className="text-gray-500">
+                Audience Legs:{" "}
+                <span className={`font-bold ${legsColor}`}>{legs.toFixed(1)}×</span>
+                <span className="text-gray-600 ml-1">({legsLabel})</span>
+              </span>
+            );
+          })()}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
+// MAIN APP
+// ─────────────────────────────────────────────
+
+const emptyComp = () => ({ title: "", year: "", budget: "", domestic: "", owkd: "" });
+
+// Comp DB inlined
+_compDB = COMP_DB_INLINE;
+
+function BoxOfficeProjector() {
+  return <BoxOfficeProjectorInner />;
+}
+
+function BoxOfficeProjectorInner() {
+  // Ensure the iframe/pane container scrolls properly
+  if (typeof document !== "undefined") {
+    document.documentElement.style.height = "auto";
+    document.documentElement.style.overflowY = "auto";
+    document.body.style.height = "auto";
+    document.body.style.overflowY = "auto";
+  }
+  const [genre, setGenre] = useState("");
+  const [budget, setBudget] = useState(0);
+  const [rating, setRating] = useState("");
+  const [selectedQuads, setSelectedQuads] = useState([]);
+  const [audienceMods, setAudienceMods] = useState([]);
+  const [starPower, setStarPower] = useState("");
+  const [ip, setIp] = useState("");
+  const [title, setTitle] = useState("");
+  const [comps, setComps] = useState([]);
+  const [result, setResult] = useState(null);
+  const [activeTab, setActiveTab] = useState("inputs");
+  const [browserOpen, setBrowserOpen] = useState(false);
+  const [disclaimerAccepted, setDisclaimerAccepted] = useState(false);
+  const [contentAttested, setContentAttested] = useState(false);
+
+
+  // ── comp state handlers ──
+  const openMultiBrowser = () => setBrowserOpen("multi");
+  const removeComp = (i) => setComps((c) => c.filter((_, idx) => idx !== i));
+  const updateComp = (i, field, val) =>
+    setComps((c) => c.map((row, idx) => (idx === i ? { ...row, [field]: val } : row)));
+
+  // Multi-select: append all chosen films as new comp rows (up to 6 total)
+  const pickMultiple = (films) =>
+    setComps((c) => {
+      const slots = 6 - c.length;
+      const toAdd = films.slice(0, slots).map((s) => ({
+        title: s.title, year: String(s.year), budget: String(s.budget),
+        domestic: String(s.domestic || ""), owkd: s.owkd ? String(s.owkd) : "",
+      }));
+      return [...c, ...toAdd];
+    });
+
+  // Single-select: replace a specific comp row
+  const pickSuggestion = (i, s) =>
+    setComps((c) =>
+      c.map((row, idx) =>
+        idx === i
+          ? { title: s.title, year: String(s.year), budget: String(s.budget), domestic: String(s.domestic || ""), owkd: s.owkd ? String(s.owkd) : "" }
+          : row
+      )
+    );
+
+
+  const toggleQuad = (id) => setSelectedQuads((prev) =>
+    prev.includes(id) ? prev.filter((q) => q !== id) : [...prev, id]
+  );
+  const toggleMod = (id) => setAudienceMods((prev) =>
+    prev.includes(id) ? prev.filter((m) => m !== id) : [...prev, id]
+  );
+
+  const canCalculate = genre && budget > 0 && rating && selectedQuads.length > 0 && starPower && ip;
+
+  // Valid comps = have both budget and domestic filled in
+  const validComps = comps.filter(
+    (c) => parseFloat(c.budget) > 0 && parseFloat(c.domestic) > 0
+  );
+
+  const calculate = useCallback(() => {
+    const g = GENRE_DATA[genre];
+    const r = RATING_DATA[rating];
+    const aMult = calcAudienceMult(selectedQuads, audienceMods);
+    const aLabel = audienceLabel(selectedQuads, audienceMods);
+    const aNote = selectedQuads.length === 4
+      ? "Maximum addressable audience"
+      : `${selectedQuads.length} quadrant${selectedQuads.length > 1 ? "s" : ""}${audienceMods.length > 0 ? " + community modifiers" : ""}`;
+    const s = STAR_POWER_DATA[starPower];
+    const ipD = IP_DATA[ip];
+    const mkt = ANGEL_DISTRIBUTION;
+
+    // ── Algorithmic projection ──
+    const algoMult = g.baseMult * r.mult * aMult * s.mult * ipD.mult * mkt.mult;
+    const algoMid = budget * algoMult;
+    const genreSpread = g.range[1] / g.baseMult;
+    const genreFloor = g.range[0] / g.baseMult;
+    const algoLow = algoMid * genreFloor * 0.92;
+    const algoHigh = algoMid * genreSpread * 0.88;
+
+    // ── Comp-based projection ──
+    let compMult = null;
+    let compMid = null;
+    let compLow = null;
+    let compHigh = null;
+    let compDetails = [];
+    let owkdRatioFromComps = null;
+
+    if (validComps.length > 0) {
+      const compMultipliers = validComps.map((c) => {
+        const dom = parseMillion(c.domestic);
+        const bud = parseMillion(c.budget);
+        return { title: c.title || "Untitled", mult: dom / bud, owkdRatio: c.owkd ? parseMillion(c.owkd) / dom : null };
+      });
+
+      // Average comp multiplier (median-weighted to reduce outlier influence)
+      const mults = compMultipliers.map((c) => c.mult).sort((a, b) => a - b);
+      const medianMult = mults.length % 2 === 0
+        ? (mults[mults.length / 2 - 1] + mults[mults.length / 2]) / 2
+        : mults[Math.floor(mults.length / 2)];
+      const meanMult = mults.reduce((a, b) => a + b, 0) / mults.length;
+      compMult = (medianMult + meanMult) / 2; // blend mean & median
+
+      // OW ratio from comps
+      const owkdRatios = compMultipliers.map((c) => c.owkdRatio).filter(Boolean);
+      if (owkdRatios.length > 0) {
+        owkdRatioFromComps = owkdRatios.reduce((a, b) => a + b, 0) / owkdRatios.length;
+      }
+
+      compMid = budget * compMult;
+      // Variance bounds from spread across comps
+      const minM = Math.min(...mults);
+      const maxM = Math.max(...mults);
+      compLow = budget * minM * 0.9;
+      compHigh = budget * maxM * 1.05;
+      compDetails = compMultipliers;
+    }
+
+    // ── Blended projection ──
+    // Weight comps more heavily as count increases; cap at 65% comp weight
+    const compWeight = validComps.length === 0 ? 0
+      : validComps.length === 1 ? 0.35
+      : validComps.length === 2 ? 0.50
+      : validComps.length >= 3 ? 0.60
+      : 0.65;
+    const algoWeight = 1 - compWeight;
+
+    const blendedMult = compMult !== null
+      ? algoWeight * algoMult + compWeight * compMult
+      : algoMult;
+
+    const mid = budget * blendedMult;
+    const low = compLow !== null
+      ? algoWeight * algoLow + compWeight * compLow
+      : algoLow;
+    const high = compHigh !== null
+      ? algoWeight * algoHigh + compWeight * compHigh
+      : algoHigh;
+
+    // ── Opening weekend ──
+    const baseOwkdRatio = genre === "Horror" ? 0.42 : genre === "Animated (Family)" ? 0.28 : 0.33;
+    const owkdRatio = owkdRatioFromComps
+      ? 0.5 * baseOwkdRatio + 0.5 * owkdRatioFromComps
+      : baseOwkdRatio;
+
+    const owkdMid = mid * owkdRatio;
+    const owkdLow = low * owkdRatio;
+    const owkdHigh = high * owkdRatio;
+
+    // ── WW estimate ──
+    // Angel's international distribution is limited — domestic typically represents
+    // 65–75% of worldwide gross vs. 38–48% for major studio releases.
+    const domShareOfWW = ["Action / Adventure", "Animated (Family)", "Superhero / Comic Book"].includes(genre)
+      ? 0.65 : 0.75;
+    const wwMid = mid / domShareOfWW;
+
+    // ── Financials ──
+    const pAndA = budget * (mkt.pAndARatio || 0.45);
+    const totalCost = budget + pAndA;
+    const studioShare = mid * 0.5;
+    const roiMid = ((studioShare - totalCost) / totalCost) * 100;
+
+    // ── Confidence ──
+    const multVariance = Math.abs(blendedMult - g.baseMult) / g.baseMult;
+    const confidence = validComps.length >= 3
+      ? "HIGH"
+      : validComps.length > 0
+      ? "MODERATE-HIGH"
+      : multVariance < 0.3 ? "MODERATE" : "LOW";
+
+    const factors = [
+      { label: `Genre: ${genre}`, mult: g.baseMult / 2.0, note: g.note },
+      { label: `Rating: ${rating}`, mult: r.mult, note: r.note },
+      { label: `Audience: ${aLabel}`, mult: aMult, note: aNote },
+      { label: `Star Power: ${starPower}`, mult: s.mult, note: s.note },
+      { label: `IP/Source: ${ip}`, mult: ipD.mult, note: ipD.note },
+    ];
+
+    setResult({
+      low, mid, high,
+      owkdLow, owkdMid, owkdHigh,
+      wwMid, roiMid,
+      algoMult, algoMid,
+      compMult, compMid,
+      blendedMult, compWeight, algoWeight,
+      compDetails,
+      confidence,
+      audienceLabel: aLabel,
+      pAndA, totalCost,
+      factors,
+      genreColor: g.color,
+      hasComps: validComps.length > 0,
+      compCount: validComps.length,
+    });
+    setActiveTab("results");
+  }, [genre, budget, rating, selectedQuads, audienceMods, starPower, ip, validComps, comps]);
+
+  return (
+    <div className="bg-gray-950 text-white font-sans" style={{height: "100vh", overflowY: "scroll"}}>
+      {/* ── Disclaimer Gate ── */}
+      {!disclaimerAccepted && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto" style={{background:"rgba(0,0,0,0.96)"}}>
+          <div className="bg-gray-900 border border-gray-700 rounded-2xl w-full max-w-lg shadow-2xl my-auto">
+
+            {/* Header */}
+            <div className="p-6 border-b border-gray-800">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-amber-400 text-xl">✦</span>
+                <span className="text-xs font-black uppercase tracking-widest text-amber-400">Angel Studios</span>
+              </div>
+              <h2 className="text-xl font-black text-white mt-2">Box Office Scenario Tool</h2>
+              <p className="text-sm text-gray-400 mt-1">For internal development and planning use only</p>
+            </div>
+
+            {/* Section 1 — Speculative disclaimer */}
+            <div className="px-6 pt-5 pb-4 border-b border-gray-800 space-y-3 text-sm text-gray-300">
+              <p className="text-xs font-black uppercase tracking-widest text-gray-500">1 of 2 — About this tool</p>
+              <p>
+                This tool generates <span className="text-white font-semibold">illustrative scenarios</span> based
+                on historical industry data and comparable film performance. It is intended to support
+                internal creative and financial conversations — not to predict, guarantee, or represent
+                any expected outcome.
+              </p>
+              <p>
+                The figures produced are <span className="text-white font-semibold">speculative estimates only</span>.
+                Actual performance is influenced by many factors outside any model's scope — including
+                audience reception, cultural timing, competition, critical response, and circumstances
+                that cannot be anticipated. <span className="text-white font-semibold">Angel Studios makes
+                no representation or promise</span> regarding the accuracy of these scenarios.
+              </p>
+              <p className="text-gray-500 text-xs border-t border-gray-800 pt-3">
+                <span className="text-gray-300 font-semibold">Data accuracy is your responsibility.</span>{" "}
+                Comparable film figures may contain errors or have been updated since this database was
+                compiled. Independently verify all comp data against primary sources — The Numbers,
+                Box Office Mojo, studio filings — before drawing any conclusions. Do not treat
+                pre-populated figures as authoritative. Not for external distribution or investment decisions.
+              </p>
+            </div>
+
+            {/* Section 2 — Angel Guild & content standards */}
+            <div className="px-6 pt-5 pb-4 space-y-3">
+              <p className="text-xs font-black uppercase tracking-widest text-gray-500">2 of 2 — The Angel Guild</p>
+
+              <div className="bg-gray-800 border border-gray-700 rounded-xl px-4 py-3.5 space-y-2">
+                <p className="text-sm text-gray-200 leading-relaxed">
+                  At Angel Studios, the audience helps decide which stories reach the world.
+                </p>
+                <p className="text-sm text-gray-400 leading-relaxed">
+                  Through the <span className="text-white font-semibold">Angel Guild</span>, members preview projects and
+                  vote on whether they amplify light and resonate with viewers.{" "}
+                  <span className="text-white font-semibold">Distribution with Angel is contingent upon
+                  the final cut passing the Angel Guild vote.</span>
+                </p>
+              </div>
+
+              <p className="text-xs text-gray-500 pt-1">
+                Before proceeding, confirm that the <span className="text-gray-300 font-semibold">final cut</span> of
+                this project will meet Angel's content standards. These are conditions of distribution, not
+                guidelines — the final cut must comply.
+              </p>
+
+              <button
+                onClick={() => setContentAttested((v) => !v)}
+                className={`w-full text-left flex items-start gap-3 px-4 py-3.5 rounded-xl border transition-all ${
+                  contentAttested
+                    ? "bg-amber-900 border-amber-600"
+                    : "bg-gray-800 border-gray-700 hover:border-amber-700"
+                }`}
+              >
+                <span className={`mt-0.5 text-lg shrink-0 ${contentAttested ? "text-amber-400" : "text-gray-600"}`}>
+                  {contentAttested ? "☑" : "☐"}
+                </span>
+                <div>
+                  <p className={`text-sm font-bold leading-snug ${contentAttested ? "text-amber-200" : "text-gray-300"}`}>
+                    I confirm the final cut of this project will amplify light and will not contain:
+                  </p>
+                  <div className="mt-2 space-y-1" style={{display:"grid", gridTemplateColumns:"1em 1fr 1em 1fr", columnGap:"0.35rem", rowGap:"0.25rem", alignItems:"start"}}>
+                    {[
+                      ["Nudity", "Sexual acts shown on screen"],
+                      ["Use of the word F**k", "Use of the Lord's name in vain"],
+                    ].map((pair) => (
+                      <>
+                        <span key={pair[0]+"-d1"} className={`text-xs ${contentAttested ? "text-amber-500" : "text-gray-700"}`}>—</span>
+                        <span key={pair[0]+"-t1"} className="text-xs text-gray-500">{pair[0]}</span>
+                        <span key={pair[0]+"-d2"} className={`text-xs ${contentAttested ? "text-amber-500" : "text-gray-700"}`}>—</span>
+                        <span key={pair[0]+"-t2"} className="text-xs text-gray-500">{pair[1]}</span>
+                      </>
+                    ))}
+                  </div>
+                </div>
+              </button>
+            </div>
+
+            {/* CTA */}
+            <div className="px-6 pb-6">
+              <button
+                onClick={() => { if (contentAttested) setDisclaimerAccepted(true); }}
+                disabled={!contentAttested}
+                className={`w-full py-3.5 rounded-xl font-black text-sm tracking-wide transition-all ${
+                  contentAttested
+                    ? "bg-amber-600 hover:bg-amber-500 text-white"
+                    : "bg-gray-800 text-gray-600 cursor-not-allowed"
+                }`}
+              >
+                {contentAttested ? "I Understand — Continue to Tool" : "Please confirm content standards above"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Header */}
+      <div className="border-b border-gray-800" style={{background:"#000000"}}>
+        <div className="max-w-4xl mx-auto px-6 py-8">
+          <div style={{marginBottom:"8px"}}><a href="/index.html" style={{fontSize:"11px",color:"#7B7979",textDecoration:"none",letterSpacing:"0.08em"}}>← Back to Revenue Tools</a></div>
+          <div className="flex items-start justify-between gap-4 flex-wrap">
+            <div>
+              <div className="flex items-center gap-3 mb-2">
+                <span className="text-3xl">🎬</span>
+                <h1 className="text-2xl font-black tracking-tight text-white">
+                  Domestic Box Office Projector
+                </h1>
+              </div>
+              <p className="text-gray-400 text-sm max-w-xl">
+                Illustrative scenario analysis using genre multipliers, star power, audience
+                segmentation, and comparable film performance — informed by{" "}
+                <span className="text-indigo-400">The Numbers</span> &{" "}
+                <span className="text-indigo-400">Box Office Mojo</span> (2015–2025).
+                Speculative estimates for internal planning purposes only.
+              </p>
+            </div>
+            <div className="shrink-0 flex flex-col gap-2 self-start">
+              <div className="flex items-center gap-2 rounded-xl px-4 py-2.5" style={{background:"#1a0f08",border:"1px solid #5a3020"}}>
+                <span style={{color:"#C48669",fontSize:"1.125rem"}}>✦</span>
+                <div>
+                  <p className="text-xs font-black uppercase tracking-widest" style={{color:"#C48669"}}>Angel Studios</p>
+                  <p className="text-xs text-amber-700 leading-tight">Distribution model applied</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 bg-gray-900 border border-gray-700 rounded-xl px-4 py-1.5">
+                <span className="text-xs font-black uppercase tracking-widest text-gray-400">⚗ Beta</span>
+                <span className="text-xs text-gray-600">· Internal use only</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-4xl mx-auto px-6 py-8">
+        {/* Tab Nav */}
+        <div className="flex gap-1 mb-8 border-b border-gray-800">
+          {[
+            { id: "inputs", label: "📋 Film Details" },
+            { id: "comps", label: `🎥 Comp Films ${comps.length > 0 ? `(${comps.length})` : ""}` },
+            { id: "results", label: "📊 Scenario Analysis" },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => {
+                if (tab.id === "results") {
+                  if (canCalculate) calculate();
+                  else setActiveTab("inputs");
+                } else {
+                  setActiveTab(tab.id);
+                }
+              }}
+              className={`px-5 py-2.5 text-sm font-semibold rounded-t-lg transition-all ${
+                activeTab === tab.id
+                  ? "bg-gray-800 text-white border-b-2 border-indigo-500"
+                  : "text-gray-500 hover:text-gray-300"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* ─── INPUTS TAB ─── */}
+        {activeTab === "inputs" && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10">
+            <div>
+              <div className="mb-5">
+                <label className="block text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1.5">
+                  Project Title (Optional)
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. Untitled Sci-Fi Thriller"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  className="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 transition-colors placeholder-gray-600"
+                />
+              </div>
+              <SelectField label="Genre" value={genre} onChange={setGenre}
+                options={Object.keys(GENRE_DATA)} hint={(v) => GENRE_DATA[v]?.note} />
+              {genre === "Horror" && (
+                <div className="flex gap-2 items-start -mt-3 mb-4 bg-orange-950 border border-orange-800 rounded-lg px-3 py-2.5 text-xs text-orange-300">
+                  <span className="shrink-0 mt-0.5">⚠</span>
+                  <p><span className="font-semibold text-orange-200">Note:</span> Angel Studios is unlikely to distribute Horror films. This genre is included for reference only. Confirm this selection is intentional before proceeding.</p>
+                </div>
+              )}
+              <SelectField label="MPAA Rating" value={rating} onChange={setRating}
+                options={Object.keys(RATING_DATA)} hint={(v) => RATING_DATA[v]?.note} />
+              {rating === "R" && (
+                <div className="flex gap-2 items-start -mt-3 mb-4 bg-orange-950 border border-orange-800 rounded-lg px-3 py-2.5 text-xs text-orange-300">
+                  <span className="shrink-0 mt-0.5">⚠</span>
+                  <p><span className="font-semibold text-orange-200">Note:</span> Angel Studios is unlikely to distribute R-rated films. An R rating is inconsistent with Angel's content standards and audience. Confirm this selection is intentional before proceeding.</p>
+                </div>
+              )}
+              <QuadrantSelector
+                selectedQuads={selectedQuads}
+                onToggleQuad={toggleQuad}
+                selectedMods={audienceMods}
+                onToggleMod={toggleMod}
+              />
+            </div>
+            <div>
+              <SelectField label="Star Power Level" value={starPower} onChange={setStarPower}
+                options={Object.keys(STAR_POWER_DATA)} hint={(v) => STAR_POWER_DATA[v]?.note} />
+              <SelectField label="IP / Source Material" value={ip} onChange={setIp}
+                options={Object.keys(IP_DATA)} hint={(v) => IP_DATA[v]?.note} />
+            </div>
+            <div className="col-span-1 md:col-span-2">
+              <BudgetSlider value={budget} onChange={setBudget} />
+            </div>
+            <div className="col-span-1 md:col-span-2 mt-2">
+              <div className="bg-indigo-950 border border-indigo-900 rounded-xl p-3 mb-4 flex items-center gap-3">
+                <span className="text-lg">💡</span>
+                <p className="text-xs text-indigo-300">
+                  Add comparable films in the <strong>Comp Films</strong> tab to anchor your scenario
+                  analysis with real performance data. Comps improve illustrative range accuracy.
+                </p>
+                <button
+                  onClick={() => setActiveTab("comps")}
+                  className="shrink-0 text-xs bg-indigo-700 hover:bg-indigo-600 px-3 py-1.5 rounded-lg font-semibold transition-colors"
+                >
+                  Add Comps →
+                </button>
+              </div>
+              <button
+                onClick={calculate}
+                disabled={!canCalculate}
+                className={`w-full py-4 rounded-xl font-black text-lg tracking-wide transition-all ${
+                  canCalculate
+                    ? "bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-900"
+                    : "bg-gray-800 text-gray-600 cursor-not-allowed"
+                }`}
+              >
+                {canCalculate ? `Run Scenario Analysis${validComps.length > 0 ? ` (${validComps.length} comp${validComps.length > 1 ? "s" : ""})` : ""} →` : "Complete All Fields Above"}
+              </button>
+              {!canCalculate && (
+                <p className="text-center text-xs text-gray-600 mt-2">
+                  {[!genre && "Genre", !budget && "Budget", !rating && "Rating",
+                    selectedQuads.length === 0 && "Audience", !starPower && "Star Power",
+                    !ip && "IP Type"]
+                    .filter(Boolean).join(" · ")} needed
+                </p>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* ─── COMP FILMS TAB ─── */}
+        {activeTab === "comps" && (
+          <div>
+            {/* Inline comp browser */}
+            {browserOpen !== false && (
+              <CompBrowser
+                selectedGenre={genre}
+                projectBudget={budget / 1_000_000}
+                mode={typeof browserOpen === "number" ? "single" : "multi"}
+                alreadyCount={comps.length}
+                onPick={(films) => {
+                  if (typeof browserOpen === "number") {
+                    // single mode — replace that specific row
+                    pickSuggestion(browserOpen, films[0]);
+                  } else {
+                    // multi mode — append all selected films
+                    pickMultiple(films);
+                  }
+                  setBrowserOpen(false);
+                }}
+                onClose={() => setBrowserOpen(false)}
+              />
+            )}
+            <div className="mb-6">
+              <h2 className="text-lg font-black text-white mb-1">Comparable Films</h2>
+              <p className="text-sm text-gray-400 max-w-2xl">
+                Browse our database of 100+ films and select multiple comps at once using the checkboxes.
+                Comps carry increasing weight in the blended scenario (35% → 60% as you add more).
+              </p>
+              {genre && (
+                <div className="mt-2 inline-flex items-center gap-2 bg-indigo-950 border border-indigo-900 rounded-lg px-3 py-1.5 text-xs text-indigo-300">
+                  <span>🎯</span>
+                  <span>
+                    Genre filter active: <strong>{genre}</strong> — browser will show matching comps first
+                  </span>
+                </div>
+              )}
+            </div>
+
+            {comps.length === 0 ? (
+              <button
+                onClick={openMultiBrowser}
+                className="w-full py-10 mb-4 rounded-xl border-2 border-dashed border-gray-700 hover:border-indigo-500 hover:bg-indigo-950 transition-all group"
+              >
+                <p className="text-3xl mb-2">🔍</p>
+                <p className="text-white font-bold text-base group-hover:text-indigo-300 transition-colors">Browse Comp Films</p>
+                <p className="text-sm text-gray-500 mt-1">Select multiple titles at once from 100+ films</p>
+                <p className="text-xs text-gray-600 mt-3">or enter a film manually after adding</p>
+              </button>
+            ) : (
+              <>
+                {comps.map((comp, i) => (
+                  <CompFilmRow
+                    key={i}
+                    comp={comp}
+                    index={i}
+                    onChange={updateComp}
+                    onRemove={() => removeComp(i)}
+                    onOpenBrowser={() => setBrowserOpen(i)}
+                  />
+                ))}
+                {comps.length < 6 && (
+                  <button
+                    onClick={openMultiBrowser}
+                    className="w-full py-3 rounded-xl border-2 border-dashed border-gray-700 text-gray-400 hover:border-indigo-500 hover:text-indigo-400 font-semibold text-sm transition-all mb-2"
+                  >
+                    + Add More Comps
+                  </button>
+                )}
+              </>
+            )}
+
+            {validComps.length > 0 && (() => {
+              const avgBudgetMult = validComps.reduce((acc, c) => acc + parseMillion(c.domestic) / parseMillion(c.budget), 0) / validComps.length;
+              const legsComps = validComps.filter(c => parseFloat(c.owkd) > 0 && parseFloat(c.domestic) > 0);
+              const avgLegs = legsComps.length > 0
+                ? legsComps.reduce((acc, c) => acc + parseFloat(c.domestic) / parseFloat(c.owkd), 0) / legsComps.length
+                : null;
+              const budgetLabel = avgBudgetMult >= 5 ? "Exceptional" : avgBudgetMult >= 3 ? "Strong" : avgBudgetMult >= 1.5 ? "Solid" : "Modest";
+              const budgetColor = avgBudgetMult >= 5 ? "text-emerald-400" : avgBudgetMult >= 3 ? "text-yellow-400" : avgBudgetMult >= 1.5 ? "text-orange-400" : "text-red-400";
+              const legsLabel = avgLegs === null ? null : avgLegs >= 6 ? "Exceptional" : avgLegs >= 4 ? "Strong" : avgLegs >= 2.8 ? "Good" : "Front-loaded";
+              const legsColor = avgLegs === null ? null : avgLegs >= 6 ? "text-emerald-400" : avgLegs >= 4 ? "text-yellow-400" : avgLegs >= 2.8 ? "text-blue-400" : "text-gray-400";
+              return (
+                <div className="bg-gray-900 border border-gray-700 rounded-xl p-4 mb-6">
+                  <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1">Comp Summary</p>
+                  <p className="text-xs text-gray-600 mb-3">{validComps.length} film{validComps.length > 1 ? "s" : ""} · Comp weight in model: {validComps.length === 1 ? "35%" : validComps.length === 2 ? "50%" : "60%"}</p>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="bg-gray-800 rounded-lg p-3">
+                      <p className="text-gray-500 text-xs uppercase mb-1">Financial Efficiency</p>
+                      <p className="text-xs text-gray-600 mb-1.5">Avg domestic ÷ production budget</p>
+                      <p className={`font-black text-xl ${budgetColor}`}>{avgBudgetMult.toFixed(2)}×</p>
+                      <p className={`text-xs font-semibold mt-0.5 ${budgetColor}`}>{budgetLabel} ROI signal</p>
+                    </div>
+                    <div className="bg-gray-800 rounded-lg p-3">
+                      <p className="text-gray-500 text-xs uppercase mb-1">Audience Legs</p>
+                      <p className="text-xs text-gray-600 mb-1.5">Avg total domestic ÷ opening weekend</p>
+                      {avgLegs !== null ? (
+                        <>
+                          <p className={`font-black text-xl ${legsColor}`}>{avgLegs.toFixed(1)}×</p>
+                          <p className={`text-xs font-semibold mt-0.5 ${legsColor}`}>{legsLabel} word-of-mouth</p>
+                        </>
+                      ) : (
+                        <p className="text-gray-600 text-xs italic mt-2">Add opening weekend data to comps to see legs</p>
+                      )}
+                    </div>
+                  </div>
+                  <p className="text-xs text-gray-600 mt-3 leading-relaxed">
+                    <span className="text-gray-500 font-semibold">Audience Legs</span> is the primary resonance signal — it shows whether audiences who saw the film went back and told others. Typical studio releases run 2–2.5×; community-driven films often exceed 4–6×.{" "}
+                    <span className="text-gray-500 font-semibold">Financial Efficiency</span> is most meaningful when comp budgets are comparable to your project.
+                  </p>
+                </div>
+              );
+            })()}
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => setActiveTab("inputs")}
+                className="flex-1 py-3 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-300 font-semibold text-sm transition-all"
+              >
+                ← Film Details
+              </button>
+              <button
+                onClick={calculate}
+                disabled={!canCalculate}
+                className={`flex-1 py-3 rounded-xl font-bold text-sm transition-all ${
+                  canCalculate
+                    ? "bg-indigo-600 hover:bg-indigo-500 text-white"
+                    : "bg-gray-800 text-gray-600 cursor-not-allowed"
+                }`}
+              >
+                {canCalculate ? "Run Scenario Analysis →" : "Fill Film Details First"}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ─── RESULTS TAB ─── */}
+        {activeTab === "results" && result && (
+          <div>
+            {/* Header */}
+            <div className="mb-6 flex items-center justify-between">
+              <div>
+                <h2 className="text-xl font-black text-white">{title || "Untitled Project"}</h2>
+                <p className="text-sm text-gray-400 mt-1">
+                  {genre} · {rating} · {result.audienceLabel}
+                  {result.hasComps && (
+                    <span className="ml-2 text-indigo-400 text-xs font-semibold">
+                      + {result.compCount} comp{result.compCount > 1 ? "s" : ""}
+                    </span>
+                  )}
+                </p>
+              </div>
+              <div
+                className="px-3 py-1 rounded-full text-xs font-bold"
+                style={{
+                  backgroundColor: result.genreColor + "22",
+                  color: result.genreColor,
+                  border: `1px solid ${result.genreColor}44`,
+                }}
+              >
+{result.confidence} MODEL ALIGNMENT
+              </div>
+            </div>
+
+            {/* Blending callout */}
+            {result.hasComps && (
+              <div className="bg-emerald-950 border border-emerald-900 rounded-xl p-3 mb-6 flex items-center gap-3">
+                <span className="text-lg">🔗</span>
+                <p className="text-xs text-emerald-300">
+                  Scenario blends <strong>{(result.algoWeight * 100).toFixed(0)}% algorithmic model</strong> with{" "}
+                  <strong>{(result.compWeight * 100).toFixed(0)}% comp-derived data</strong> ({result.compCount} film{result.compCount > 1 ? "s" : ""}).
+                  Comp multiplier: <strong>{result.compMult.toFixed(2)}×</strong> · algo: <strong>{result.algoMult.toFixed(2)}×</strong> · blended: <strong>{result.blendedMult.toFixed(2)}×</strong>
+                </p>
+              </div>
+            )}
+
+            {/* Big numbers — click any to run waterfall */}
+            <p className="text-xs text-center text-gray-500 mb-2 tracking-wide">
+              Click a scenario to continue to the 10-Year Waterfall Analysis →
+            </p>
+            <div className="grid grid-cols-3 gap-4 mb-8">
+              {[
+                { label: "Downside", sub: "conservative scenario", val: result.low, color: "#ef4444" },
+                { label: "Base Case", sub: "illustrative midpoint", val: result.mid, color: "#6366f1" },
+                { label: "Upside", sub: "optimistic scenario", val: result.high, color: "#10b981" },
+              ].map((s) => (
+                <button key={s.label}
+                  onClick={() => {
+                    localStorage.setItem("dboReturn", JSON.stringify({ dbo: s.val, scenario: s.label, mode: "theatrical", title: title || "" }));
+                    window.location.href = "/waterfall.html";
+                  }}
+                  className="bg-gray-900 border rounded-xl p-4 text-center w-full cursor-pointer transition-all hover:opacity-80 hover:scale-[1.02]"
+                  style={{ borderColor: s.color + "66" }}
+                >
+                  <p className="text-xs uppercase tracking-widest font-semibold mb-0.5" style={{ color: s.color }}>
+                    {s.label}
+                  </p>
+                  <p className="text-xs text-gray-600 mb-1">{s.sub}</p>
+                  <p className="text-2xl font-black text-white">{fmt(s.val)}</p>
+                  <p className="text-xs mt-2 font-semibold" style={{ color: s.color }}>→ Run Waterfall</p>
+                </button>
+              ))}
+            </div>
+
+            {/* Key metrics */}
+            <div className="bg-gray-900 rounded-xl border border-gray-800 p-5 mb-6">
+              <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Key Metrics</h3>
+              <ResultMeter label="Opening Weekend (Mid)" value={result.owkdMid} color="#6366f1" maxVal={result.high * 1.1} />
+              <ResultMeter label="Opening Weekend (High)" value={result.owkdHigh} color="#10b981" maxVal={result.high * 1.1} />
+              <ResultMeter label="Estimated WW Gross (Mid)" value={result.wwMid} color="#f59e0b" maxVal={result.wwMid * 1.4} />
+              <div className="mt-4 pt-4 border-t border-gray-800 grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Est. P&A Spend</p>
+                  <p className="font-bold text-white">{fmt(result.pAndA)}</p>
+                </div>
+                <div>
+                  <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">All-In Cost</p>
+                  <p className="font-bold text-white">{fmt(result.totalCost)}</p>
+                </div>
+                <div>
+                  <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Studio Net Share</p>
+                  <p className="font-bold text-white">{fmt(result.mid * 0.5)}</p>
+                  <p className="text-gray-600 text-xs">~50% of domestic gross</p>
+                </div>
+                <div>
+                  <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Theatrical ROI (Mid)</p>
+                  <p className={`font-bold text-lg ${result.roiMid >= 0 ? "text-emerald-400" : "text-orange-400"}`}>
+                    {pct(result.roiMid)}
+                  </p>
+                  <p className="text-gray-600 text-xs">Domestic theatrical only — excludes SVOD, Guild & international</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Angel Distribution Context */}
+            {(() => {
+              const prodBudgetM = budget / 1_000_000;
+              const allInM = prodBudgetM * 1.35;
+              const netDomesticMid = (result.mid / 1_000_000) * 0.52;
+              const theatricalRecovery = netDomesticMid / allInM;
+              const breakEvenDomestic = allInM / 0.52;
+
+              // Find closest Angel historical films by budget proximity
+              const sorted = [...ANGEL_HISTORICAL].sort((a, b) =>
+                Math.abs(a.budget - prodBudgetM) - Math.abs(b.budget - prodBudgetM)
+              );
+              const closest = sorted.slice(0, 3);
+
+              const recoveryColor = theatricalRecovery >= 1.0 ? "text-emerald-400"
+                : theatricalRecovery >= 0.6 ? "text-yellow-400"
+                : "text-orange-400";
+              const recoveryLabel = theatricalRecovery >= 1.0 ? "Theatrically self-sustaining"
+                : theatricalRecovery >= 0.6 ? "Strong multi-window candidate"
+                : "Multi-window model essential";
+
+              return (
+                <div className="bg-gray-900 rounded-xl border border-indigo-900 p-5 mb-6">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-amber-400">✦</span>
+                    <h3 className="text-xs font-bold uppercase tracking-widest text-amber-400">Angel Distribution Context</h3>
+                  </div>
+                  <p className="text-xs text-gray-500 mb-4">
+                    Benchmarked against Angel's theatrical release history. Domestic theatrical is one window in Angel's multi-revenue model — Guild memberships, SVOD, and international continue generating returns well beyond the theatrical run.
+                  </p>
+
+                  {/* Theatrical Recovery */}
+                  <div className="grid grid-cols-2 gap-3 mb-4">
+                    <div className="bg-gray-800 rounded-lg p-3">
+                      <p className="text-gray-500 text-xs uppercase mb-1">All-In Cost (Production + P&A)</p>
+                      <p className="font-black text-white text-lg">${allInM.toFixed(1)}M</p>
+                      <p className="text-gray-600 text-xs">${prodBudgetM.toFixed(1)}M production + ${(prodBudgetM * 0.35).toFixed(1)}M P&A</p>
+                    </div>
+                    <div className="bg-gray-800 rounded-lg p-3">
+                      <p className="text-gray-500 text-xs uppercase mb-1">Theatrical Recovery (Base Case)</p>
+                      <p className={`font-black text-lg ${recoveryColor}`}>{Math.round(theatricalRecovery * 100)}%</p>
+                      <p className={`text-xs font-semibold ${recoveryColor}`}>{recoveryLabel}</p>
+                    </div>
+                  </div>
+
+                  {theatricalRecovery < 1.0 && (
+                    <div className="bg-indigo-950 border border-indigo-800 rounded-lg px-3 py-2.5 mb-4 text-xs text-indigo-200 leading-relaxed">
+                      <span className="font-bold text-indigo-100">Break-even domestic threshold: ${breakEvenDomestic.toFixed(1)}M.</span>{" "}
+                      Films below this threshold on domestic theatrical have still found full profitability through Angel's SVOD platform, Angel Guild membership engagement, and international distribution partnerships — a model unique to Angel's community-first approach.
+                    </div>
+                  )}
+
+                  {/* Closest Angel comps */}
+                  <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Closest Angel Releases by Budget</p>
+                  <div className="space-y-2">
+                    {closest.map((f) => {
+                      const fAllIn = f.budget * 1.35;
+                      const fNetDom = f.domestic * 0.52;
+                      const fRecovery = fNetDom / fAllIn;
+                      const fLegs = f.domestic / f.owkd;
+                      const fRecoveryColor = fRecovery >= 1.0 ? "text-emerald-400" : fRecovery >= 0.6 ? "text-yellow-400" : "text-orange-400";
+                      return (
+                        <div key={f.title} className="bg-gray-800 rounded-lg px-3 py-2.5 flex items-center justify-between gap-3 flex-wrap">
+                          <div>
+                            <span className="text-sm font-semibold text-white">{f.title}</span>
+                            <span className="text-xs text-gray-500 ml-2">{f.year} · ${f.budget}M budget</span>
+                          </div>
+                          <div className="flex gap-4 text-xs">
+                            <span className="text-gray-500">Domestic: <span className="text-white font-bold">${f.domestic}M</span></span>
+                            <span className="text-gray-500">Legs: <span className={`font-bold ${fLegs >= 5 ? "text-emerald-400" : fLegs >= 3 ? "text-yellow-400" : "text-gray-300"}`}>{fLegs.toFixed(1)}×</span></span>
+                            <span className="text-gray-500">Theatrical recovery: <span className={`font-bold ${fRecoveryColor}`}>{Math.round(fRecovery * 100)}%</span></span>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <p className="text-xs text-gray-600 mt-3">
+                    Angel has successfully released films across a wide range of theatrical recovery profiles. The community model and owned distribution platform create a long-tail revenue opportunity that traditional P&L analysis does not fully capture.
+                  </p>
+                </div>
+              );
+            })()}
+
+            {/* Comp detail table */}
+            {result.hasComps && result.compDetails.length > 0 && (
+              <div className="bg-gray-900 rounded-xl border border-gray-800 p-5 mb-6">
+                <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">
+                  Comp Film Analysis
+                </h3>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-gray-800">
+                        <th className="text-left text-xs text-gray-500 uppercase pb-2 pr-4">Film</th>
+                        <th className="text-right text-xs text-gray-500 uppercase pb-2 pr-4">Budget Mult</th>
+                        <th className="text-right text-xs text-gray-500 uppercase pb-2 pr-4">
+                          Implied Gross<br/>
+                          <span className="text-gray-600 font-normal normal-case">at your budget</span>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {result.compDetails.map((c, i) => (
+                        <tr key={i} className="border-b border-gray-800">
+                          <td className="py-2 pr-4 text-white font-medium">{c.title}</td>
+                          <td className={`py-2 pr-4 text-right font-bold ${c.mult >= 2 ? "text-emerald-400" : c.mult >= 1 ? "text-yellow-400" : "text-red-400"}`}>
+                            {c.mult.toFixed(2)}×
+                          </td>
+                          <td className="py-2 text-right text-gray-300 font-semibold">
+                            {fmt(budget * c.mult)}
+                          </td>
+                        </tr>
+                      ))}
+                      <tr className="border-t-2 border-indigo-800">
+                        <td className="pt-3 text-indigo-300 font-bold text-xs uppercase tracking-wider">Blended Base Case</td>
+                        <td className="pt-3 text-right text-indigo-300 font-bold">{result.blendedMult.toFixed(2)}×</td>
+                        <td className="pt-3 text-right text-white font-black">{fmt(result.mid)}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {/* Factor breakdown */}
+            <div className="bg-gray-900 rounded-xl border border-gray-800 p-5 mb-6">
+              <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">
+                Algorithmic Factor Breakdown
+              </h3>
+              {result.factors.map((f) => (
+                <FactorRow key={f.label} {...f} />
+              ))}
+              <div className="flex justify-between items-center pt-3 mt-2">
+                <span className="text-sm font-bold text-white">Algorithmic Multiplier</span>
+                <span className="text-indigo-400 font-black text-lg">{result.algoMult.toFixed(2)}×</span>
+              </div>
+            </div>
+
+            {/* OW bar chart */}
+            <div className="bg-gray-900 rounded-xl border border-gray-800 p-5 mb-6">
+              <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">Opening Weekend Range</h3>
+              <div className="flex items-end justify-between gap-2">
+                {[
+                  { label: "Low", val: result.owkdLow, color: "#ef4444" },
+                  { label: "Mid", val: result.owkdMid, color: "#6366f1" },
+                  { label: "High", val: result.owkdHigh, color: "#10b981" },
+                ].map((s) => {
+                  const h = Math.max(20, (s.val / result.owkdHigh) * 100);
+                  return (
+                    <div key={s.label} className="flex-1 text-center">
+                      <p className="text-sm font-bold mb-2" style={{ color: s.color }}>{fmt(s.val)}</p>
+                      <div className="mx-auto w-10 rounded-t-md"
+                        style={{ height: `${h}px`, backgroundColor: s.color + "33", border: `1px solid ${s.color}` }}
+                      />
+                      <p className="text-xs text-gray-500 mt-1">{s.label}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Methodology */}
+            <div className="bg-indigo-950 border border-indigo-900 rounded-xl p-4 text-xs text-indigo-300 mb-4">
+              <p className="font-bold mb-1 text-indigo-200">📐 How this scenario was built</p>
+              <p>
+                Built for Angel Studios internal slate evaluation. Scenarios combine a genre-specific
+                algorithmic model (calibrated against 2015–2025 domestic theatrical data from
+                The Numbers and Box Office Mojo) with user-supplied comparable film data. Angel's
+                community-activation model is applied with a neutral multiplier — audience alignment
+                effects are captured through genre and quadrant selection. P&A estimated at 35% of
+                production budget. When comps are provided, the model blends the algorithmic
+                multiplier with a comp-derived median/mean — comp weight increases with the number
+                of valid comps (35% at 1 comp, 50% at 2, 60% at 3+). Domestic theatrical only.
+              </p>
+            </div>
+            <div className="bg-red-950 border border-red-900 rounded-xl p-4 text-xs text-red-300 mb-6 space-y-2">
+              <p className="font-bold text-red-200">⚠ Important Notice</p>
+              <p>
+                All figures shown are <strong>speculative illustrative estimates only</strong> generated
+                for internal planning conversations. They do not represent predictions, forecasts,
+                or guarantees of any kind. Actual box office performance may differ materially.
+                Angel Studios makes no representation or warranty regarding these figures.
+                Not for external distribution or use in investment decisions.
+              </p>
+              <p className="text-red-400 border-t border-red-900 pt-2">
+                <strong className="text-red-300">Verify your inputs.</strong> Scenario outputs are
+                only as reliable as the data entered. Comparable film figures — budgets, domestic
+                grosses, opening weekends — should be independently cross-checked against primary
+                sources such as{" "}
+                <span className="text-red-200">The Numbers</span>,{" "}
+                <span className="text-red-200">Box Office Mojo</span>, or studio filings
+                before drawing any conclusions. Errors in comp data will skew results.
+                Always apply your own judgment and due diligence.
+              </p>
+            </div>
+
+            <button
+              onClick={() => setActiveTab("inputs")}
+              className="w-full py-3 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-300 font-semibold text-sm transition-all"
+            >
+              ← Adjust Inputs
+            </button>
+          </div>
+        )}
+
+        {activeTab === "results" && !result && (
+          <div className="text-center py-20 text-gray-600">
+            <p className="text-5xl mb-4">🎥</p>
+            <p className="text-lg font-semibold">No scenario yet</p>
+            <p className="text-sm mt-2">Fill in Film Details, optionally add Comp Films, then run your scenario analysis.</p>
+            <button
+              onClick={() => setActiveTab("inputs")}
+              className="mt-6 px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm transition-all"
+            >
+              Go to Film Details →
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(React.createElement(BoxOfficeProjector));
+</script>
+</body>
+</html>
