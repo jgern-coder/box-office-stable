@@ -447,39 +447,31 @@ function calcAll(p){
   const ptFilm_angel = Math.max(0, ptAfterPnA_angel) - ptDistShare_angel;
 
   // ── ANGEL SVOD ── use guild scenario override if provided, else compute from inputs
-  let str=0;
-  let svodY1=0,svodY2=0,svodY3=0,svodY410=0;
+  let str=0,svodY1=0,svodY2=0,svodY3=0,svodY410=0;
   if(typeof guildOverride==='number'&&guildOverride>0){
-    // Use the 10-year total from the selected Guild Payouts Calculator scenario
     str=guildOverride;
-    // Approximate year split for display (roughly 30/20/15/35 distribution)
     svodY1=guildOverride*0.30;
     svodY2=guildOverride*0.20;
     svodY3=guildOverride*0.15;
     svodY410=guildOverride*0.35;
   } else {
-  // ── ANGEL SVOD fallback ── (original formula)
-  const _v0=vPct/100,_vf1=vF1/100,_vf2=vF2/100,_vd=vDec/100;
-  let mbr=gMbr,str=0;
-  let svodY1=0,svodY2=0,svodY3=0,svodY410=0;
-  const termMos=termQtrs*3;
-  for(let m=1;m<=120;m++){
-    if(m>1){
-      const adj=Math.pow(1+aAdj/100,Math.floor((m-2)/12));
-      mbr=Math.min(mbr+mbr*gRate/100*adj*(1-mbr/mCeil),mCeil);
+    const _v0=vPct/100,_vf1=vF1/100,_vf2=vF2/100,_vd=vDec/100;
+    let mbr=gMbr;
+    const termMos=termQtrs*3;
+    for(let m=1;m<=120;m++){
+      if(m>1){const adj=Math.pow(1+aAdj/100,Math.floor((m-2)/12));mbr=Math.min(mbr+mbr*gRate/100*adj*(1-mbr/mCeil),mCeil);}
+      if(m>termMos){continue;}
+      let cv;
+      if(m<=2)cv=_v0;
+      else if(m<=60)cv=Math.max(_vf1,(_v0-_vf1)*Math.pow(1-_vd,m-2)+_vf1);
+      else{const v60=Math.max(_vf1,(_v0-_vf1)*Math.pow(1-_vd,58)+_vf1);cv=Math.max(_vf2,(v60-_vf2)*Math.pow(1-_vd,m-60)+_vf2);}
+      const base=mbr*1.75*cv;
+      const termVal=m<=eQtrs*3?2:1;
+      const mo=base*termVal;
+      str+=mo;
+      if(m<=12)svodY1+=mo;else if(m<=24)svodY2+=mo;else if(m<=36)svodY3+=mo;else svodY410+=mo;
     }
-    if(m>termMos){continue;} // blank months beyond term
-    let cv;
-    if(m<=2)cv=_v0;
-    else if(m<=60)cv=Math.max(_vf1,(_v0-_vf1)*Math.pow(1-_vd,m-2)+_vf1);
-    else{const v60=Math.max(_vf1,(_v0-_vf1)*Math.pow(1-_vd,58)+_vf1);cv=Math.max(_vf2,(v60-_vf2)*Math.pow(1-_vd,m-60)+_vf2);}
-    const base=mbr*1.75*cv;
-    const termVal=m<=eQtrs*3?2:1;
-    const mo=base*termVal;
-    str+=mo;
-    if(m<=12)svodY1+=mo;else if(m<=24)svodY2+=mo;else if(m<=36)svodY3+=mo;else svodY410+=mo;
   }
-  } // end else (fallback SVOD)
 
   // P&A carry into SVOD: any P&A still unrecouped after post-theatrical comes out of SVOD
   // Sheet row 78: =IF(ptNet >= pnaUnrecouped, 0, pnaUnrecouped - ptNet)
