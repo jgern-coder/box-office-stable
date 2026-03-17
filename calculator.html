@@ -390,7 +390,49 @@ function setSeg(dim,val,el){
   el.classList.add('active-'+val);
   document.getElementById('hint-'+dim).textContent=HINTS[dim][val];
   document.getElementById('cr-'+dim).style.display=val==='custom'?'flex':'none';
-  activeSlot=null;renderSlots();update();
+  activeSlot=null;// ── WATERFALL BRIDGE ──
+const _wfReturn = (()=>{try{return localStorage.getItem('waterfallReturn')==='1';}catch(e){return false;}})();
+if(_wfReturn){
+  // Show a persistent return banner at top of page
+  const banner=document.createElement('div');
+  banner.id='wf-return-banner';
+  banner.style.cssText='position:sticky;top:0;z-index:100;background:#0a1f1a;border-bottom:2px solid #03A67B;padding:10px 48px;display:flex;align-items:center;justify-content:space-between;gap:16px;';
+  banner.innerHTML=`
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span style="font-size:16px;">←</span>
+      <div>
+        <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#03A67B;font-weight:700;">Full Theatrical Model</div>
+        <div style="font-size:12px;color:#7B7979;margin-top:1px;">Save your scenarios below, then return to the waterfall to complete your analysis.</div>
+      </div>
+    </div>
+    <button id="wf-return-btn" onclick="returnToWaterfall()" style="background:#03A67B;color:#000;border:none;border-radius:8px;padding:9px 20px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font);letter-spacing:.04em;white-space:nowrap;">Return to Waterfall →</button>
+  `;
+  document.body.insertBefore(banner, document.body.firstChild);
+}
+
+function returnToWaterfall(){
+  if(saved.length===0){
+    alert('Please save at least one scenario before returning to the waterfall.');
+    return;
+  }
+  try{
+    // Write scenarios to localStorage for waterfall to read
+    const exportData = saved.map(s=>({
+      name: s.name || ('Scenario '+(s.idx+1)),
+      members: s.members,
+      label: scenarioLabel(s.state, s.customVals||{}),
+      y1: s.summary.y1,
+      y2: s.summary.y2,
+      y3: s.summary.y3,
+      y10: s.summary.y10,
+    }));
+    localStorage.setItem('guildScenariosForWaterfall', JSON.stringify(exportData));
+    localStorage.removeItem('waterfallReturn');
+    window.location.href='/waterfall.html';
+  }catch(e){alert('Unable to save scenarios. Please try again.');}
+}
+
+renderSlots();update();
 }
 
 function getDecay(){
@@ -781,6 +823,48 @@ function buildPrintReport(){
     <div class="pr-disclaimer">All projections are illustrative estimates only and are provided for informational purposes. Actual Guild streaming earnings depend on platform performance, total membership, viewership share, content mix, and other variable factors. Angel Studios makes no representation or warranty regarding these projections. Actual results may differ materially. This model is the confidential property of Angel Studios. No proprietary or non-public financial information of Angel Studios is disclosed in this model.</div>
   `;
 }
+// ── WATERFALL BRIDGE ──
+const _wfReturn = (()=>{try{return localStorage.getItem('waterfallReturn')==='1';}catch(e){return false;}})();
+if(_wfReturn){
+  // Show a persistent return banner at top of page
+  const banner=document.createElement('div');
+  banner.id='wf-return-banner';
+  banner.style.cssText='position:sticky;top:0;z-index:100;background:#0a1f1a;border-bottom:2px solid #03A67B;padding:10px 48px;display:flex;align-items:center;justify-content:space-between;gap:16px;';
+  banner.innerHTML=`
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span style="font-size:16px;">←</span>
+      <div>
+        <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#03A67B;font-weight:700;">Full Theatrical Model</div>
+        <div style="font-size:12px;color:#7B7979;margin-top:1px;">Save your scenarios below, then return to the waterfall to complete your analysis.</div>
+      </div>
+    </div>
+    <button id="wf-return-btn" onclick="returnToWaterfall()" style="background:#03A67B;color:#000;border:none;border-radius:8px;padding:9px 20px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font);letter-spacing:.04em;white-space:nowrap;">Return to Waterfall →</button>
+  `;
+  document.body.insertBefore(banner, document.body.firstChild);
+}
+
+function returnToWaterfall(){
+  if(saved.length===0){
+    alert('Please save at least one scenario before returning to the waterfall.');
+    return;
+  }
+  try{
+    // Write scenarios to localStorage for waterfall to read
+    const exportData = saved.map(s=>({
+      name: s.name || ('Scenario '+(s.idx+1)),
+      members: s.members,
+      label: scenarioLabel(s.state, s.customVals||{}),
+      y1: s.summary.y1,
+      y2: s.summary.y2,
+      y3: s.summary.y3,
+      y10: s.summary.y10,
+    }));
+    localStorage.setItem('guildScenariosForWaterfall', JSON.stringify(exportData));
+    localStorage.removeItem('waterfallReturn');
+    window.location.href='/waterfall.html';
+  }catch(e){alert('Unable to save scenarios. Please try again.');}
+}
+
 renderSlots();update();
 </script>
 </body>

@@ -323,7 +323,7 @@ function InfoBtn({text,small}){
   );
 }
 
-const SECTIONS=["Project Basics","Distributor Terms","Post-Theatrical","Angel Guild","SVOD Schedule","Results"];
+const SECTIONS=["Project Basics","Distributor Terms","Post-Theatrical","Angel Guild","Results"];
 
 function Expandable({title,icon,children,defaultOpen,forceOpen}){
   const [open,setOpen]=useState(!!defaultOpen);
@@ -343,7 +343,7 @@ function calcAll(p){
     pI,pP,pD,pM, tI,tP,tD,tM, t2I,t2P,t2D,t2M,
     pkI,pkR,pkD,pkO, p1I,p1D,p1M, p2I,p2D,p2S,
     aI,aP,aD,aDl, fI,fD,fDl, nI,nD,nDl, iI,iD,iDl,
-    vPct,gMbr,gRate,aAdj,mCeil,termQtrs,eQtrs,vDec,vF1,vF2,budget}=p;
+    vPct,gMbr,gRate,aAdj,mCeil,termQtrs,eQtrs,vDec,vF1,vF2,budget,guildOverride=null}=p;
 
   // ── THEATRICAL ──
   const tax_rate=0.05, exhib_rate=0.55;
@@ -446,7 +446,19 @@ function calcAll(p){
   const ptFilm_other = Math.max(0, ptAfterPnA_other) - ptDistShare_other;
   const ptFilm_angel = Math.max(0, ptAfterPnA_angel) - ptDistShare_angel;
 
-  // ── ANGEL SVOD ── (exact Back End sheet formulas)
+  // ── ANGEL SVOD ── use guild scenario override if provided, else compute from inputs
+  let str=0;
+  let svodY1=0,svodY2=0,svodY3=0,svodY410=0;
+  if(typeof guildOverride==='number'&&guildOverride>0){
+    // Use the 10-year total from the selected Guild Payouts Calculator scenario
+    str=guildOverride;
+    // Approximate year split for display (roughly 30/20/15/35 distribution)
+    svodY1=guildOverride*0.30;
+    svodY2=guildOverride*0.20;
+    svodY3=guildOverride*0.15;
+    svodY410=guildOverride*0.35;
+  } else {
+  // ── ANGEL SVOD fallback ── (original formula)
   const _v0=vPct/100,_vf1=vF1/100,_vf2=vF2/100,_vd=vDec/100;
   let mbr=gMbr,str=0;
   let svodY1=0,svodY2=0,svodY3=0,svodY410=0;
@@ -467,6 +479,7 @@ function calcAll(p){
     str+=mo;
     if(m<=12)svodY1+=mo;else if(m<=24)svodY2+=mo;else if(m<=36)svodY3+=mo;else svodY410+=mo;
   }
+  } // end else (fallback SVOD)
 
   // P&A carry into SVOD: any P&A still unrecouped after post-theatrical comes out of SVOD
   // Sheet row 78: =IF(ptNet >= pnaUnrecouped, 0, pnaUnrecouped - ptNet)
@@ -946,16 +959,7 @@ function ResultsSection({r,c,title,budget,gDBO,gIBO,pna,screens,revShare,mg,vPct
     ),
 
     // ── EXPANDABLE: Guild Membership Milestones ──
-    e(Expandable,{title:'Angel Guild Membership Growth Milestones',icon:'📈',forceOpen:printMode},
-      e('p',{style:{fontSize:12,color:'#7B7979',marginBottom:12}},'Projected membership at key milestones based on your inputs.'),
-      e('div',{className:'milestone-grid'},
-        [{m:12,yr:'Year 1'},{m:24,yr:'Year 2'},{m:36,yr:'Year 3'},{m:60,yr:'Year 5'},{m:120,yr:'Year 10'}].map(({m,yr})=>
-          e('div',{key:m,className:'milestone-card'},
-            e('div',{className:'yr'},yr),
-            e('div',{className:'mbr'},fmtN(ms[m]||0)),
-            e('div',{className:'lbl'},'members')
-          )
-        ),
+    
         e('div',{key:'ceil',style:{background:'#0a1a2a',border:'1px solid #0e2a3a',borderRadius:8,padding:'10px 12px',textAlign:'center'}},
           e('div',{style:{fontSize:11,color:'#03A67B',fontWeight:600,marginBottom:2}},e(TipLabel,{small:true,text:'TAM Ceiling',tip:TIPS.tam})),
           e('div',{style:{fontSize:14,fontWeight:700,color:'#FFFFFF'}},fmtN(mCeil)),
@@ -989,6 +993,10 @@ function App(){
   // Read bridge data synchronously so mode + DBO are set on first render (no ScenarioSelect flash)
   const _bridge=(()=>{try{const r=localStorage.getItem('dboReturn');return r?JSON.parse(r):null;}catch(e){return null;}})();
   const [mode,setMode]=useState(_bridge&&_bridge.mode?_bridge.mode:'theatrical');
+  // ── Guild scenarios bridge ──
+  const _guildData=(()=>{try{const d=localStorage.getItem('guildScenariosForWaterfall');return d?JSON.parse(d):null;}catch(e){return null;}})();
+  const [guildScenarios,setGuildScenarios]=useState(_guildData||[]);
+  const [selectedGuildIdx,setSelectedGuildIdx]=useState(0);
   const [step,setStep]=useState(0);
   const [title,setTitle]=useState(_bridge&&_bridge.title?_bridge.title:"My Film Project");
   const [budget,setBudget]=useState(0);
@@ -1024,9 +1032,15 @@ function App(){
       if(_bridge.dbo>0&&_bridge.scenario)setDboSource(_bridge.scenario);
       localStorage.removeItem('dboReturn');
     }
+    // Clean up guild scenarios key after reading
+    if(_guildData) try{localStorage.removeItem('guildScenariosForWaterfall');}catch(e){}
   },[]);
 
-  const params={gDBO,screens,pna,gIBO,revShare,mg,
+  // Derive guild SVOD override from selected scenario if available
+  const _guildY10 = guildScenarios.length > 0 && guildScenarios[selectedGuildIdx]
+    ? guildScenarios[selectedGuildIdx].y10
+    : null;
+  const params={gDBO,screens,pna,gIBO,revShare,mg,guildOverride:_guildY10,
     pI,pP,pD,pM,tI,tP,tD,tM,t2I,t2P,t2D,t2M,
     pkI,pkR,pkD,pkO,p1I,p1D,p1M,p2I,p2D,p2S,
     aI,aP,aD,aDl,fI,fD,fDl,nI,nD,nDl,iI,iD,iDl,
@@ -1188,24 +1202,89 @@ function App(){
       // ── STEP 3: ANGEL GUILD ──
       (mode==='svod_only'?step===0:step===3)&&e('div',null,
         e('h2',null,'Angel Guild Streaming'),
-        e('p',{className:'sub'},'Configure Angel Guild membership and viewership assumptions.'),
-        e(PctInput,{label:'Viewership % in Debut Month',value:vPct,onChange:setVPct,info:'Titles reach peak viewership in first 3 months then taper off.',min:0,max:100,step:0.1}),
-        e(NumInput,{label:'Angel Guild Members in Debut Month',value:gMbr,onChange:setGMbr,info:'As of December 2025, Angel Guild membership surpassed 2 million.'}),
-        e(PctInput,{label:'Monthly Guild Member Growth Rate',value:gRate,onChange:setGRate,info:'March–July 2025 average growth was 8%.',min:-100,max:100,step:0.1}),
-        e(PctInput,{label:'Annual Adjustment to Growth Rate',value:aAdj,onChange:setAAdj,info:'A negative value slows growth each year.',min:-100,max:100,step:0.5}),
-        e(NumInput,{label:'10-Year Membership Ceiling (TAM)',value:mCeil,onChange:setMCeil,info:TIPS.tam}),
-        e(NumInput,{label:'Length of Term (quarters)',value:termQtrs,onChange:v=>setTermQtrs(Math.max(1,Math.min(40,Math.round(v)))),info:'How many quarters the title will be on the Angel Guild platform. 3 mo = 1 Qtr; 1 yr = 4 Qtrs; 10 yrs = 40 Qtrs. Months beyond this term will be blanked in the SVOD schedule.'}),
-        e(NumInput,{label:'Exclusive Term Length (quarters)',value:eQtrs,onChange:setEQtrs,info:'Number of quarters Angel has exclusive SVOD rights. Filmmaker payout is doubled during this window. 10 years = 40 quarters.'}),
-        e(PctInput,{label:'Monthly Viewership Decay Rate',value:vDec,onChange:setVDec,info:'Viewership decays each month after the first 2 months.',min:0,max:100,step:0.5}),
-        e(PctInput,{label:'Viewership Floor (months 1–60)',value:vF1,onChange:setVF1,min:0,step:0.01}),
-        e(PctInput,{label:'Viewership Floor (months 61–120)',value:vF2,onChange:setVF2,min:0,step:0.01})
+        e('p',{className:'sub'},'Configure your Guild streaming scenarios, then bring them back here to complete the waterfall.'),
+
+        // ── SCENARIO PICKER (shown when scenarios have been returned from calculator) ──
+        guildScenarios.length>0&&e('div',null,
+          e('div',{style:{background:'#0a1f1a',border:'1px solid #0e3828',borderRadius:12,padding:'16px 20px',marginBottom:20}},
+            e('div',{style:{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:12,flexWrap:'wrap',gap:8}},
+              e('div',null,
+                e('div',{style:{fontSize:10,fontWeight:700,letterSpacing:'0.1em',textTransform:'uppercase',color:'#03A67B',marginBottom:3}},'Guild Scenarios Loaded'),
+                e('div',{style:{fontSize:12,color:'#7B7979'}},'Select a scenario to use in the waterfall calculation. The 10-year total feeds into the results.')
+              ),
+              e('button',{
+                onClick:()=>{
+                  try{localStorage.setItem('waterfallReturn','1');}catch(e){}
+                  window.location.href='/calculator.html';
+                },
+                style:{fontSize:11,color:'#03A67B',background:'none',border:'1px solid #0e3828',borderRadius:6,padding:'5px 12px',cursor:'pointer',fontFamily:'var(--font)',fontWeight:600}
+              },'Reconfigure Scenarios →')
+            ),
+            e('div',{style:{overflowX:'auto'}},
+              e('table',{style:{width:'100%',borderCollapse:'collapse',fontSize:12}},
+                e('thead',null,
+                  e('tr',null,
+                    e('th',{style:{textAlign:'left',padding:'6px 10px',color:'#595A5B',fontWeight:600,fontSize:11,borderBottom:'1px solid #1a1a1a',whiteSpace:'nowrap'}},'Scenario'),
+                    e('th',{style:{textAlign:'right',padding:'6px 10px',color:'#595A5B',fontWeight:600,fontSize:11,borderBottom:'1px solid #1a1a1a',whiteSpace:'nowrap'}},'Year 1'),
+                    e('th',{style:{textAlign:'right',padding:'6px 10px',color:'#595A5B',fontWeight:600,fontSize:11,borderBottom:'1px solid #1a1a1a',whiteSpace:'nowrap'}},'Year 2'),
+                    e('th',{style:{textAlign:'right',padding:'6px 10px',color:'#595A5B',fontWeight:600,fontSize:11,borderBottom:'1px solid #1a1a1a',whiteSpace:'nowrap'}},'3-Yr Cumulative'),
+                    e('th',{style:{textAlign:'right',padding:'6px 10px',color:'#595A5B',fontWeight:600,fontSize:11,borderBottom:'1px solid #1a1a1a',whiteSpace:'nowrap'}},'10-Yr Total')
+                  )
+                ),
+                e('tbody',null,
+                  guildScenarios.map((s,i)=>{
+                    const isSelected=i===selectedGuildIdx;
+                    return e('tr',{
+                      key:i,
+                      onClick:()=>setSelectedGuildIdx(i),
+                      style:{cursor:'pointer',background:isSelected?'#0e2a22':'transparent',borderLeft:isSelected?'3px solid #03A67B':'3px solid transparent',transition:'background .12s'}
+                    },
+                      e('td',{style:{padding:'8px 10px',color:isSelected?'#21CEA0':'#C3C1C0',fontWeight:isSelected?700:400}},
+                        e('span',{style:{display:'inline-flex',alignItems:'center',gap:6}},
+                          isSelected&&e('span',{style:{color:'#03A67B',fontSize:10}},'▶'),
+                          s.name
+                        )
+                      ),
+                      e('td',{style:{textAlign:'right',padding:'8px 10px',color:isSelected?'#21CEA0':'#7B7979'}},fmt$(s.y1)),
+                      e('td',{style:{textAlign:'right',padding:'8px 10px',color:isSelected?'#21CEA0':'#7B7979'}},fmt$(s.y2)),
+                      e('td',{style:{textAlign:'right',padding:'8px 10px',color:isSelected?'#E8C56D':'#7B7979',fontWeight:isSelected?600:400}},fmt$(s.y3)),
+                      e('td',{style:{textAlign:'right',padding:'8px 10px',color:isSelected?'#E8C56D':'#C3C1C0',fontWeight:700}},fmt$(s.y10))
+                    );
+                  })
+                )
+              )
+            ),
+            guildScenarios[selectedGuildIdx]&&e('div',{style:{marginTop:12,paddingTop:12,borderTop:'1px solid #1a1a1a',display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:8}},
+              e('div',{style:{fontSize:11,color:'#595A5B'}},
+                'Using: ',e('strong',{style:{color:'#21CEA0'}},guildScenarios[selectedGuildIdx].name),
+                ' · 10-yr total ',e('strong',{style:{color:'#E8C56D'}},fmt$(guildScenarios[selectedGuildIdx].y10)),
+                ' will appear as Angel Guild Streaming in your results.'
+              )
+            )
+          )
+        ),
+
+        // ── LAUNCH BUTTON (shown when no scenarios loaded yet) ──
+        guildScenarios.length===0&&e('div',{style:{background:'#1D1D1D',border:'1px solid #2a2a2a',borderRadius:12,padding:'28px 24px',textAlign:'center',marginBottom:20}},
+          e('div',{style:{fontSize:28,marginBottom:12}},'📊'),
+          e('h3',{style:{fontSize:15,fontWeight:700,color:'#FFFFFF',marginBottom:6}},'Configure Guild Streaming Scenarios'),
+          e('p',{style:{fontSize:12,color:'#7B7979',lineHeight:1.7,maxWidth:420,margin:'0 auto 20px'}},'Use the Filmmaker Payouts Calculator to build and save up to 6 scenarios with different membership, growth, and viewership assumptions. Then return here with your saved scenarios to complete the waterfall.'),
+          e('button',{
+            onClick:()=>{
+              try{localStorage.setItem('waterfallReturn','1');}catch(e){}
+              window.location.href='/calculator.html';
+            },
+            style:{background:'#03A67B',color:'#000',border:'none',borderRadius:8,padding:'11px 28px',fontSize:13,fontWeight:700,cursor:'pointer',fontFamily:'var(--font)',letterSpacing:'0.04em'}
+          },'Open Filmmaker Payouts Calculator →'),
+          e('p',{style:{fontSize:11,color:'#595A5B',marginTop:12}},'You can also proceed to the next step without Guild scenarios — the SVOD line will show $0 in your results.')
+        )
       ),
 
       // ── STEP 4: SVOD SCHEDULE ──
-      (mode==='svod_only'?step===1:step===4)&&e(SvodScheduleSection,{vPct,gMbr,gRate,aAdj,mCeil,termQtrs,eQtrs,vDec,vF1,vF2}),
+      mode==='svod_only'&&step===1&&e(SvodScheduleSection,{vPct,gMbr,gRate,aAdj,mCeil,termQtrs,eQtrs,vDec,vF1,vF2}),
 
       // ── STEP 5: RESULTS ──
-      mode!=='svod_only'&&step===5&&e(ResultsSection,{r:null,c,title,budget,gDBO,gIBO,pna,screens,revShare,mg,
+      mode!=='svod_only'&&step===4&&e(ResultsSection,{r:null,c,title,budget,gDBO,gIBO,pna,screens,revShare,mg,
         vPct,gMbr,gRate,aAdj,mCeil,vDec,vF1,vF2,printMode,doPrint,doCSV}),
 
       e('div',{className:'nav no-print'},
