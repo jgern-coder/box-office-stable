@@ -950,19 +950,7 @@ function ResultsSection({r,c,title,budget,gDBO,gIBO,pna,screens,revShare,mg,vPct
       )
     ),
 
-    // ── EXPANDABLE: Guild Membership Milestones ──
     
-        e('div',{key:'ceil',style:{background:'#0a1a2a',border:'1px solid #0e2a3a',borderRadius:8,padding:'10px 12px',textAlign:'center'}},
-          e('div',{style:{fontSize:11,color:'#03A67B',fontWeight:600,marginBottom:2}},e(TipLabel,{small:true,text:'TAM Ceiling',tip:TIPS.tam})),
-          e('div',{style:{fontSize:14,fontWeight:700,color:'#FFFFFF'}},fmtN(mCeil)),
-          e('div',{style:{fontSize:10,color:'#7B7979',marginTop:2}},'upper bound')
-        )
-      ),
-      e('p',{style:{fontSize:11,color:'#595A5B'}},
-        'Start: ',e('strong',null,fmtN(gMbr)),' · Growth: ',e('strong',null,gRate+'%/mo'),
-        ' · Annual adj: ',e('strong',null,aAdj+'%'),' · ',
-        e(TipLabel,{small:true,text:'Decay: '+vDec+'%/mo',tip:TIPS.viewDecay}))
-    ),
 
     e('div',{className:'btns no-print',style:{marginTop:16}},
       e('button',{className:'btn btn-gray',onClick:doPrint},'🖨️ Print / Save as PDF'),
