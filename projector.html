@@ -1025,7 +1025,13 @@ function BoxOfficeProjectorInner() {
     document.body.style.overflowY = "auto";
   }
   const [genre, setGenre] = useState("");
-  const [budget, setBudget] = useState(0);
+  const [budget, setBudget] = useState(() => {
+    try {
+      const wb = localStorage.getItem('waterfallBridge');
+      if (wb) { const p = JSON.parse(wb); if (p.budget) return p.budget; }
+    } catch(e) {}
+    return 0;
+  });
   const [rating, setRating] = useState("");
   const [selectedQuads, setSelectedQuads] = useState([]);
   const [audienceMods, setAudienceMods] = useState([]);
@@ -1717,7 +1723,7 @@ function BoxOfficeProjectorInner() {
               ].map((s) => (
                 <button key={s.label}
                   onClick={() => {
-                    localStorage.setItem("dboReturn", JSON.stringify({ dbo: s.val, scenario: s.label, mode: "theatrical", title: title || "" }));
+                    localStorage.setItem("dboReturn", JSON.stringify({ dbo: s.val, scenario: s.label, mode: "theatrical", title: title || "", budget: budget || 0 }));
                     window.location.href = "/waterfall.html";
                   }}
                   className="bg-gray-900 border rounded-xl p-4 text-center w-full cursor-pointer transition-all hover:opacity-80 hover:scale-[1.02]"
