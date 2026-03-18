@@ -137,7 +137,124 @@ details summary:hover{background:#2e2e2e;}
 .progress-fill{height:100%;background:var(--copper);border-radius:9999px;transition:width 0.3s;}
 
 /* PRINT */
-@media print{.no-print{display:none!important;}.expand-btn{display:none!important;}.nav{display:none!important;}body{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:white;color:#111;}h2,.hdr-title{color:#111;}.result-row,.result-total{color:#111;}.disc{color:#555;}}
+@media print{
+  /* ── Override CSS variables to white ── */
+  :root{
+    --n925:#ffffff!important;
+    --n900:#f5f5f5!important;
+    --n800:#e0e0e0!important;
+    --n700:#999999!important;
+    --n600:#666666!important;
+    --n400:#444444!important;
+    --white:#111111!important;
+    --black:#ffffff!important;
+  }
+
+  /* ── Force white on ALL elements including inline React styles ── */
+  *{background-color:#fff!important;color:#111!important;border-color:#ddd!important;}
+
+  /* ── Restore meaningful colors after the blanket override ── */
+  .card-gray .tag{color:#c0392b!important;}
+  .card-blue .tag{color:#333!important;}
+  .wf-table tr.wf-cost td{color:#c0392b!important;}
+  .wf-table td.angel-zero{color:#0a6644!important;}
+  .svod-table tr.svod-base td{color:#0a6644!important;}
+  .svod-table tr.wf-cost td{color:#c0392b!important;}
+  .card-label-blue{color:#0a6644!important;}
+  .tag-blue{color:#0a6644!important;border-color:#aadec5!important;}
+
+  /* ── Hide interactive elements ── */
+  .no-print{display:none!important;}
+  .expand-btn{display:none!important;}
+  .nav{display:none!important;}
+  .site-header{display:none!important;}
+  .btn,.btn-blue,.btn-gray{display:none!important;}
+  .btns{display:none!important;}
+  .info-btn{display:none!important;}
+
+  /* ── Force white backgrounds everywhere ── */
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  html,body{background:#fff!important;color:#111!important;}
+  body{padding:0!important;margin:0!important;}
+
+  /* ── Main layout ── */
+  .steps{display:none!important;}
+  .step-content{padding:0!important;}
+
+  /* ── Cards ── */
+  .result-card{background:#fff!important;border:1px solid #ccc!important;color:#111!important;}
+  .result-row{color:#222!important;}
+  .result-row span{color:#222!important;}
+  .result-total{border-top:1px solid #bbb!important;color:#111!important;}
+  .result-total span{color:#111!important;}
+  .result-total-blue{border-top-color:#bbb!important;}
+  .pct-row{color:#555!important;}
+
+  /* ── Summary card values ── */
+  .result-card .result-total span:last-child{color:#111!important;}
+
+  /* ── Tags ── */
+  /* Tags: no background box, just text */
+  .tag,.tag-blue,.tag-gray{background:transparent!important;border:none!important;padding:4px 0!important;}
+  .tag-blue{color:#333!important;}
+  .tag-gray{color:#333!important;}
+
+  /* ── Expandable sections ── */
+  .expand-content{display:block!important;background:#fafafa!important;border:1px solid #ddd!important;color:#111!important;}
+  .expand-content *{color:#222!important;}
+
+  /* ── Tables ── */
+  .wf-table{border-collapse:collapse!important;}
+  .wf-table th{background:#f0f0f0!important;color:#333!important;border-bottom:1px solid #ccc!important;}
+  .wf-table td{color:#222!important;border-bottom:1px solid #eee!important;}
+  .wf-table tr.wf-cost td{color:#c0392b!important;}
+  .wf-table td.angel-zero{color:#0a6644!important;}
+  .svod-table th{background:#f0f0f0!important;color:#333!important;}
+  .svod-table td{color:#222!important;border-bottom:1px solid #eee!important;}
+  .svod-table tr.svod-base td{color:#0a6644!important;}
+  .svod-table tr.wf-cost td{color:#c0392b!important;}
+
+  /* ── Comparison bar ── */
+  .bar-wrap{background:#fafafa!important;border:1px solid #ddd!important;}
+  .bar-fill{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+
+  /* ── Section headers ── */
+  .hdr-title,.hdr-sub{color:#111!important;}
+  .hdr-eyebrow{color:#666!important;}
+
+  /* ── Disclaimer ── */
+  .disc{color:#666!important;}
+  .disc p{color:#666!important;}
+
+  /* ── Misc dark elements ── */
+  .result-card h3{color:#111!important;}
+  .tip-label{color:#333!important;}
+
+  /* ── Summary cards ── */
+  .card-gray{background:#f9f9f9!important;border:1px solid #ccc!important;}
+  .card-blue{background:#eef7f3!important;border:1px solid #aadec5!important;}
+  .card-label-gray{color:#666!important;}
+  .card-label-blue{color:#0a6644!important;}
+
+  /* ── Headers ── */
+  .site-header{display:none!important;}
+  .hdr{background:#fff!important;border-bottom:1px solid #ddd!important;}
+  .hdr-eyebrow{color:#888!important;}
+  .hdr-title{color:#111!important;}
+  .hdr-sub{color:#555!important;}
+  .step-bar{display:none!important;}
+
+  /* ── Comparison bar ── */
+  .bar-label{color:#333!important;}
+  .bar-pct{color:#555!important;}
+
+  /* ── Angel SVOD scenario table ── */
+  table tr{background:#fff!important;}
+  table tr:nth-child(even){background:#f5f5f5!important;}
+
+  /* ── Page setup ── */
+  @page{margin:1cm;size:A4 portrait;}
+}
 
 /* MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.80);z-index:100;display:flex;align-items:center;justify-content:center;padding:16px;}
