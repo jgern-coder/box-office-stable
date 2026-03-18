@@ -271,14 +271,12 @@ function QuadrantSelector({ selectedQuads, onToggleQuad, selectedMods, onToggleM
 
   return (
     <div className="mb-5">
-      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'16px',alignItems:'start'}}>
-      <div>{/* left column: quadrants + pills */}
       <div className="flex items-center justify-between mb-1.5">
         <label className="text-xs font-semibold uppercase tracking-widest text-gray-400">
           Target Audience
         </label>
         {isFourQuadrant && (
-          <span className="text-xs font-black uppercase tracking-wider border px-2 py-0.5 rounded-full">
+          <span className="text-xs font-black uppercase tracking-wider bg-indigo-900 text-indigo-300 border border-indigo-700 px-2 py-0.5 rounded-full">
             ✦ 4-Quadrant
           </span>
         )}
@@ -295,18 +293,18 @@ function QuadrantSelector({ selectedQuads, onToggleQuad, selectedMods, onToggleM
               title={q.note}
               className={`relative text-left px-3 py-2.5 rounded-xl border transition-all ${
                 active
-                  ? "text-white" style={{background:'#2a1510',border:'1px solid #C48669'}}
+                  ? "bg-indigo-700 border-indigo-500 text-white"
                   : "bg-gray-800 border-gray-700 text-gray-400 hover:border-indigo-600 hover:text-gray-200"
               }`}
             >
-              <p className={`text-xs font-black uppercase tracking-wider ${active ? "" style={{color:'#C48669'}} : "text-gray-500"}`}>
+              <p className={`text-xs font-black uppercase tracking-wider ${active ? "text-indigo-200" : "text-gray-500"}`}>
                 {q.label}
               </p>
               <p className={`text-sm font-bold mt-0.5 ${active ? "text-white" : "text-gray-300"}`}>
                 {q.sub}
               </p>
               {active && (
-                <span className="absolute top-2 right-2 text-xs" style={{color:'#C48669'}}>✓</span>
+                <span className="absolute top-2 right-2 text-indigo-400 text-xs">✓</span>
               )}
             </button>
           );
@@ -343,7 +341,7 @@ function QuadrantSelector({ selectedQuads, onToggleQuad, selectedMods, onToggleM
               }}
               className={`text-xs px-2.5 py-1 rounded-full border font-semibold transition-all ${
                 isActive
-                  ? "" style={{background:'#2a1510',border:'1px solid #C48669',color:'#d9a48a'}}
+                  ? "bg-indigo-800 border-indigo-600 text-indigo-200"
                   : "bg-gray-800 border-gray-700 text-gray-500 hover:border-gray-500 hover:text-gray-300"
               }`}
             >
@@ -353,47 +351,7 @@ function QuadrantSelector({ selectedQuads, onToggleQuad, selectedMods, onToggleM
         })}
       </div>
 
-      </div>{/* end left column */}
-      {/* Additional Communities — right column */}
-      <div>
-      <div className="bg-gray-800 border border-gray-700 rounded-xl p-3">
-        <p className="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-2">
-          Additional Communities
-          <span className="normal-case font-normal text-gray-600 ml-1">(optional — stacks on top)</span>
-        </p>
-        <div className="space-y-1.5">
-          {AUDIENCE_MODIFIERS.map((mod) => {
-            const active = selectedMods.includes(mod.id);
-            return (
-              <button
-                key={mod.id}
-                onClick={() => onToggleMod(mod.id)}
-                className={`w-full text-left flex items-start gap-3 px-3 py-2 rounded-lg border transition-all ${
-                  active
-                    ? "text-white" style={{background:'#2a1510',border:'1px solid #C48669'}}
-                    : "bg-gray-900 border-gray-700 text-gray-400 hover:border-gray-600 hover:text-gray-300"
-                }`}
-              >
-                <span className={`mt-0.5 text-xs font-black shrink-0 ${active ? "" style={{color:'#C48669'}} : "text-gray-600"}`}>
-                  {active ? "✓" : "○"}
-                </span>
-                <div className="flex-1 min-w-0">
-                  <p className={`text-sm font-semibold ${active ? "" style={{color:'#d9a48a'}} : "text-gray-300"}`}>
-                    {mod.label}
-                  </p>
-                  <p className="text-xs text-gray-500 mt-0.5">{mod.note}</p>
-                </div>
-                <span className={`text-xs font-black shrink-0 mt-0.5 ${active ? "" style={{color:'#C48669'}} : "text-gray-600"}`}>
-                  +{((mod.mult - 1) * 100).toFixed(0)}%
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      </div>
 
-      </div>{/* end right column */}
-      </div>{/* end side-by-side grid */}
       {/* Live multiplier readout */}
       {selectedQuads.length > 0 && (
         <div className="mt-2 flex items-center justify-between px-1">
@@ -401,7 +359,7 @@ function QuadrantSelector({ selectedQuads, onToggleQuad, selectedMods, onToggleM
             {selectedQuads.length === 4 ? "4-Quadrant" : `${selectedQuads.length} quadrant${selectedQuads.length > 1 ? "s" : ""}`}
             {selectedMods.length > 0 ? ` + ${selectedMods.length} modifier${selectedMods.length > 1 ? "s" : ""}` : ""}
           </p>
-          <p className={`text-xs font-bold ${audienceMult >= 1.2 ? "" style={{color:'#21CEA0'}} : audienceMult >= 1.0 ? "" style={{color:'#d9a48a'}} : "text-gray-400"}`}>
+          <p className={`text-xs font-bold ${audienceMult >= 1.2 ? "text-emerald-400" : audienceMult >= 1.0 ? "text-indigo-400" : "text-gray-400"}`}>
             Audience multiplier: {audienceMult.toFixed(2)}×
           </p>
         </div>
@@ -463,7 +421,7 @@ function SelectField({ label, value, onChange, options, hint }) {
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-green-500 transition-colors appearance-none cursor-pointer"
+        className="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 transition-colors appearance-none cursor-pointer"
       >
         <option value="">— Select —</option>
         {options.map((o) => (
@@ -517,7 +475,7 @@ function BudgetSlider({ value, onChange }) {
             onClick={() => handleTierClick(t.val)}
             className={`text-xs px-2 py-2 rounded-lg border transition-all font-medium ${
               isTierSelected(t.val)
-                ? "text-white" style={{background:'#C48669',border:'1px solid #C48669',borderRadius:'0.5rem'}}
+                ? "bg-indigo-600 border-indigo-500 text-white"
                 : "bg-gray-800 border-gray-700 text-gray-400 hover:border-indigo-500 hover:text-white"
             }`}
           >
@@ -534,12 +492,12 @@ function BudgetSlider({ value, onChange }) {
             value={exactInput}
             onChange={handleExactChange}
             placeholder="e.g. 4500000"
-            className="w-full bg-gray-800 border border-gray-700 text-white rounded-lg pl-6 pr-3 py-2 text-sm focus:outline-none focus:border-green-500 placeholder-gray-600"
+            className="w-full bg-gray-800 border border-gray-700 text-white rounded-lg pl-6 pr-3 py-2 text-sm focus:outline-none focus:border-indigo-500 placeholder-gray-600"
           />
         </div>
       </div>
       {value > 0 && (
-        <p className="text-xs mt-2 font-semibold" style={{color:'#21CEA0'}}>
+        <p className="text-xs text-indigo-400 mt-2 font-semibold">
           {exactInput ? `Exact budget: ${fmt(parseInt(exactInput.replace(/[^0-9]/g, ""), 10))}` : `Selected: ${fmt(value)} production budget`}
         </p>
       )}
@@ -661,17 +619,17 @@ function CompBrowser({ selectedGenre, projectBudget, onPick, onClose, mode = "mu
           <h3 className="font-black text-white text-base">
             {mode === "multi" ? "Select Comp Films" : "Replace Comp Film"}
           </h3>
-          <p className="text-xs mt-0.5" style={{color:'#21CEA0'}}>{subtitleText}</p>
+          <p className="text-xs text-indigo-400 mt-0.5">{subtitleText}</p>
         </div>
         <button onClick={onClose} className="text-gray-500 hover:text-white text-lg font-bold px-2">✕</button>
       </div>
 
       {/* Selection tip — multi mode only */}
       {mode === "multi" && (
-        <div className="px-4 py-2.5 flex items-start gap-2" style={{background:'#0a1f1a',borderBottom:'1px solid #0e3828'}}>
-          <span className="shrink-0 mt-0.5" style={{color:'#03A67B'}}>💡</span>
-          <p className="text-xs leading-relaxed" style={{color:'#a0d4c4'}}>
-            <span className="font-bold" style={{color:'#21CEA0'}}>Pick comps that match your audience and tone first</span> — then add 1–2 films with a similar budget to anchor the financial estimate. A mix of both gives the strongest projection.
+        <div className="px-4 py-2.5 bg-indigo-950 border-b border-indigo-900 flex items-start gap-2">
+          <span className="text-indigo-400 shrink-0 mt-0.5">💡</span>
+          <p className="text-xs text-indigo-300 leading-relaxed">
+            <span className="font-bold text-indigo-200">Pick comps that match your audience and tone first</span> — then add 1–2 films with a similar budget to anchor the financial estimate. A mix of both gives the strongest projection.
           </p>
         </div>
       )}
@@ -685,12 +643,12 @@ function CompBrowser({ selectedGenre, projectBudget, onPick, onClose, mode = "mu
             placeholder="Search by title…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 bg-gray-800 border border-gray-700 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-green-500 placeholder-gray-600"
+            className="flex-1 bg-gray-800 border border-gray-700 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-indigo-500 placeholder-gray-600"
           />
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="bg-gray-800 border border-gray-700 text-white rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-green-500 appearance-none cursor-pointer"
+            className="bg-gray-800 border border-gray-700 text-white rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-indigo-500 appearance-none cursor-pointer"
           >
             <option value="alpha">Sort: A → Z</option>
             <option value="legs">Sort: Audience Legs</option>
@@ -712,7 +670,7 @@ function CompBrowser({ selectedGenre, projectBudget, onPick, onClose, mode = "mu
               onClick={() => setBudgetFilter(f.id)}
               className={`text-xs px-2.5 py-1 rounded-lg border transition-colors font-semibold ${
                 budgetFilter === f.id
-                  ? "text-white" style={{background:'#2a1510',border:'1px solid #C48669'}}
+                  ? "bg-indigo-700 border-indigo-600 text-white"
                   : "bg-gray-800 border-gray-700 text-gray-400 hover:border-indigo-500"
               }`}
             >
@@ -742,17 +700,17 @@ function CompBrowser({ selectedGenre, projectBudget, onPick, onClose, mode = "mu
               <p className="text-3xl mb-2">🎞️</p>
               <p className="font-semibold">"{search}" isn't in our database</p>
               {selectedGenre && !showAll && (
-                <button onClick={() => setShowAll(true)} className="mt-1 text-sm hover:underline" style={{color:'#C48669'}}>
+                <button onClick={() => setShowAll(true)} className="mt-1 text-indigo-400 text-sm hover:underline">
                   Try searching all genres
                 </button>
               )}
             </div>
             {search.length >= 2 && (
-              <div className="rounded-xl p-4" style={{background:'#1a1000',border:'1px solid #4a3000'}}>
+              <div className="bg-amber-950 border border-amber-900 rounded-xl p-4">
                 <p className="text-sm font-semibold text-amber-200 mb-1">
                   Look up "{search}" on these sources:
                 </p>
-                <p className="text-xs mb-3" style={{color:'#7B7979'}}>
+                <p className="text-xs text-amber-600 mb-3">
                   Find its domestic gross and production budget, then close this panel and enter the numbers manually.
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -766,7 +724,7 @@ function CompBrowser({ selectedGenre, projectBudget, onPick, onClose, mode = "mu
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-sm px-3 py-1.5 rounded-lg font-semibold transition-colors" style={{background:'#2a1510',color:'#d9a48a'}}
+                      className="inline-flex items-center gap-1 text-sm bg-amber-900 hover:bg-amber-800 text-amber-100 px-3 py-1.5 rounded-lg font-semibold transition-colors"
                     >
                       {link.label} ↗
                     </a>
@@ -789,7 +747,7 @@ function CompBrowser({ selectedGenre, projectBudget, onPick, onClose, mode = "mu
             <>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className={`text-sm font-semibold transition-colors truncate ${isSelected ? "" style={{color:'#C48669'}} : "text-white"}`}>
+                  <span className={`text-sm font-semibold transition-colors truncate ${isSelected ? "text-indigo-200" : "text-white"}`}>
                     {f.title}
                   </span>
                   <span className="text-xs text-gray-600">{f.year}</span>
@@ -827,14 +785,14 @@ function CompBrowser({ selectedGenre, projectBudget, onPick, onClose, mode = "mu
                 onClick={() => !isDisabled && togglePending(f)}
                 className={`w-full text-left px-3 py-2.5 rounded-lg transition-colors flex items-center gap-3 ${
                   isSelected
-                    ? "" style={{background:'#1a0f08',border:'1px solid #C48669'}}
+                    ? "bg-indigo-950 border border-indigo-700"
                     : isDisabled
                     ? "opacity-30 cursor-not-allowed"
                     : `hover:bg-gray-800 ${isLargeBudget ? "opacity-60" : ""}`
                 }`}
               >
                 <div className={`w-4 h-4 rounded border-2 flex-shrink-0 flex items-center justify-center transition-colors ${
-                  isSelected ? "" style={{background:'#C48669',border:'1px solid #C48669'}} : "border-gray-600"
+                  isSelected ? "bg-indigo-500 border-indigo-400" : "border-gray-600"
                 }`}>
                   {isSelected && <span className="text-white text-xs leading-none">✓</span>}
                 </div>
@@ -867,7 +825,7 @@ function CompBrowser({ selectedGenre, projectBudget, onPick, onClose, mode = "mu
             disabled={pending.size === 0}
             className={`px-4 py-2 rounded-lg text-sm font-bold transition-colors ${
               pending.size > 0
-                ? "text-white" style={{background:'#C48669'}}
+                ? "bg-indigo-600 hover:bg-indigo-500 text-white"
                 : "bg-gray-800 text-gray-600 cursor-not-allowed"
             }`}
           >
@@ -898,10 +856,10 @@ function LookupHelper({ title }) {
   if (inDB) return null; // already in our database, no need to prompt
 
   return (
-    <div className="mt-2 flex items-start gap-2 rounded-lg px-3 py-2" style={{background:'#1a1000',border:'1px solid #4a3000"}}>
-      <span className="text-sm shrink-0 mt-0.5" style={{color:'#C48669'}}>🔎</span>
+    <div className="mt-2 flex items-start gap-2 bg-amber-950 border border-amber-900 rounded-lg px-3 py-2">
+      <span className="text-amber-400 text-sm shrink-0 mt-0.5">🔎</span>
       <div className="flex-1 min-w-0">
-        <p className="text-xs font-semibold leading-snug" style={{color:'#d9a48a'}}>
+        <p className="text-xs text-amber-200 font-semibold leading-snug">
           "{title}" isn't in our database — look up its box office numbers:
         </p>
         <div className="flex flex-wrap gap-2 mt-1.5">
@@ -909,7 +867,7 @@ function LookupHelper({ title }) {
             href={`https://www.the-numbers.com/search?searchterm=${q}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-md font-semibold transition-colors" style={{background:'#2a1510',color:'#d9a48a'}}
+            className="inline-flex items-center gap-1 text-xs bg-amber-900 hover:bg-amber-800 text-amber-200 px-2.5 py-1 rounded-md font-semibold transition-colors"
           >
             The Numbers ↗
           </a>
@@ -917,7 +875,7 @@ function LookupHelper({ title }) {
             href={`https://www.boxofficemojo.com/search/?q=${q}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-md font-semibold transition-colors" style={{background:'#2a1510',color:'#d9a48a'}}
+            className="inline-flex items-center gap-1 text-xs bg-amber-900 hover:bg-amber-800 text-amber-200 px-2.5 py-1 rounded-md font-semibold transition-colors"
           >
             Box Office Mojo ↗
           </a>
@@ -925,12 +883,12 @@ function LookupHelper({ title }) {
             href={`https://www.imdb.com/find/?q=${q}&s=tt&ttype=ft`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-md font-semibold transition-colors" style={{background:'#2a1510',color:'#d9a48a'}}
+            className="inline-flex items-center gap-1 text-xs bg-amber-900 hover:bg-amber-800 text-amber-200 px-2.5 py-1 rounded-md font-semibold transition-colors"
           >
             IMDb ↗
           </a>
         </div>
-        <p className="text-xs mt-1.5" style={{color:'#7B7979'}}>
+        <p className="text-xs text-amber-600 mt-1.5">
           Find the domestic gross &amp; budget, then enter them in the fields below.
         </p>
       </div>
@@ -954,7 +912,7 @@ function CompFilmRow({ comp, index, onChange, onRemove, onOpenBrowser }) {
         <div className="flex gap-2">
           <button
             onClick={onOpenBrowser}
-            className="text-xs rounded px-2 py-1 transition-colors font-semibold" style={{color:'#C48669',border:'1px solid #5a3020'}}
+            className="text-xs text-indigo-400 hover:text-indigo-300 border border-indigo-800 rounded px-2 py-1 transition-colors font-semibold"
           >
             🔍 Browse Films
           </button>
@@ -974,7 +932,7 @@ function CompFilmRow({ comp, index, onChange, onRemove, onOpenBrowser }) {
             value={comp.title}
             onChange={(e) => onChange(index, "title", e.target.value)}
             placeholder="e.g. Sound of Freedom"
-            className="w-full bg-gray-900 border border-gray-700 text-white rounded px-3 py-1.5 text-sm focus:outline-none focus:border-green-500"
+            className="w-full bg-gray-900 border border-gray-700 text-white rounded px-3 py-1.5 text-sm focus:outline-none focus:border-indigo-500"
           />
           <LookupHelper title={comp.title} />
         </div>
@@ -984,7 +942,7 @@ function CompFilmRow({ comp, index, onChange, onRemove, onOpenBrowser }) {
             value={comp.year}
             onChange={(e) => onChange(index, "year", e.target.value)}
             placeholder="2023"
-            className="w-full bg-gray-900 border border-gray-700 text-white rounded px-3 py-1.5 text-sm focus:outline-none focus:border-green-500"
+            className="w-full bg-gray-900 border border-gray-700 text-white rounded px-3 py-1.5 text-sm focus:outline-none focus:border-indigo-500"
           />
         </div>
         <div>
@@ -993,7 +951,7 @@ function CompFilmRow({ comp, index, onChange, onRemove, onOpenBrowser }) {
             value={comp.budget}
             onChange={(e) => onChange(index, "budget", e.target.value)}
             placeholder="14.5"
-            className="w-full bg-gray-900 border border-gray-700 text-white rounded px-3 py-1.5 text-sm focus:outline-none focus:border-green-500"
+            className="w-full bg-gray-900 border border-gray-700 text-white rounded px-3 py-1.5 text-sm focus:outline-none focus:border-indigo-500"
           />
         </div>
         <div>
@@ -1002,7 +960,7 @@ function CompFilmRow({ comp, index, onChange, onRemove, onOpenBrowser }) {
             value={comp.domestic}
             onChange={(e) => onChange(index, "domestic", e.target.value)}
             placeholder="184.3"
-            className="w-full bg-gray-900 border border-gray-700 text-white rounded px-3 py-1.5 text-sm focus:outline-none focus:border-green-500"
+            className="w-full bg-gray-900 border border-gray-700 text-white rounded px-3 py-1.5 text-sm focus:outline-none focus:border-indigo-500"
           />
         </div>
         <div>
@@ -1011,7 +969,7 @@ function CompFilmRow({ comp, index, onChange, onRemove, onOpenBrowser }) {
             value={comp.owkd}
             onChange={(e) => onChange(index, "owkd", e.target.value)}
             placeholder="14.2"
-            className="w-full bg-gray-900 border border-gray-700 text-white rounded px-3 py-1.5 text-sm focus:outline-none focus:border-green-500"
+            className="w-full bg-gray-900 border border-gray-700 text-white rounded px-3 py-1.5 text-sm focus:outline-none focus:border-indigo-500"
           />
         </div>
       </div>
@@ -1271,7 +1229,7 @@ function BoxOfficeProjectorInner() {
             {/* Header */}
             <div className="p-6 border-b border-gray-800">
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-xl" style={{color:'#C48669'}}>✦</span>
+                <span className="text-amber-400 text-xl">✦</span>
                 <span className="text-xs font-black uppercase tracking-widest text-amber-400">Angel Studios</span>
               </div>
               <h2 className="text-xl font-black text-white mt-2">Box Office Scenario Tool</h2>
@@ -1329,15 +1287,15 @@ function BoxOfficeProjectorInner() {
                 onClick={() => setContentAttested((v) => !v)}
                 className={`w-full text-left flex items-start gap-3 px-4 py-3.5 rounded-xl border transition-all ${
                   contentAttested
-                    ? "" style={{background:'#1a0f08',borderColor:'#C48669'}}
-                    : "bg-gray-800 border-gray-700"
+                    ? "bg-amber-900 border-amber-600"
+                    : "bg-gray-800 border-gray-700 hover:border-amber-700"
                 }`}
               >
-                <span className={`mt-0.5 text-lg shrink-0 ${contentAttested ? "" style={{color:'#C48669'}} : "text-gray-600"}`}>
+                <span className={`mt-0.5 text-lg shrink-0 ${contentAttested ? "text-amber-400" : "text-gray-600"}`}>
                   {contentAttested ? "☑" : "☐"}
                 </span>
                 <div>
-                  <p className={`text-sm font-bold leading-snug ${contentAttested ? "" style={{color:'#d9a48a'}} : "text-gray-300"}`}>
+                  <p className={`text-sm font-bold leading-snug ${contentAttested ? "text-amber-200" : "text-gray-300"}`}>
                     I confirm the final cut of this project will amplify light and will not contain:
                   </p>
                   <div className="mt-2 space-y-1" style={{display:"grid", gridTemplateColumns:"1em 1fr 1em 1fr", columnGap:"0.35rem", rowGap:"0.25rem", alignItems:"start"}}>
@@ -1346,9 +1304,9 @@ function BoxOfficeProjectorInner() {
                       ["Use of the word F**k", "Use of the Lord's name in vain"],
                     ].map((pair) => (
                       <>
-                        <span key={pair[0]+"-d1"} className={`text-xs ${contentAttested ? "text-green-400" : "text-gray-700"}`}>—</span>
+                        <span key={pair[0]+"-d1"} className={`text-xs ${contentAttested ? "text-amber-500" : "text-gray-700"}`}>—</span>
                         <span key={pair[0]+"-t1"} className="text-xs text-gray-500">{pair[0]}</span>
-                        <span key={pair[0]+"-d2"} className={`text-xs ${contentAttested ? "text-green-400" : "text-gray-700"}`}>—</span>
+                        <span key={pair[0]+"-d2"} className={`text-xs ${contentAttested ? "text-amber-500" : "text-gray-700"}`}>—</span>
                         <span key={pair[0]+"-t2"} className="text-xs text-gray-500">{pair[1]}</span>
                       </>
                     ))}
@@ -1364,7 +1322,7 @@ function BoxOfficeProjectorInner() {
                 disabled={!contentAttested}
                 className={`w-full py-3.5 rounded-xl font-black text-sm tracking-wide transition-all ${
                   contentAttested
-                    ? "text-white" style={{background:'#C48669'}}
+                    ? "bg-amber-600 hover:bg-amber-500 text-white"
                     : "bg-gray-800 text-gray-600 cursor-not-allowed"
                 }`}
               >
@@ -1390,8 +1348,8 @@ function BoxOfficeProjectorInner() {
               <p className="text-gray-400 text-sm max-w-xl">
                 Illustrative scenario analysis using genre multipliers, star power, audience
                 segmentation, and comparable film performance — informed by{" "}
-                <span className="" style={{color:'#d9a48a'}}>The Numbers</span> &{" "}
-                <span className="" style={{color:'#d9a48a'}}>Box Office Mojo</span> (2015–2025).
+                <span className="text-indigo-400">The Numbers</span> &{" "}
+                <span className="text-indigo-400">Box Office Mojo</span> (2015–2025).
                 Speculative estimates for internal planning purposes only.
               </p>
             </div>
@@ -1400,7 +1358,7 @@ function BoxOfficeProjectorInner() {
                 <span style={{color:"#C48669",fontSize:"1.125rem"}}>✦</span>
                 <div>
                   <p className="text-xs font-black uppercase tracking-widest" style={{color:"#C48669"}}>Angel Studios</p>
-                  <p className="text-xs leading-tight" style={{color:'#7B7979'}}>Distribution model applied</p>
+                  <p className="text-xs text-amber-700 leading-tight">Distribution model applied</p>
                 </div>
               </div>
               <div className="flex items-center gap-2 bg-gray-900 border border-gray-700 rounded-xl px-4 py-1.5">
@@ -1432,7 +1390,7 @@ function BoxOfficeProjectorInner() {
               }}
               className={`px-5 py-2.5 text-sm font-semibold rounded-t-lg transition-all ${
                 activeTab === tab.id
-                  ? "bg-gray-800 text-white border-b-2" style={{borderColor:'#C48669'}}
+                  ? "bg-gray-800 text-white border-b-2 border-indigo-500"
                   : "text-gray-500 hover:text-gray-300"
               }`}
             >
@@ -1454,7 +1412,7 @@ function BoxOfficeProjectorInner() {
                   placeholder="e.g. Untitled Sci-Fi Thriller"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-green-500 transition-colors placeholder-gray-600"
+                  className="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 transition-colors placeholder-gray-600"
                 />
               </div>
               <SelectField label="Genre" value={genre} onChange={setGenre}
@@ -1485,12 +1443,57 @@ function BoxOfficeProjectorInner() {
                 options={Object.keys(STAR_POWER_DATA)} hint={(v) => STAR_POWER_DATA[v]?.note} />
               <SelectField label="IP / Source Material" value={ip} onChange={setIp}
                 options={Object.keys(IP_DATA)} hint={(v) => IP_DATA[v]?.note} />
+              {/* Additional Communities */}
+              <div className="bg-gray-800 border border-gray-700 rounded-xl p-3 mt-3">
+                <p className="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-2">
+                  Additional Communities
+                  <span className="normal-case font-normal text-gray-600 ml-1">(optional — stacks on top)</span>
+                </p>
+                <div className="space-y-1.5">
+                  {audienceMods.map((modId) => {
+                    const mod = AUDIENCE_MODIFIERS.find(m => m.id === modId);
+                    if (!mod) return null;
+                    return (
+                      <button
+                        key={mod.id}
+                        onClick={() => setAudienceMods(prev => prev.filter(id => id !== mod.id))}
+                        className="w-full text-left flex items-start gap-3 px-3 py-2 rounded-lg border transition-all bg-amber-900 border-amber-700 text-white"
+                      >
+                        <span className="mt-0.5 text-xs font-black shrink-0 text-amber-400">✓</span>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-semibold text-amber-200">{mod.label}</p>
+                          <p className="text-xs text-gray-500 mt-0.5">{mod.note}</p>
+                        </div>
+                        <span className="text-xs font-black shrink-0 mt-0.5 text-amber-400">
+                          +{((mod.mult - 1) * 100).toFixed(0)}%
+                        </span>
+                      </button>
+                    );
+                  })}
+                  {AUDIENCE_MODIFIERS.filter(mod => !audienceMods.includes(mod.id)).map((mod) => (
+                    <button
+                      key={mod.id}
+                      onClick={() => setAudienceMods(prev => [...prev, mod.id])}
+                      className="w-full text-left flex items-start gap-3 px-3 py-2 rounded-lg border transition-all bg-gray-900 border-gray-700 text-gray-400 hover:border-gray-600 hover:text-gray-300"
+                    >
+                      <span className="mt-0.5 text-xs font-black shrink-0 text-gray-600">○</span>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-semibold text-gray-300">{mod.label}</p>
+                        <p className="text-xs text-gray-500 mt-0.5">{mod.note}</p>
+                      </div>
+                      <span className="text-xs font-black shrink-0 mt-0.5 text-gray-600">
+                        +{((mod.mult - 1) * 100).toFixed(0)}%
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
             <div className="col-span-1 md:col-span-2">
               <BudgetSlider value={budget} onChange={setBudget} />
             </div>
             <div className="col-span-1 md:col-span-2 mt-2">
-              <div className="rounded-xl p-3 mb-4 flex items-center gap-3" style={{background:'#1a0f08',border:'1px solid #5a3020'}}>
+              <div className="bg-indigo-950 border border-indigo-900 rounded-xl p-3 mb-4 flex items-center gap-3">
                 <span className="text-lg">💡</span>
                 <p className="text-xs text-indigo-300">
                   Add comparable films in the <strong>Comp Films</strong> tab to anchor your scenario
@@ -1498,7 +1501,7 @@ function BoxOfficeProjectorInner() {
                 </p>
                 <button
                   onClick={() => setActiveTab("comps")}
-                  className="shrink-0 text-xs px-3 py-1.5 rounded-lg font-semibold transition-colors" style={{background:'#C48669',color:'#000'}}
+                  className="shrink-0 text-xs bg-indigo-700 hover:bg-indigo-600 px-3 py-1.5 rounded-lg font-semibold transition-colors"
                 >
                   Add Comps →
                 </button>
@@ -1508,7 +1511,7 @@ function BoxOfficeProjectorInner() {
                 disabled={!canCalculate}
                 className={`w-full py-4 rounded-xl font-black text-lg tracking-wide transition-all ${
                   canCalculate
-                    ? "text-white" style={{background:'#C48669'}}
+                    ? "bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-900"
                     : "bg-gray-800 text-gray-600 cursor-not-allowed"
                 }`}
               >
@@ -1556,7 +1559,7 @@ function BoxOfficeProjectorInner() {
                 Comps carry increasing weight in the blended scenario (35% → 60% as you add more).
               </p>
               {genre && (
-                <div className="mt-2 inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs" style={{background:'#0a1f1a',border:'1px solid #0e3828',color:'#a0d4c4"}}>
+                <div className="mt-2 inline-flex items-center gap-2 bg-indigo-950 border border-indigo-900 rounded-lg px-3 py-1.5 text-xs text-indigo-300">
                   <span>🎯</span>
                   <span>
                     Genre filter active: <strong>{genre}</strong> — browser will show matching comps first
@@ -1568,10 +1571,10 @@ function BoxOfficeProjectorInner() {
             {comps.length === 0 ? (
               <button
                 onClick={openMultiBrowser}
-                className="w-full py-10 mb-4 rounded-xl border-2 border-dashed border-gray-700 transition-all group" style={{}} onMouseEnter={e=>e.currentTarget.style.borderColor='#C48669'} onMouseLeave={e=>e.currentTarget.style.borderColor='#374151'}
+                className="w-full py-10 mb-4 rounded-xl border-2 border-dashed border-gray-700 hover:border-indigo-500 hover:bg-indigo-950 transition-all group"
               >
                 <p className="text-3xl mb-2">🔍</p>
-                <p className="text-white font-bold text-base transition-colors">Browse Comp Films</p>
+                <p className="text-white font-bold text-base group-hover:text-indigo-300 transition-colors">Browse Comp Films</p>
                 <p className="text-sm text-gray-500 mt-1">Select multiple titles at once from 100+ films</p>
                 <p className="text-xs text-gray-600 mt-3">or enter a film manually after adding</p>
               </button>
@@ -1590,7 +1593,7 @@ function BoxOfficeProjectorInner() {
                 {comps.length < 6 && (
                   <button
                     onClick={openMultiBrowser}
-                    className="w-full py-3 rounded-xl border-2 border-dashed border-gray-700 text-gray-400 font-semibold text-sm transition-all mb-2"
+                    className="w-full py-3 rounded-xl border-2 border-dashed border-gray-700 text-gray-400 hover:border-indigo-500 hover:text-indigo-400 font-semibold text-sm transition-all mb-2"
                   >
                     + Add More Comps
                   </button>
@@ -1652,7 +1655,7 @@ function BoxOfficeProjectorInner() {
                 disabled={!canCalculate}
                 className={`flex-1 py-3 rounded-xl font-bold text-sm transition-all ${
                   canCalculate
-                    ? "text-white" style={{background:'#C48669'}}
+                    ? "bg-indigo-600 hover:bg-indigo-500 text-white"
                     : "bg-gray-800 text-gray-600 cursor-not-allowed"
                 }`}
               >
@@ -1672,7 +1675,7 @@ function BoxOfficeProjectorInner() {
                 <p className="text-sm text-gray-400 mt-1">
                   {genre} · {rating} · {result.audienceLabel}
                   {result.hasComps && (
-                    <span className="ml-2 text-xs font-semibold" style={{color:'#C48669'}}>
+                    <span className="ml-2 text-indigo-400 text-xs font-semibold">
                       + {result.compCount} comp{result.compCount > 1 ? "s" : ""}
                     </span>
                   )}
@@ -1782,10 +1785,10 @@ function BoxOfficeProjectorInner() {
                 : "Multi-window model essential";
 
               return (
-                <div className="bg-gray-900 rounded-xl p-5 mb-6" style={{border:'1px solid #0e3828'}}>
+                <div className="bg-gray-900 rounded-xl border border-indigo-900 p-5 mb-6">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="" style={{color:'#C48669'}}>✦</span>
-                    <h3 className="text-xs font-bold uppercase tracking-widest" style={{color:'#C48669'}}>Angel Distribution Context</h3>
+                    <span className="text-amber-400">✦</span>
+                    <h3 className="text-xs font-bold uppercase tracking-widest text-amber-400">Angel Distribution Context</h3>
                   </div>
                   <p className="text-xs text-gray-500 mb-4">
                     Benchmarked against Angel's theatrical release history. Domestic theatrical is one window in Angel's multi-revenue model — Guild memberships, SVOD, and international continue generating returns well beyond the theatrical run.
@@ -1806,8 +1809,8 @@ function BoxOfficeProjectorInner() {
                   </div>
 
                   {theatricalRecovery < 1.0 && (
-                    <div className="rounded-lg px-3 py-2.5 mb-4 text-xs leading-relaxed" style={{background:'#0a1f1a',border:'1px solid #0e3828',color:'#a0d4c4'}}>
-                      <span className="font-bold" style={{color:'#21CEA0'}}>Break-even domestic threshold: ${breakEvenDomestic.toFixed(1)}M.</span>{" "}
+                    <div className="bg-indigo-950 border border-indigo-800 rounded-lg px-3 py-2.5 mb-4 text-xs text-indigo-200 leading-relaxed">
+                      <span className="font-bold text-indigo-100">Break-even domestic threshold: ${breakEvenDomestic.toFixed(1)}M.</span>{" "}
                       Films below this threshold on domestic theatrical have still found full profitability through Angel's SVOD platform, Angel Guild membership engagement, and international distribution partnerships — a model unique to Angel's community-first approach.
                     </div>
                   )}
@@ -1873,9 +1876,9 @@ function BoxOfficeProjectorInner() {
                           </td>
                         </tr>
                       ))}
-                      <tr className="border-t-2" style={{borderColor:'#C48669'}}>
-                        <td className="pt-3 font-bold text-xs uppercase tracking-wider" style={{color:'#d9a48a'}}>Blended Base Case</td>
-                        <td className="pt-3 text-right font-bold" style={{color:'#d9a48a'}}>{result.blendedMult.toFixed(2)}×</td>
+                      <tr className="border-t-2 border-indigo-800">
+                        <td className="pt-3 text-indigo-300 font-bold text-xs uppercase tracking-wider">Blended Base Case</td>
+                        <td className="pt-3 text-right text-indigo-300 font-bold">{result.blendedMult.toFixed(2)}×</td>
                         <td className="pt-3 text-right text-white font-black">{fmt(result.mid)}</td>
                       </tr>
                     </tbody>
@@ -1894,7 +1897,7 @@ function BoxOfficeProjectorInner() {
               ))}
               <div className="flex justify-between items-center pt-3 mt-2">
                 <span className="text-sm font-bold text-white">Algorithmic Multiplier</span>
-                <span className="font-black text-lg" style={{color:'#21CEA0'}}>{result.algoMult.toFixed(2)}×</span>
+                <span className="text-indigo-400 font-black text-lg">{result.algoMult.toFixed(2)}×</span>
               </div>
             </div>
 
@@ -1922,8 +1925,8 @@ function BoxOfficeProjectorInner() {
             </div>
 
             {/* Methodology */}
-            <div className="rounded-xl p-4 text-xs mb-4" style={{background:'#0a1f1a',border:'1px solid #0e3828',color:'#a0d4c4'}}>
-              <p className="font-bold mb-1" style={{color:'#21CEA0'}}>📐 How this scenario was built</p>
+            <div className="bg-indigo-950 border border-indigo-900 rounded-xl p-4 text-xs text-indigo-300 mb-4">
+              <p className="font-bold mb-1 text-indigo-200">📐 How this scenario was built</p>
               <p>
                 Built for Angel Studios internal slate evaluation. Scenarios combine a genre-specific
                 algorithmic model (calibrated against 2015–2025 domestic theatrical data from
@@ -1972,7 +1975,7 @@ function BoxOfficeProjectorInner() {
             <p className="text-sm mt-2">Fill in Film Details, optionally add Comp Films, then run your scenario analysis.</p>
             <button
               onClick={() => setActiveTab("inputs")}
-              className="mt-6 px-6 py-3 rounded-xl text-white font-bold text-sm transition-all" style={{background:'#C48669'}}
+              className="mt-6 px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm transition-all"
             >
               Go to Film Details →
             </button>
