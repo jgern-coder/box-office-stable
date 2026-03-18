@@ -432,6 +432,7 @@ function returnToWaterfall(){
       y10: s.summary.y10,
     }));
     localStorage.setItem('guildScenariosForWaterfall', JSON.stringify(exportData));
+    localStorage.setItem('wfSavedScenarios', JSON.stringify(saved));
     localStorage.removeItem('waterfallReturn');
     window.location.href='/waterfall.html';
   }catch(e){alert('Unable to save scenarios. Please try again.');}
@@ -441,21 +442,13 @@ function returnToWaterfall(){
 (function(){
   try{
     if(localStorage.getItem('waterfallReturn')==='1'){
-      const raw=localStorage.getItem('guildScenariosForWaterfall');
+      const raw=localStorage.getItem('wfSavedScenarios');
       if(raw){
         const stored=JSON.parse(raw);
         if(stored&&stored.length>0){
-          saved=stored.map((s,i)=>({
-            idx:i,
-            name:s.name||('Scenario '+(i+1)),
-            members:s.members||0,
-            state:{},
-            customVals:{},
-            rows:[],
-            summary:{y1:s.y1||0,y2:s.y2||0,y3:s.y3||0,y10:s.y10||0}
-          }));
+          saved=stored;
           activeSlot=null;
-          // Don't remove the key — waterfall still needs it when user returns
+          // Don't remove wfSavedScenarios — waterfall still needs to pass it through
         }
       }
     }
@@ -615,8 +608,7 @@ function scenarioLabel(s,cv){
 function loadScenario(idx){
   const s=saved.find(x=>x.idx===idx);if(!s)return;
   activeSlot=idx;
-  // Restored scenario — no state to load, just highlight the slot
-  if(!s.state||Object.keys(s.state).length===0){renderSlots();renderComparison();return;}
+
   document.getElementById('members-input').value=s.members;
   ['reach','growth','retain'].forEach(dim=>{
     state[dim]=s.state[dim];
@@ -909,6 +901,7 @@ function returnToWaterfall(){
       y10: s.summary.y10,
     }));
     localStorage.setItem('guildScenariosForWaterfall', JSON.stringify(exportData));
+    localStorage.setItem('wfSavedScenarios', JSON.stringify(saved));
     localStorage.removeItem('waterfallReturn');
     window.location.href='/waterfall.html';
   }catch(e){alert('Unable to save scenarios. Please try again.');}
@@ -918,21 +911,13 @@ function returnToWaterfall(){
 (function(){
   try{
     if(localStorage.getItem('waterfallReturn')==='1'){
-      const raw=localStorage.getItem('guildScenariosForWaterfall');
+      const raw=localStorage.getItem('wfSavedScenarios');
       if(raw){
         const stored=JSON.parse(raw);
         if(stored&&stored.length>0){
-          saved=stored.map((s,i)=>({
-            idx:i,
-            name:s.name||('Scenario '+(i+1)),
-            members:s.members||0,
-            state:{},
-            customVals:{},
-            rows:[],
-            summary:{y1:s.y1||0,y2:s.y2||0,y3:s.y3||0,y10:s.y10||0}
-          }));
+          saved=stored;
           activeSlot=null;
-          // Don't remove the key — waterfall still needs it when user returns
+          // Don't remove wfSavedScenarios — waterfall still needs to pass it through
         }
       }
     }

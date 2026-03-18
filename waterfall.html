@@ -1408,9 +1408,7 @@ function App(){
                       aI,aP,aD,aDl,fI,fD,fDl,nI,nD,nDl,iI,iD,iDl,
                       vPct,gMbr,gRate,aAdj,mCeil,termQtrs,eQtrs,vDec,vF1,vF2
                     }));
-                    if(guildScenarios&&guildScenarios.length>0){
-                      localStorage.setItem('guildScenariosForWaterfall',JSON.stringify(guildScenarios));
-                    }
+                    // wfSavedScenarios (full state) already in localStorage from calculator — no need to re-write
                   }catch(e){}
                   window.location.href='/calculator.html';
                 },
