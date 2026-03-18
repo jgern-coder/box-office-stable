@@ -1013,31 +1013,33 @@ function App(){
   const _guildData=(()=>{try{const d=localStorage.getItem('guildScenariosForWaterfall');return d?JSON.parse(d):null;}catch(e){return null;}})();
   const [guildScenarios,setGuildScenarios]=useState(_guildData||[]);
   const [selectedGuildIdx,setSelectedGuildIdx]=useState(0);
-  const [step,setStep]=useState(0);
-  const [title,setTitle]=useState(_bridge&&_bridge.title?_bridge.title:"My Film Project");
-  const [budget,setBudget]=useState(0);
-  const [gDBO,setGDBO]=useState(_bridge&&_bridge.dbo>0?_bridge.dbo:25000000);
-  const [screens,setScreens]=useState(2300);
-  const [pna,setPna]=useState(0);
-  const [gIBO,setGIBO]=useState(0);
-  const [revShare,setRevShare]=useState(50);
-  const [mg,setMg]=useState(0);
+  const _savedWFState=(()=>{try{const s=localStorage.getItem('waterfallState');if(s){localStorage.removeItem('waterfallState');return JSON.parse(s);}return null;}catch(e){return null;}})();
+  const _s=_savedWFState;
+  const [step,setStep]=useState(_s?_s.step:0);
+  const [title,setTitle]=useState(_s?_s.title:_bridge&&_bridge.title?_bridge.title:"My Film Project");
+  const [budget,setBudget]=useState(_s?_s.budget:0);
+  const [gDBO,setGDBO]=useState(_s?_s.gDBO:_bridge&&_bridge.dbo>0?_bridge.dbo:25000000);
+  const [screens,setScreens]=useState(_s?_s.screens:2300);
+  const [pna,setPna]=useState(_s?_s.pna:0);
+  const [gIBO,setGIBO]=useState(_s?_s.gIBO:0);
+  const [revShare,setRevShare]=useState(_s?_s.revShare:50);
+  const [mg,setMg]=useState(_s?_s.mg:0);
   // Post-theatrical income % (from sheet col E - mid-range defaults)
-  const [pI,setPI]=useState(35);const [pP,setPP]=useState(25);const [pD,setPD]=useState(25);const [pM,setPM]=useState(15);
-  const [tI,setTI]=useState(10);const [tP,setTP]=useState(35);const [tD,setTD]=useState(25);const [tM,setTM]=useState(20);
-  const [t2I,setT2I]=useState(3);const [t2P,setT2P]=useState(35);const [t2D,setT2D]=useState(25);const [t2M,setT2M]=useState(3);
-  const [pkI,setPkI]=useState(7);const [pkR,setPkR]=useState(50);const [pkD,setPkD]=useState(30);const [pkO,setPkO]=useState(10);
-  const [p1I,setP1I]=useState(10);const [p1D,setP1D]=useState(25);const [p1M,setP1M]=useState(7);
-  const [p2I,setP2I]=useState(5);const [p2D,setP2D]=useState(25);const [p2S,setP2S]=useState(5);
-  const [aI,setAI]=useState(8);const [aP,setAP]=useState(40);const [aD,setAD]=useState(25);const [aDl,setADl]=useState(7);
-  const [fI,setFI]=useState(3);const [fD,setFD]=useState(25);const [fDl,setFDl]=useState(3);
-  const [nI,setNI]=useState(6);const [nD,setND]=useState(30);const [nDl,setNDl]=useState(1);
-  const [iI,setII]=useState(15);const [iD,setID]=useState(30);const [iDl,setIDl]=useState(7);
+  const [pI,setPI]=useState(_s?_s.pI:35);const [pP,setPP]=useState(_s?_s.pP:25);const [pD,setPD]=useState(_s?_s.pD:25);const [pM,setPM]=useState(_s?_s.pM:15);
+  const [tI,setTI]=useState(_s?_s.tI:10);const [tP,setTP]=useState(_s?_s.tP:35);const [tD,setTD]=useState(_s?_s.tD:25);const [tM,setTM]=useState(_s?_s.tM:20);
+  const [t2I,setT2I]=useState(_s?_s.t2I:3);const [t2P,setT2P]=useState(_s?_s.t2P:35);const [t2D,setT2D]=useState(_s?_s.t2D:25);const [t2M,setT2M]=useState(_s?_s.t2M:3);
+  const [pkI,setPkI]=useState(_s?_s.pkI:7);const [pkR,setPkR]=useState(_s?_s.pkR:50);const [pkD,setPkD]=useState(_s?_s.pkD:30);const [pkO,setPkO]=useState(_s?_s.pkO:10);
+  const [p1I,setP1I]=useState(_s?_s.p1I:10);const [p1D,setP1D]=useState(_s?_s.p1D:25);const [p1M,setP1M]=useState(_s?_s.p1M:7);
+  const [p2I,setP2I]=useState(_s?_s.p2I:5);const [p2D,setP2D]=useState(_s?_s.p2D:25);const [p2S,setP2S]=useState(_s?_s.p2S:5);
+  const [aI,setAI]=useState(_s?_s.aI:8);const [aP,setAP]=useState(_s?_s.aP:40);const [aD,setAD]=useState(_s?_s.aD:25);const [aDl,setADl]=useState(_s?_s.aDl:7);
+  const [fI,setFI]=useState(_s?_s.fI:3);const [fD,setFD]=useState(_s?_s.fD:25);const [fDl,setFDl]=useState(_s?_s.fDl:3);
+  const [nI,setNI]=useState(_s?_s.nI:6);const [nD,setND]=useState(_s?_s.nD:30);const [nDl,setNDl]=useState(_s?_s.nDl:1);
+  const [iI,setII]=useState(_s?_s.iI:15);const [iD,setID]=useState(_s?_s.iD:30);const [iDl,setIDl]=useState(_s?_s.iDl:7);
   // Angel Guild
-  const [vPct,setVPct]=useState(2.0);const [gMbr,setGMbr]=useState(2300000);const [gRate,setGRate]=useState(2.85);
-  const [aAdj,setAAdj]=useState(-6.0);const [mCeil,setMCeil]=useState(20000000);
-  const [termQtrs,setTermQtrs]=useState(40);const [eQtrs,setEQtrs]=useState(40);
-  const [vDec,setVDec]=useState(17.0);const [vF1,setVF1]=useState(0.10);const [vF2,setVF2]=useState(0.05);
+  const [vPct,setVPct]=useState(_s?_s.vPct:2.0);const [gMbr,setGMbr]=useState(_s?_s.gMbr:2300000);const [gRate,setGRate]=useState(_s?_s.gRate:2.85);
+  const [aAdj,setAAdj]=useState(_s?_s.aAdj:-6.0);const [mCeil,setMCeil]=useState(_s?_s.mCeil:20000000);
+  const [termQtrs,setTermQtrs]=useState(_s?_s.termQtrs:40);const [eQtrs,setEQtrs]=useState(_s?_s.eQtrs:40);
+  const [vDec,setVDec]=useState(_s?_s.vDec:17.0);const [vF1,setVF1]=useState(_s?_s.vF1:0.10);const [vF2,setVF2]=useState(_s?_s.vF2:0.05);
   // Modal
   const [showDisclaimer,setShowDisclaimer]=useState(false);
   const [disclaimerSeen,setDisclaimerSeen]=useState(false);
@@ -1230,7 +1232,16 @@ function App(){
               ),
               e('button',{
                 onClick:()=>{
-                  try{localStorage.setItem('waterfallReturn','1');}catch(e){}
+                  try{
+                    localStorage.setItem('waterfallReturn','1');
+                    localStorage.setItem('waterfallState',JSON.stringify({
+                      step:3,title,budget,gDBO,screens,pna,gIBO,revShare,mg,
+                      pI,pP,pD,pM,tI,tP,tD,tM,t2I,t2P,t2D,t2M,
+                      pkI,pkR,pkD,pkO,p1I,p1D,p1M,p2I,p2D,p2S,
+                      aI,aP,aD,aDl,fI,fD,fDl,nI,nD,nDl,iI,iD,iDl,
+                      vPct,gMbr,gRate,aAdj,mCeil,termQtrs,eQtrs,vDec,vF1,vF2
+                    }));
+                  }catch(e){}
                   window.location.href='/calculator.html';
                 },
                 style:{fontSize:11,color:'#03A67B',background:'none',border:'1px solid #0e3828',borderRadius:6,padding:'5px 12px',cursor:'pointer',fontFamily:'var(--font)',fontWeight:600}
@@ -1287,7 +1298,16 @@ function App(){
           e('p',{style:{fontSize:12,color:'#7B7979',lineHeight:1.7,maxWidth:420,margin:'0 auto 20px'}},'Use the Filmmaker Payouts Calculator to build and save up to 6 scenarios with different membership, growth, and viewership assumptions. Then return here with your saved scenarios to complete the waterfall.'),
           e('button',{
             onClick:()=>{
-              try{localStorage.setItem('waterfallReturn','1');}catch(e){}
+              try{
+                localStorage.setItem('waterfallReturn','1');
+                localStorage.setItem('waterfallState',JSON.stringify({
+                  step:3,title,budget,gDBO,screens,pna,gIBO,revShare,mg,
+                  pI,pP,pD,pM,tI,tP,tD,tM,t2I,t2P,t2D,t2M,
+                  pkI,pkR,pkD,pkO,p1I,p1D,p1M,p2I,p2D,p2S,
+                  aI,aP,aD,aDl,fI,fD,fDl,nI,nD,nDl,iI,iD,iDl,
+                  vPct,gMbr,gRate,aAdj,mCeil,termQtrs,eQtrs,vDec,vF1,vF2
+                }));
+              }catch(e){}
               window.location.href='/calculator.html';
             },
             style:{background:'#03A67B',color:'#000',border:'none',borderRadius:8,padding:'11px 28px',fontSize:13,fontWeight:700,cursor:'pointer',fontFamily:'var(--font)',letterSpacing:'0.04em'}

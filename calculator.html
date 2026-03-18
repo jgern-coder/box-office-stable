@@ -300,6 +300,9 @@ body{font-family:var(--font);background:var(--n925);color:var(--white);min-heigh
         <div class="legend-item">👁️ <div class="legend-dot" style="background:#b46edc;margin-left:2px"></div>Watch time %</div>
       </div>
       <div class="chart-wrap"><canvas id="mainChart"></canvas></div>
+      <div id="wf-return-bottom" style="display:none;margin-bottom:14px">
+        <button onclick="returnToWaterfall()" style="width:100%;padding:10px 16px;background:#0a1f1a;border:1px solid #03A67B;border-radius:8px;font-size:12px;font-weight:700;color:#03A67B;cursor:pointer;font-family:var(--font);letter-spacing:.04em;transition:background .15s" onmouseover="this.style.background='#0e2a22'" onmouseout="this.style.background='#0a1f1a'">← Return to Waterfall with these scenarios</button>
+      </div>
       <div class="bottom-bar">
         <button class="btn-save" id="lock-btn" onclick="lockScenario()">+ Save scenario</button>
         <div class="slots" id="slot-row"></div>
@@ -654,6 +657,9 @@ function renderSlots(){
     if(i<saved.length){el.style.background=sc(i);el.style.setProperty('--active-slot-color',sc(i));el.title=saved[i].name||('Scenario '+(i+1));el.onclick=()=>loadScenario(i);}
     el.textContent=i+1;row.appendChild(el);
   }
+  // Show/hide bottom return button based on whether we came from waterfall AND have scenarios
+  const bottomBtn=document.getElementById('wf-return-bottom');
+  if(bottomBtn) bottomBtn.style.display=(_wfReturn&&saved.length>0)?'block':'none';
 }
 
 function renderComparison(){
