@@ -754,7 +754,7 @@ function SvodScheduleSection({vPct,gMbr,gRate,aAdj,mCeil,termQtrs,eQtrs,vDec,vF1
 }
 
 // ── RESULTS SECTION ──────────────────────────────────────────────────────────
-function ResultsSection({r,c,title,budget,gDBO,gIBO,pna,screens,revShare,mg,vPct,gMbr,gRate,aAdj,mCeil,vDec,vF1,vF2,printMode,doPrint,doCSV}){
+function ResultsSection({r,c,title,budget,gDBO,gIBO,pna,screens,revShare,mg,vPct,gMbr,gRate,aAdj,mCeil,vDec,vF1,vF2,printMode,doPrint,doCSV,guildScenarios,selectedGuildIdx,setSelectedGuildIdx}){
   const ms=calcMilestones(gMbr,gRate,aAdj,mCeil);
   const svodBase={y1:c.svodY1,y2:c.svodY2,y3:c.svodY3,y3tot:c.svodY1+c.svodY2+c.svodY3,y410:c.svodY410,total:c.str};
 
@@ -915,39 +915,76 @@ function ResultsSection({r,c,title,budget,gDBO,gIBO,pna,screens,revShare,mg,vPct
 
     // ── EXPANDABLE: Angel Guild SVOD ──
     e(Expandable,{title:'Angel Guild SVOD — Year-by-Year Breakdown',icon:'📊',forceOpen:printMode},
-      e('p',{style:{fontSize:12,color:'#7B7979',marginBottom:12}},'Filmmaker streaming payouts under Low (0.5×), Baseline, and High (1.5×) viewership scenarios.'),
-      e('table',{className:'svod-table'},
-        e('thead',null,e('tr',null,
-          e('th',null,'Scenario'),
-          e('th',null,'Year 1'),e('th',null,'Year 2'),e('th',null,'Year 3'),
-          e('th',null,'3-Yr Total'),e('th',null,'Yrs 4–10'),e('th',null,'10-Yr Total')
-        )),
-        e('tbody',null,
-          [['svod-low','Low Case',0.5],['svod-base','Baseline',1.0],['svod-high','High Case',1.5]].map(([cls,lbl,mult])=>
-            e('tr',{key:cls,className:cls},
-              e('td',null,lbl),
-              ...[svodBase.y1,svodBase.y2,svodBase.y3,svodBase.y3tot,svodBase.y410,svodBase.total].map((v,i)=>
-                e('td',{key:i},fmt$(v*mult))
+      guildScenarios&&guildScenarios.length>0
+        ? e('div',null,
+            e('p',{style:{fontSize:12,color:'#7B7979',marginBottom:12}},
+              'Select a scenario below to update the waterfall calculation. The selected scenario's 10-year total is used in your results.'
+            ),
+            e('div',{style:{overflowX:'auto'}},
+              e('table',{className:'svod-table'},
+                e('thead',null,
+                  e('tr',null,
+                    e('th',{style:{textAlign:'left'}},'Scenario'),
+                    e('th',null,'Year 1'),
+                    e('th',null,'Year 2'),
+                    e('th',null,'Year 3'),
+                    e('th',null,'3-Yr Total'),
+                    e('th',null,'Yrs 4–10'),
+                    e('th',null,'10-Yr Total')
+                  )
+                ),
+                e('tbody',null,
+                  guildScenarios.map((s,i)=>{
+                    const isSelected=i===selectedGuildIdx;
+                    const y3tot=s.y1+s.y2+s.y3;
+                    const y410=s.y10-y3tot;
+                    return e('tr',{
+                      key:i,
+                      onClick:()=>!isSelected&&setSelectedGuildIdx&&setSelectedGuildIdx(i),
+                      style:{
+                        cursor:isSelected?'default':'pointer',
+                        background:isSelected?'#0e2a22':'transparent',
+                        borderLeft:isSelected?'3px solid #03A67B':'3px solid transparent',
+                        opacity:isSelected?1:0.45,
+                        transition:'opacity .15s,background .15s'
+                      }
+                    },
+                      e('td',{style:{fontWeight:isSelected?700:400,color:isSelected?'#21CEA0':'#C3C1C0',paddingLeft:10}},
+                        e('span',{style:{display:'inline-flex',alignItems:'center',gap:6}},
+                          isSelected&&e('span',{style:{color:'#03A67B',fontSize:10}},'▶'),
+                          s.name||('Scenario '+(i+1))
+                        )
+                      ),
+                      e('td',{style:{color:isSelected?'#21CEA0':'#7B7979'}},fmt$(s.y1)),
+                      e('td',{style:{color:isSelected?'#21CEA0':'#7B7979'}},fmt$(s.y2)),
+                      e('td',{style:{color:isSelected?'#21CEA0':'#7B7979'}},fmt$(s.y3)),
+                      e('td',{style:{color:isSelected?'#E8C56D':'#7B7979',fontWeight:isSelected?600:400}},fmt$(y3tot)),
+                      e('td',{style:{color:isSelected?'#E8C56D':'#7B7979',fontWeight:isSelected?600:400}},fmt$(y410)),
+                      e('td',{style:{color:isSelected?'#E8C56D':'#C3C1C0',fontWeight:700}},fmt$(s.y10))
+                    );
+                  }),
+                  c.svodPnaCarry_angel>0&&e('tr',{key:'carry',className:'wf-cost'},
+                    e('td',null,'— Remaining Unrecouped P&A (Carried Forward from Post-Theatrical)'),
+                    e('td',{colSpan:5}),
+                    e('td',null,'('+fmt$(c.svodPnaCarry_angel)+')')
+                  ),
+                  c.svodPnaCarry_angel>0&&e('tr',{key:'net',className:'svod-base',style:{fontWeight:700}},
+                    e('td',null,'Net to Filmmaker (After P&A)'),
+                    e('td',{colSpan:5}),
+                    e('td',null,fmt$(c.svodFilm_angel))
+                  )
+                )
               )
+            ),
+            e('p',{style:{fontSize:11,color:'#595A5B',marginTop:8}},
+              'Click any grayed row to switch the selected scenario. The 10-yr total of the selected scenario feeds into the waterfall totals.',
+              c.svodPnaCarry_angel>0&&e('span',{style:{color:'#dc2626',marginLeft:4}},' ⚠️ Unrecouped P&A of '+fmt$(c.svodPnaCarry_angel)+' carried into SVOD.')
             )
-          ),
-          c.svodPnaCarry_angel>0&&e('tr',{key:'carry',className:'wf-cost'},
-            e('td',null,'— Remaining Unrecouped P&A (Carried Forward from Post-Theatrical)'),
-            e('td',{colSpan:5}),
-            e('td',null,'('+fmt$(c.svodPnaCarry_angel)+')')
-          ),
-          c.svodPnaCarry_angel>0&&e('tr',{key:'net',className:'svod-base',style:{fontWeight:700}},
-            e('td',null,'Baseline Net to Filmmaker (After P&A)'),
-            e('td',{colSpan:5}),
-            e('td',null,fmt$(c.svodFilm_angel))
           )
-        )
-      ),
-      e('p',{style:{fontSize:11,color:'#595A5B',marginTop:8}},
-        e(TipLabel,{small:true,text:'Payout = Filmmaker Residuals Share + Exclusivity Bonus (2× residuals total).',tip:TIPS.exclusive}),
-        ' Baseline uses your current Angel Guild inputs.',
-        c.svodPnaCarry_angel>0&&e('span',{style:{color:'#dc2626',marginLeft:4}},' ⚠️ Unrecouped P&A of '+fmt$(c.svodPnaCarry_angel)+' carried into SVOD.')
-      )
+        : e('div',null,
+            e('p',{style:{fontSize:12,color:'#7B7979',marginBottom:12}},'No Guild scenarios loaded. Go back to the Angel Guild step to configure scenarios.'),
+            e('p',{style:{fontSize:11,color:'#595A5B'}},'The Angel Guild SVOD line in your results shows $0 until scenarios are configured.')
+          )
     ),
 
     
@@ -1264,7 +1301,7 @@ function App(){
 
       // ── STEP 5: RESULTS ──
       mode!=='svod_only'&&step===4&&e(ResultsSection,{r:null,c,title,budget,gDBO,gIBO,pna,screens,revShare,mg,
-        vPct,gMbr,gRate,aAdj,mCeil,vDec,vF1,vF2,printMode,doPrint,doCSV}),
+        vPct,gMbr,gRate,aAdj,mCeil,vDec,vF1,vF2,printMode,doPrint,doCSV,guildScenarios,selectedGuildIdx,setSelectedGuildIdx}),
 
       e('div',{className:'nav no-print'},
         e('button',{className:'nav-btn nav-back',disabled:step===0,
