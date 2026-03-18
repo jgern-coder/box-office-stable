@@ -397,8 +397,8 @@ function setSeg(dim,val,el){
 const _wfReturn = (()=>{try{return localStorage.getItem('waterfallReturn')==='1';}catch(e){return false;}})();
 if(_wfReturn){
   // Show a persistent return banner at top of page
+  if(!document.getElementById('wf-return-banner')){
   const banner=document.createElement('div');
-  if(document.getElementById('wf-return-banner'))return;
   banner.id='wf-return-banner';
   banner.style.cssText='position:sticky;top:0;z-index:100;background:#0a1f1a;border-bottom:2px solid #03A67B;padding:10px 48px;display:flex;align-items:center;justify-content:space-between;gap:16px;';
   banner.innerHTML=`
@@ -412,6 +412,7 @@ if(_wfReturn){
     <button id="wf-return-btn" onclick="returnToWaterfall()" style="background:#03A67B;color:#000;border:none;border-radius:8px;padding:9px 20px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font);letter-spacing:.04em;white-space:nowrap;">Return to Waterfall →</button>
   `;
   document.body.insertBefore(banner, document.body.firstChild);
+  }
 }
 
 function returnToWaterfall(){
@@ -847,8 +848,8 @@ function buildPrintReport(){
 const _wfReturn = (()=>{try{return localStorage.getItem('waterfallReturn')==='1';}catch(e){return false;}})();
 if(_wfReturn){
   // Show a persistent return banner at top of page
+  if(!document.getElementById('wf-return-banner')){
   const banner=document.createElement('div');
-  if(document.getElementById('wf-return-banner'))return;
   banner.id='wf-return-banner';
   banner.style.cssText='position:sticky;top:0;z-index:100;background:#0a1f1a;border-bottom:2px solid #03A67B;padding:10px 48px;display:flex;align-items:center;justify-content:space-between;gap:16px;';
   banner.innerHTML=`
@@ -862,6 +863,7 @@ if(_wfReturn){
     <button id="wf-return-btn" onclick="returnToWaterfall()" style="background:#03A67B;color:#000;border:none;border-radius:8px;padding:9px 20px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font);letter-spacing:.04em;white-space:nowrap;">Return to Waterfall →</button>
   `;
   document.body.insertBefore(banner, document.body.firstChild);
+  }
 }
 
 function returnToWaterfall(){
