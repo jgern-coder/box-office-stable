@@ -448,13 +448,22 @@ function returnToWaterfall(){
         if(stored&&stored.length>0){
           saved=stored;
           activeSlot=null;
-          // Don't remove wfSavedScenarios — waterfall still needs to pass it through
+          localStorage.removeItem('wfSavedScenarios');
         }
       }
+    } else {
+      // Fresh load — clear any stale scenario state
+      localStorage.removeItem('wfSavedScenarios');
     }
   }catch(e){}
 })();
 renderSlots();update();
+// Show compare section if scenarios were restored
+if(saved.length>0){
+  document.getElementById('compare-section').style.display='block';
+  document.getElementById('clear-all-btn').style.display='inline';
+  renderComparison();
+}
 }
 
 function getDecay(){
@@ -917,13 +926,22 @@ function returnToWaterfall(){
         if(stored&&stored.length>0){
           saved=stored;
           activeSlot=null;
-          // Don't remove wfSavedScenarios — waterfall still needs to pass it through
+          localStorage.removeItem('wfSavedScenarios');
         }
       }
+    } else {
+      // Fresh load — clear any stale scenario state
+      localStorage.removeItem('wfSavedScenarios');
     }
   }catch(e){}
 })();
 renderSlots();update();
+// Show compare section if scenarios were restored
+if(saved.length>0){
+  document.getElementById('compare-section').style.display='block';
+  document.getElementById('clear-all-btn').style.display='inline';
+  renderComparison();
+}
 </script>
 </body>
 </html>
